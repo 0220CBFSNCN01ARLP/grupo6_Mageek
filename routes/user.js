@@ -37,7 +37,7 @@ var upload = multer({ storage: storage });
 /* /user */
 
 // User register/logging handlers
-router.get("/register", controller.userReg);
+router.get("/register", controller.userRegister);
 router.post(
     "/register",
     upload.single("file"),
@@ -49,7 +49,7 @@ router.post("/logout", controller.logout);
 
 // Landing page, redirects wether logged in
 
-router.get("/login", controller.entry);
+router.get("/login", mwLoggedIn, controller.entry);
 router.post("/login", controller.checkin);
 
 // Cart page

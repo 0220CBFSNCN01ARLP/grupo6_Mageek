@@ -10,41 +10,23 @@
 
 <body>
     <header>
-        <%- include("partials/header2") %>
+        <%- include("partials/header") %>
     </header>
 
     <main>
-        <img class="" href="../public/img/register.png" alt="404 image not found">
         <!-- Frase -->
         <h1 class="">Registro de usuario:</h1>
         <!-- Formulario -->
 
-        <!-- "id": 1, -->
-
         <form enctype="multipart/form-data" action="/user/register" method="POST">
 
-            <!-- "first_name": "Fred", -->
+            <!-- nombre_de_usuario -->
             <div class="form-group">
-                <label for="name">Primer nombre</label>
-                <input type="text" class="form-control" id="name" name="name" aria-describedby="Primer nombre"
-                    placeholder="Nombre">
+                <label for="nombre_de_usuario">Nombre de usuario</label>
+                <input type="text" class="form-control" id="nombre_de_usuario" name="nombre_de_usuario"
+                    aria-describedby="Primer nombre" placeholder=" Ej: Nombre de usuario">
             </div>
-
-            <!-- "last_name": "Dupree", -->
-            <div class="form-group">
-                <label for="lastName">Apellido</label>
-                <input type="text" class="form-control" id="lastName" name="lastName" aria-describedby="Apellido"
-                    placeholder="Apellido">
-            </div>
-
-            <!-- "email": "fdupree0@slate.com", -->
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="email" name="email"
-                    placeholder="Email">
-            </div>
-
-            <!-- "password": "GTutlrTVnIb", -->
+            <!-- password -->
             <div class="form-group">
                 <label for="password">Contraseña</label>
                 <input type="password" class="form-control" name="pass" id="password" placeholder="Contraseña">
@@ -55,12 +37,68 @@
                 <input type="password" class="form-control" id="password2" name="pass2" placeholder="Contraseña">
                 <!-- <small id="email" class="form-text text-muted">ACLARACIÓN SOBRE CREACIÓN DE CONTRASEÑA.</small> -->
             </div>
-
-            <!-- "image": "user_1.jpg"  -->
+            <!-- nombre -->
             <div class="form-group">
-                <label for="avatar">Foto de perfil</label>
-                <input type="file" class="form-control-file" name="file" id="avatar">
+                <label for="nombre">Primer nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="Primer nombre"
+                    placeholder="Ej: Nombre">
             </div>
+            <!-- apellido -->
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" class="form-control" id="apellido" name="apellido" aria-describedby="Apellido"
+                    placeholder="Ej: Apellido">
+            </div>
+            <!-- numero_identidad -->
+            <div class="form-group">
+                <label for="numero_identidad">Número de identidad</label>
+                <input type="text" class="form-control" id="numero_identidad" name="numero_identidad" aria-describedby="numero_identidad"
+                    placeholder="Ej: 12345678">
+            </div>
+            <!-- genero -->
+            <div class="form-group">
+                <label for="genero">Genero</label>
+                <input type="text" class="form-control" id="genero" name="genero" aria-describedby="genero"
+                    placeholder="">
+            </div>
+            <!-- email -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" aria-describedby="email" name="email"
+                    placeholder="Ej: email@dominio.com">
+            </div>
+            <!-- nacimiento -->
+            <div class="form-group">
+                <label for="nacimiento">Fecha de nacimiento</label>
+                <input type="date" class="form-control" id="nacimiento" name="nacimiento" aria-describedby="nacimiento"
+                    placeholder="Fecha de nacimiento">
+            </div>
+            <!-- calle -->
+            <div class="form-group">
+                <label for="calle">Calle</label>
+                <input type="text" class="form-control" id="calle" name="calle" aria-describedby="calle"
+                    placeholder="Calle">
+            </div>
+            <!-- departamento -->
+            <div class="form-group">
+                <label for="departamento">Departamento</label>
+                <input type="text" class="form-control" id="departamento" name="departamento" aria-describedby="departamento"
+                    placeholder="Departamento">
+            </div>
+            <!-- localidad -->
+            <div class="form-group">
+                <label for="localidad">localidad</label>
+                <input type="text" class="form-control" id="localidad" name="localidad" aria-describedby="localidad"
+                    placeholder="Localidad">
+            </div>
+
+            <!-- id_pais -->
+            <select name="id_pais">
+                <% for (let pais of paises) { %>
+                <option value="<%- pais.pais %> "><%- pais.pais %> </option>
+                <% } %>
+            </select>
+            <!-- pic -->
 
             <!-- Submit -->
             <button class="btn btn-primary" type="submit">Finalizar registro</button>

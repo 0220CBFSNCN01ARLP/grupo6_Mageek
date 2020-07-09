@@ -3,24 +3,25 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 if (!loggedUser) var loggedUser = {}; // Instances loggedUser in case it wasn't already
 const pathDB = path.join(__dirname, "..", "data", "users.json");
-const db = require("../database/models");
+const { Usuarios, Paises } = require("../database/models");
 const { serialize } = require("v8");
 
 // module
 const catchUser = async function (cookie, session) {
     if (cookie || session) {
         return await db.Usuarios.findOne({
-            where: {id: cookie || session},
-        })
+            where: { id: cookie || session },
+        });
     } else {
-        console.log(`${cookie} ${session}`); // Load user in cookies or session
+        console.log(`cookie: ${cookie} · session: ${session}`); // Load user in cookies or session
     }
-}
+};
 
 const controller = {
-    userReg: (req, res, next) => {
+    userRegister: async function (req, res, next) {
         // Register GET
-        res.render("userRegister");
+        let paises = await Paises.findAll();
+        res.render("userRegister", { paises: paises });
     },
 
     create: function (req, res, next) {
@@ -71,7 +72,7 @@ const controller = {
             cookies: ${req.cookies.userId}
             session: ${req.session.userId}`);   // small dev tool, leave unscathed */
             res.render("userAccount", {
-                user : user,
+                user: user,
             });
         }
     },
@@ -86,7 +87,7 @@ const controller = {
         const passMatch = await bcrypt.compare(req.body.password, user.password);
         if (!passMatch) {
             console.log(`passwords mismatch: ${req.body.password}, ${user.password}`);
-            res.send('pass mismatch, needs a view')
+            res.send("pass mismatch, needs a view");
         } else {
             console.log("got a user");
             // when checkbox is on, save a cookie. either way, proceed with user as param.
@@ -146,15 +147,15 @@ const controller = {
 
     editor: function (req, res, next) {
         // get the logged user
-        let user = catchUser(req.cookies.userId,req.session.userId)
-            // check user db for matches, else discard cookie
-            let loggedUser = user;
-            return res.render("userEdit", {
-                loggedUser: loggedUser,
-            });
-            // save to loggedUser
-            // res.render("userEdit"); // add {loggedUser:loggedUser
-        },
+        let user = catchUser(req.cookies.userId, req.session.userId);
+        // check user db for matches, else discard cookie
+        let loggedUser = user;
+        return res.render("userEdit", {
+            loggedUser: loggedUser,
+        });
+        // save to loggedUser
+        // res.render("userEdit"); // add {loggedUser:loggedUser
+    },
 
     cart: (req, res, next) => {
         res.render("cart", { title: "Express" }); // Needs DB
