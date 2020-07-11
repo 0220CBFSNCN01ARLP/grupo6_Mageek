@@ -21,13 +21,14 @@ const mwLoggedIn = require(path.join( //checks logged status
 const multer = require("multer");
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "data/user_avatar");
+        cb(null, "database/user_avatar");
     },
     filename: function (req, file, cb) {
         cb(
             null,
             Date.now() + path.extname(file.originalname)
         );
+        req.body.pic = Date.now() + path.extname(file.originalname);
     },
 });
 var upload = multer({ storage: storage });
@@ -40,7 +41,7 @@ var upload = multer({ storage: storage });
 router.get("/register", controller.userRegister);
 router.post(
     "/register",
-    upload.single("file"),
+    upload.single("pic"),
     controller.create
 );
 
@@ -54,22 +55,22 @@ router.post("/login", controller.checkin);
 
 // Cart page
 
-router.get("/cart",mwLoggedIn, controller.cart);
+router.get("/cart", mwLoggedIn, controller.cart);
 
 // add products
 
 router.get("/success", function (req, res, next) {
     res.render("success");
 })
-
 router.post("/success", function (req, res, next) {
     res.render("success");
 })
+
 // Read user
 router.get("/account", controller.account);
 
 // Edit user
-router.get("/edit", controller.editor);
+router.get("/edit/:id", mwLoggedIn, controller.editor);
 router.put("/edit/:id", mwLoggedIn, controller.logEdit);
 
 // Failed Register
@@ -77,6 +78,8 @@ router.get("/registerFailed", function (req,res,next) {
     res.render("registerFailed");
 })
 
-
+// Delete user
+router.get("/delete/:id", controller.getDelete);
+router.delete("/delete/:id", controller.delete);
 
 module.exports = router;

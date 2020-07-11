@@ -3,7 +3,6 @@
 
 <head>
     <%- include("partials/head") %>
-    <!-- <link rel="stylesheet" href="/stylesheets/cart.css" /> -->
     <link rel="stylesheet" href="/stylesheets/index.css" />
 </head>
 
@@ -13,52 +12,97 @@
     </header>
 
     <main>
+        <!-- Frase -->
+        <h1 class="">Edición de usuario:</h1>
+        <!-- Formulario -->
 
-        <form enctype="multipart/form-data" action="/user/edit/<%= loggedUser.id %>?_method=PUT" method="POST">
+        <form enctype="application/x-www-form-urlencoded" action="/user/edit/<%= user.id %>?_method=PUT" method="POST">
 
-            <!-- "first_name": "Fred", -->
+            <!-- nombre_de_usuario -->
             <div class="form-group">
-                <label for="name">Actualizar primer nombre</label>
-                <input type="text" class="form-control" id="name" name="name" aria-describedby="Primer nombre"
-                    placeholder="Nombre">
+                <label for="nombre_de_usuario">Nombre de usuario</label>
+                <input type="text" class="form-control" id="nombre_de_usuario" name="nombre_de_usuario"
+                    aria-describedby="Primer nombre" value="<%- user.nombre_de_usuario %>">
             </div>
-
-            <!-- "last_name": "Dupree", -->
+            <!-- password -->
             <div class="form-group">
-                <label for="lastName">Actualizar apellido</label>
-                <input type="text" class="form-control" id="lastName" name="lastName" aria-describedby="Apellido"
-                    placeholder="Apellido">
-            </div>
-
-            <!-- "email": "fdupree0@slate.com", -->
-            <div class="form-group">
-                <label for="email">Actualizar e-mail</label>
-                <input type="email" class="form-control" id="email" aria-describedby="email" name="email"
-                    placeholder="Email">
-            </div>
-
-            <!-- "password": "GTutlrTVnIb", -->
-            <div class="form-group">
-                <label for="password">Actualizar contraseña</label>
-                <input type="password" class="form-control" name="pass" id="password" placeholder="Contraseña">
+                <label for="password">Contraseña</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
                 <small id="email" class="form-text text-muted">ACLARACIÓN SOBRE CREACIÓN DE CONTRASEÑA.</small>
             </div>
             <div class="form-group">
                 <label for="password2">Repetir contraseña</label>
-                <input type="password2" class="form-control" id="password2" name="pass2" placeholder="Contraseña">
+                <input type="password" class="form-control" id="password2" name="pass2" placeholder="Contraseña">
                 <!-- <small id="email" class="form-text text-muted">ACLARACIÓN SOBRE CREACIÓN DE CONTRASEÑA.</small> -->
             </div>
-
-            <!-- "image": "user_1.jpg"  -->
-            <div class="form-group c-none">
-                <label for="avatar">Foto de perfil</label>
-                <input type="file" class="form-control-file" name="file" id="avatar">
+            <!-- nombre -->
+            <div class="form-group">
+                <label for="nombre">Primer nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="Primer nombre"
+                    value="<%- user.nombre %>">
+            </div>
+            <!-- apellido -->
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" class="form-control" id="apellido" name="apellido" aria-describedby="Apellido"
+                    value="<%- user.apellido %>">
+            </div>
+            <!-- numero_identidad -->
+            <div class="form-group">
+                <label for="numero_identidad">Número de identidad</label>
+                <input type="text" class="form-control" id="numero_identidad" name="numero_identidad"
+                    aria-describedby="numero_identidad" value="<%- user.numero_identidad %>">
+            </div>
+            <!-- genero -->
+            <div class="form-group">
+                <label for="genero">Genero</label>
+                <input type="text" class="form-control" id="genero" name="genero" aria-describedby="genero" value="<%- user.genero %>">
+            </div>
+            <!-- email -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" aria-describedby="email" name="email"
+                    value="<%- user.email %>">
+            </div>
+            <!-- nacimiento -->
+            <div class="form-group">
+                <label for="nacimiento">Fecha de nacimiento</label>
+                <input type="date" class="form-control" id="nacimiento" name="nacimiento" aria-describedby="nacimiento"
+                    value="<%- user.nacimiento %>">
+            </div>
+            <!-- calle -->
+            <div class="form-group">
+                <label for="calle">Calle</label>
+                <input type="text" class="form-control" id="calle" name="calle" aria-describedby="calle" value="<%- user.calle %>">
+            </div>
+            <!-- departamento -->
+            <div class="form-group">
+                <label for="departamento">Departamento</label>
+                <input type="text" class="form-control" id="departamento" name="departamento" aria-describedby="departamento"
+                    value="<%- user.departamento %>">
+            </div>
+            <!-- localidad -->
+            <div class="form-group">
+                <label for="localidad">localidad</label>
+                <input type="text" class="form-control" id="localidad" name="localidad" aria-describedby="localidad"
+                    value="<%- user.localidad %>">
+            </div>
+            <!-- provincia -->
+            <div class="form-group">
+                <label for="provincia">provincia</label>
+                <input type="text" class="form-control" id="provincia" name="provincia" aria-describedby="provincia"
+                    value="<%- user.provincia %>">
             </div>
 
+            <!-- id_pais -->
+            <select name="id_pais">
+                <% for (let pais of paises) { %>
+                <option <% if (pais.id == user.id_pais) { %> selected <% } %> value="<%- pais.id %>"><%- pais.pais %></option>
+                <% } %>
+            </select>
             <!-- Submit -->
-            <button class="btn btn-primary" type="submit">Finalizar registro</button>
+            <button class="btn btn-primary" type="submit">Finalizar edición</button>
         </form>
-
 
 
     </main>

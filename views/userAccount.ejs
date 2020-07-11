@@ -26,8 +26,10 @@
             `password`: <%- user.password %>
             `apellido`: <%- user.apellido %>
         </p>
-        <a href="/user/edit">
+        <a href="/user/edit/<%= user.id %>">
         <button class="btn btn-success">Edit user</button></a>
+        <a href="/user/delete/<%= user.id %>">
+        <button class="btn btn-danger">delete user</button></a>
 
     </main>
 
