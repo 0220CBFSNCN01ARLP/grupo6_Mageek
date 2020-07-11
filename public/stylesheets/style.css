@@ -4,6 +4,30 @@ a {
   text-decoration: none;
   color: black;
 }
+body{
+    background-color: #C1C1C1;
+}
+
+/* header */
+nav{
+    background-color: #262626;
+    margin: unset;
+}
+.header{
+    display:flex;
+}
+
+#user{
+    width: 10vh;
+    padding: 1vh;
+}
+
+@media (min-width: 460px) and (orientation: landscape){
+    #user{
+    width: 12vh;
+    padding: 2vh;
+}
+}
 
 /* Producto */
 .producto-cont {
@@ -51,11 +75,34 @@ padding-right: 15px;
 
 
 /* Footer */
-
-#img-footer{
-    width: 10%;
+.box-footer{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 3vh;    
 }
-.box{
-    padding-top: 1vh;
-    background-color: #C1C1C1;
+
+.iconos-footer{
+    width: 50%;
+}
+
+.img-footer{
+    width: 4vh;
+}
+
+.map{
+    height: 4vh;
+}
+
+@media (min-width: 460px) and (orientation: landscape){
+.iconos-footer{
+    width: 25%;
+}
+
+.img-footer{
+    width: 20%;
+}
+.map{
+    height: 20%;
+}
+
 }
