@@ -10,25 +10,8 @@ body{
 
 /* header */
 nav{
-    background-color: #262626;
-    margin: unset;
+  background-color: #000000;
 }
-.header{
-    display:flex;
-}
-
-#user{
-    width: 10vh;
-    padding: 1vh;
-}
-
-@media (min-width: 460px) and (orientation: landscape){
-    #user{
-    width: 12vh;
-    padding: 2vh;
-}
-}
-
 /* Producto */
 .producto-cont {
     padding-right: 5px;
@@ -71,8 +54,6 @@ padding-right: 15px;
     padding-left: 0px;
     padding-right: 0px;
 }
-
-
 
 /* Footer */
 .box-footer{
