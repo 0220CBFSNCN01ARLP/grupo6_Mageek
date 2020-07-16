@@ -1,0 +1,19 @@
+.orden-producto{
+    display: flex;
+}
+
+#principal{
+}
+.product{
+    width: 100%;
+}
+
+.section-product{
+    margin: 5%;
+    padding: 2.5%;
+}
+
+.section-product{
+    float: left;
+
+}
