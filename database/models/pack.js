@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
             },
             id_edicion: { type: DataTypes.INTEGER(12).UNSIGNED },
             modelo: { type: DataTypes.STRING(50) },
-            borrado: { type: DataTypes.INTEGER(1) },
         },
         {
             tableName: "packs",

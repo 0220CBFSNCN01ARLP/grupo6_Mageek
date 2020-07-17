@@ -18,11 +18,44 @@
         <p>Quedan: <%- product.stock %>. </p>
         <p>Cuestan: $<%- product.precio %> cada uno.</p>
         <p>Es de la categoría: <%- product.categorias.categoria %>.</p>
-        <% switch (product.id_categoria) { case 2:%>
-            
-        <% ;break;case 1:%>
-            <p>Es tipo ab!!</p>
-        <% } %>
+            <% if (product.borrado) {%>
+            <p>BORRADO</p>
+            <% } %>
+        <% for (let picture of pictures) { %>
+        <img src="/img/product/<%= picture.url %>"></img><a
+            href="/product/<%= product.id %>/deletePicture/<%= picture.id %>"><button type="submit" class="btn btn-danger">delete image</button></a><br>
+            <% } %>
+            <% switch (product.categorias.categoria) { case "blister":%> <!-- blisters -->
+
+            <p>Edición: <%- detalle.edicion %> </p>
+            <p>Arte: <%- detalle.arte %> </p>
+
+            <% ;break;case "carta":%> <!-- cartas -->
+
+            <p>tipo subtipo<%- detalle.tipo %> - <%- detalle.subtipo %> </p>
+            <p>edicion <%- detalle.edicion %> </p>
+            <p>oracle <%- detalle.oracle %> </p>
+            <p>flavortext <%- detalle.flavortext %> </p>
+            <p>limitado <%- detalle.limitado %> </p>
+            <p>color mana <%- detalle.color %>  <%- detalle.mana %> </p>
+            <p>ataque-defensa <%- detalle.ataque %>/<%- detalle.defensa %>  </p>
+            <p>arte <%- detalle.arte %> </p>
+
+            <% ;break;case "dado":%> <!-- dados -->
+
+            <p>color: <%- detalle.color %> </p>
+            <p>caras: <%- detalle.caras %> </p>
+
+            <% ;break;case "folio":%> <!-- folios -->
+
+            <p>color: <%- detalle.color %></p>
+
+            <% ;break;case "pack":%> <!-- packs -->
+
+            <p>color: <%- detalle.color %></p>
+            <p>color: <%- detalle.edicion %></p>
+
+            <% } %>
     </main>
 
     <nav></nav>

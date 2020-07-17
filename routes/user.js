@@ -21,7 +21,7 @@ const mwLoggedIn = require(path.join( //checks logged status
 const multer = require("multer");
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, "database/user_avatar");
+        cb(null, "public/img/user_avatar");
     },
     filename: function (req, file, cb) {
         cb(

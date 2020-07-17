@@ -4,7 +4,7 @@
 <head>
     <%- include("partials/head") %>
     <link rel="stylesheet" href="/stylesheets/register.css" />
-    <script src="/js/addProduct.js"></script>
+    <script src="/js/editProduct.js"></script>
 </head>
 
 <body>
@@ -18,23 +18,23 @@
 
         <div class="container">
             <h1 class="frase">
-                Registro de producto:</h1>
-            <form method="POST" enctype="multipart/form-data" action="/product/add">
+                Edición de producto:</h1>
+            <form method="POST"  action="/product/<%= producto.id %>/update?_method=PUT">
                 <!-- name -->
                 <div class="form-group">
                     <label for="nombre">Nombre de producto</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ej: Manual del Jugador Dungeons & Dragons 3.5">
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="<%= producto.nombre %>">
                 </div>
 
-                <!-- price, number -->
+                <!-- price -->
                 <div class="form-group">
                     <label for="precio">Precio del producto</label>
-                    <input type="text" name="precio" class="form-control" id="precio" placeholder="Ej: 150.50">
+                    <input type="text" name="precio" class="form-control" id="precio" value="<%= producto.precio %>">
                 </div>
-                <!-- stock -->
+                <!-- stock, number -->
                 <div class="form-group">
                     <label for="stock">Stock</label>
-                    <input type="text" name="stock" class="form-control" id="stock" placeholder="Stock">
+                    <input type="number" name="stock" class="form-control" id="stock" value="<%= producto.stock %>">
                 </div>
                 <div class="invalid-feedback">Example invalid custom select feedback</div>
 
@@ -42,21 +42,18 @@
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
                     <textarea name="descripcion" class="form-control" id="descripcion" rows="3"
-                        placeholder="Condiciones, detalles, consideraciones varias."></textarea>
+                        value="<%= producto.descripcion %>"></textarea>
                 </div>
 
-                <div class="form-group">
-                    <input type="file" name="pic" class="form-control-file" id="prodPics" multiple>
-                </div>
-
+                <!-- category -->
                 <label for="id_categoria">Categoria</label>
-                <select name="id_categoria" id="id_categoria">
+                <select name="id_categoria">
                     <% for (let categoria of categorias) { %>
-                    <option value="<%- categoria.id %> "><%- categoria.categoria %> </option>
+                    <option <% if (categoria.id == producto.id_categoria) { %> selected <% } %>
+                        value="<%- categoria.id %>"><%- categoria.categoria %></option>
                     <% } %>
                 </select>
-                <div id="additionalInfo"></div>
-                <button class="btn btn-primary" type="submit">Crear producto</button>
+                <button class="btn btn-primary" type="submit">Editar producto</button>
 
             </form>
         </div>

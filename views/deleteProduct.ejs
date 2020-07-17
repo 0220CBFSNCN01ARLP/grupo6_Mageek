@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("partials/head") %>
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+</head>
+
+<body>
+    <header>
+        <%- include("partials/header") %>
+    </header>
+
+    <main>
+        <!-- Frase -->
+        <h1 class="">Eliminar producto <%= product.nombre %> </h1>
+        <!-- Formulario -->
+
+        <h3>Está seguro de avanzar? Esta decisión es permanente.</h3>
+        <form action="/product/<%= product.id %>/delete?_method=delete" method="post">
+            <button type="submit" class="btn btn-danger">Eliminar producto</button>
+        </form>
+
+    </main>
+
+    <nav></nav>
+
+    <footer><%- include("partials/footer") %></footer>
+</body>
+
+</html>
