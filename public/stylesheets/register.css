@@ -1,7 +1,11 @@
-label {
-    margin-bottom: 0;
-}
-.frase {
-    font-size: 1.5em;
-    margin: 20px auto;
-}
+            <!-- id_pais -->
+            <select name="id_pais">
+                <% for (let pais of paises) { %>
+                <option value="<%- pais.id %> "><%- pais.pais %> </option>
+                <% } %>
+            </select>
+            <!-- pic -->
+            <div class="form-group">
+                <label for="pic">Foto de perfil</label>
+                <input type="file" class="pic" name="pic" id="pic">
+            </div>
