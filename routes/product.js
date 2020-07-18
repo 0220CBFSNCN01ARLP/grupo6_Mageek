@@ -1,15 +1,10 @@
 var express = require("express");
 var router = express.Router();
 const path = require("path");
-const fs = require("fs");
-const controller = require(__dirname +
-    "/../controllers/product"); //reformat?
-const mwLoggedIn = require(path.join(
-    __dirname,
-    "..",
-    "middlewares",
-    "mwIsLoggedIn"
-));
+const controller = require(__dirname + "/../controllers/product");
+const mwLoggedIn = require(path.join(__dirname, "..", "middlewares", "mwIsLoggedIn"));
+const { Fotos } = require("../database/models");
+
 // SET STORAGE
 const multer = require("multer");
 var storage = multer.diskStorage({
@@ -17,10 +12,8 @@ var storage = multer.diskStorage({
         cb(null, "public/img/product");
     },
     filename: function (req, file, cb) {
-        cb(
-            null,
-            Date.now() + path.extname(file.originalname)
-        );
+        let name = Date.now() + path.extname(file.originalname);
+        cb(null, name);
     },
 });
 var upload = multer({ storage: storage });
@@ -28,10 +21,20 @@ var upload = multer({ storage: storage });
 /* /product */
 router.get("/", controller.none);
 
-/* /add     product */
+/* /add     CREATE */
 router.get("/add", mwLoggedIn, controller.create); // needs a new middleware, right now bounces guests
-router.post("/add", upload.single("file"), controller.save);
+router.post("/add", upload.array("pic", 7), controller.save);
 
-// Get a product
+// READ
 router.get("/:id", controller.product);
 module.exports = router;
+
+// UPDATE
+
+router.get("/:id/update", mwLoggedIn, controller.update);
+router.put("/:id/update", mwLoggedIn, controller.stash);
+
+// DESTROY
+router.get("/:id/delete", mwLoggedIn, controller.delete);
+router.delete("/:id/delete", mwLoggedIn, controller.destroy);
+router.get("/:id/deletePicture/:fotoId", mwLoggedIn, controller.destroyPicture);

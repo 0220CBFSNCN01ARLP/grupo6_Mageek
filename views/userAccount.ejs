@@ -22,12 +22,15 @@
             </label>
         </form>
         <p>
-            `nombre_de_usuario`: <%- user.nombre_de_usuario %>
-            `password`: <%- user.password %>
-            `apellido`: <%- user.apellido %>
+            `nombre_de_usuario`: <%- user.nombre_de_usuario %><br>
+            `password`: <%- user.password %><br>
+            `apellido`: <%- user.apellido %><br>
+            <img src="/img/user_avatar/<%= user.pic %>"></img>
         </p>
         <a href="/user/edit/<%= user.id %>">
         <button class="btn btn-success">Edit user</button></a>
+        <a href="/product/add/">
+        <button class="btn btn-success">Add product</button></a>
         <a href="/user/delete/<%= user.id %>">
         <button class="btn btn-danger">delete user</button></a>
 

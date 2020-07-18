@@ -6,7 +6,7 @@ const { Usuarios, Paises, Permisos } = require("../database/models");
 // if logged in, proceed to userAccount
 async function middlewareRedirect(req, res, next) {
     // Validate content
-    console.log(`${req.session.userId} - ${req.cookies.userId}`);
+    console.log(`mw: checking session/cookies ${req.session.userId} - ${req.cookies.userId}`);
     if (req.session.userId == undefined && req.cookies.userId == undefined) {
         console.log("no cookies or session");
         res.render("login");

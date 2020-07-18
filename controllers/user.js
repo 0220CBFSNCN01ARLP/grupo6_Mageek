@@ -1,8 +1,5 @@
-const fs = require("fs");
-const path = require("path");
 const bcrypt = require("bcrypt");
-const pathDB = path.join(__dirname, "..", "data", "users.json");
-const { Usuarios, Paises } = require("../database/models");
+const { Usuarios, Paises, Permisos } = require("../database/models");
 
 // module
 const catchUser = async function (cookie, session) {
@@ -24,7 +21,6 @@ const controller = {
 
     create: async function (req, res, next) {
         // validate user
-        let campos = Object.entries(req.body);
         for (let campo in req.body) {
             if (!req.body[campo].trim()) {
                 res.send(`El campo ${campo} está vacío.`);
@@ -39,7 +35,7 @@ const controller = {
         }
         req.body.password = hashedPass;
         let user = await Usuarios.create(req.body);
-
+        req.session.userId = user.id;
         res.render("userAccount", { user: user });
     },
 
@@ -89,7 +85,7 @@ const controller = {
 
     logEdit: async function (req, res, next) {
         // Load user
-        // validate each field+
+        // validate each field
         if (req.body == undefined) {res.send('Necesita enviar algún dato!')}// update validation later
         let campos = Object.entries(req.body);
         for (let campo in req.body) {
