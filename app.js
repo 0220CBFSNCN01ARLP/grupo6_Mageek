@@ -4,7 +4,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require("body-parser");
-const multer = require("multer");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const secret = 'Mageek secret code';
@@ -40,17 +39,9 @@ app.use(
 
   // Router
   const indexRouter = require('./routes/index');
-  const productRouter = require('./routes/product');
-  const userRouter = require('./routes/user');
-  const apiProductosRouter = require('./routes/api/productos');
-  const apiUsuariosRouter = require('./routes/api/usuarios');
 
   // Routes
-  app.use('/product', productRouter);
-  app.use('/user', userRouter);
   app.use('/', indexRouter);
-  app.use('/productos', apiProductosRouter);
-  app.use('/usuarios', apiUsuariosRouter);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

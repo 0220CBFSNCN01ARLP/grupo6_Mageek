@@ -3,4 +3,4 @@ let defaults = {
     timeout:4000,
 };
 
-module.exports = defaults ;
+module.exports = defaults;

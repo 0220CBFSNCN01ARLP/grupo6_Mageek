@@ -55,26 +55,29 @@ const controller = {
 
     checkin: async function (req, res, next) {
         let user = await Usuarios.findOne({
-            where: { email: req.body.email },
+            where: { email: req.body.logInfo },
         });
-        const passMatch = await bcrypt.compare(req.body.password, user.password);
-        if (!passMatch) {
-            console.log(`passwords mismatch: ${req.body.password}, ${user.password}`);
-            res.send("pass mismatch, needs a view");
-        } else {
-            console.log("got a user");
-            // when checkbox is on, save a cookie. either way, proceed with user as param.
-            if (req.body.remember == "remember") {
-                res.cookie("userId", user.id, {
-                    maxAge: 1 * (1000 * 60 * 60 * 24), //in days
+        if (user) {
+            const passMatch = await bcrypt.compare(req.body.password, user.password);
+            if (!passMatch) {
+                console.log(`passwords mismatch: ${req.body.password}, ${user.password}`);
+                res.send("pass mismatch, needs a view");
+            } else {
+                console.log("got a user");
+                // when checkbox is on, save a cookie. either way, proceed with user as param.
+                if (req.body.remember == "remember") {
+                    res.cookie("userId", user.id, {
+                        maxAge: 1 * (1000 * 60 * 60 * 24), //in days
+                    });
+                }
+                req.session.userId = user.id;
+                res.render("userAccount", {
+                    user: user,
                 });
+                res.end();
             }
-            req.session.userId = user.id;
-            res.render("userAccount", {
-                user: user,
-            });
-            res.end();
         }
+        res.send("non-existant user");
     },
 
     logout: (req, res, next) => {
@@ -86,7 +89,9 @@ const controller = {
     logEdit: async function (req, res, next) {
         // Load user
         // validate each field
-        if (req.body == undefined) {res.send('Necesita enviar algún dato!')}// update validation later
+        if (req.body == undefined) {
+            res.send("Necesita enviar algún dato!");
+        } // update validation later
         let campos = Object.entries(req.body);
         for (let campo in req.body) {
             if (!req.body[campo].trim()) {
@@ -105,10 +110,10 @@ const controller = {
             // save to DB
             let user = await Usuarios.findByPk(req.params.id);
             for (let campo in req.body) {
-                if (campo != "password"){
-                    user[campo] = req.body[campo]
+                if (campo != "password") {
+                    user[campo] = req.body[campo];
                 } else {
-                    user.password = await bcrypt.hash(req.body.password,10)
+                    user.password = await bcrypt.hash(req.body.password, 10);
                 }
             }
             await user.save();
@@ -121,8 +126,8 @@ const controller = {
         // let user = catchUser(req.cookies.userId, req.session.userId);
         let user;
         console.log(`${req.cookies.userId} || ${req.session.userId}) == ${req.params.id}`);
-        let loggedUser = (req.cookies.userId || req.session.userId);
-        if ( loggedUser == req.params.id) {
+        let loggedUser = req.cookies.userId || req.session.userId;
+        if (loggedUser == req.params.id) {
             console.log("true!");
             user = await catchUser(req.params.id);
         } else {
@@ -142,7 +147,7 @@ const controller = {
 
     account: async function (req, res, next) {
         let user;
-        let loggedUser = (req.cookies.userId || req.session.userId);
+        let loggedUser = req.cookies.userId || req.session.userId;
         if (loggedUser) {
             console.log("true!");
             user = await catchUser(loggedUser);
@@ -152,17 +157,17 @@ const controller = {
         res.render("userAccount", { user: user });
     },
     getDelete: async function (req, res, next) {
-        let user = await catchUser(req.params.id)
+        let user = await catchUser(req.params.id);
         res.render("userDelete", { user: user });
     },
-    delete: async function(req, res, next) {
-        let loggedUser = (req.cookies.userId || req.session.userId);
-        if ( loggedUser == req.params.id) {
+    delete: async function (req, res, next) {
+        let loggedUser = req.cookies.userId || req.session.userId;
+        if (loggedUser == req.params.id) {
             let user = await catchUser(req.params.id);
             user.destroy();
             res.render("success");
         } else {
-            res.send('Algo falló')
+            res.send("Algo falló");
         }
     },
 };
