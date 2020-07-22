@@ -16,6 +16,11 @@ const {
 } = require("../database/models");
 const getDetails = require(path.join(__dirname, "..", "controllers", "modules", "getDetails"));
 
+
+
+
+
+
 const controller = {
     none: async function (req, res, next) {
         res.redirect("/");
@@ -52,15 +57,23 @@ const controller = {
         let ediciones = await Ediciones.findAll();
         let tipos = await Tipos.findAll();
         artes.sort((a, b) => {
-            if (a.artista > b.artista) {return 1;}
-            if (a.artista < b.artista) {return -1;}
+            if (a.artista > b.artista) {
+                return 1;
+            }
+            if (a.artista < b.artista) {
+                return -1;
+            }
             return 0;
         });
         categorias.sort();
         colores.sort();
         ediciones.sort((a, b) => {
-            if (a.nombre > b.nombre) {return 1;}
-            if (a.nombre < b.nombre) {return -1;}
+            if (a.nombre > b.nombre) {
+                return 1;
+            }
+            if (a.nombre < b.nombre) {
+                return -1;
+            }
             return 0;
         });
         tipos.sort();
@@ -72,35 +85,88 @@ const controller = {
             tipos: tipos,
         });
     },
-    save: async function (req, res, next) {
-        console.log(`${req.body.file} ${req.body.pic}`);
-        // validate
-        for (let campo in req.body) {
-            if (!req.body[campo].trim()) {
-                res.send(`El campo ${campo} está vacío.`);
+    createOnCategory: async function (req, res, next) {
+        let artes = await Artes.findAll();
+        let categorias = await Categorias.findAll();
+        let colores = await Colores.findAll();
+        let ediciones = await Ediciones.findAll();
+        let tipos = await Tipos.findAll();
+        artes.sort((a, b) => {
+            if (a.artista > b.artista) {
+                return 1;
             }
+            if (a.artista < b.artista) {
+                return -1;
+            }
+            return 0;
+        });
+        categorias.sort();
+        colores.sort();
+        ediciones.sort((a, b) => {
+            if (a.nombre > b.nombre) {
+                return 1;
+            }
+            if (a.nombre < b.nombre) {
+                return -1;
+            }
+            return 0;
+        });
+        tipos.sort();
+
+        switch (req.params.id) {
+            case "0": categoria = "Blister";
+                break;
+            case "1": categoria = "Carta";
+                break;
+            case "2": categoria = "Dado";
+                break;
+            case "3": categoria = "Folio";
+                break;
+            case "4": categoria = "Pack";
+                break;
+            default: res.send("default en el switch");
         }
-        await Productos.create(req.body);
-        let product = await Productos.findOne({
-            where: {
-                nombre: req.body.nombre,
-            },
-            include: [
-                {
-                    model: Categorias,
-                    as: "categorias",
-                },
-            ],
+        console.log(artes)
+        res.render(`add${categoria}`, {
+            artes: artes,
+            categorias: categorias,
+            colores: colores,
+            ediciones: ediciones,
+            tipos: tipos,
         });
-        req.files.forEach(async function (file) {
-            let foto = await Fotos.create({
-                created_at: Date.now(),
-                url: file.filename,
-                id_producto: product.id,
-            });
-        });
-        let productPath = "/product/" + product.id;
-        res.redirect(productPath);
+
+        console.log(` ${typeof req.params.id}`);
+        // validate
+        // console.log(req.body);
+        // for (let campo in req.body) {
+        //     if (!req.body[campo].trim()) {
+        //         res.send(`El campo ${campo} está vacío.`);
+        //     }
+        // }
+        // await Productos.create(req.body);
+        // let product = await Productos.findOne({
+        //     where: {
+        //         nombre: req.body.nombre,
+        //     },
+        //     include: [
+        //         {
+        //             model: Categorias,
+        //             as: "categorias",
+        //         },
+        //     ],
+        // });
+        // req.files.forEach(async function (file) {
+        //     let foto = await Fotos.create({
+        //         created_at: Date.now(),
+        //         url: file.filename,
+        //         id_producto: product.id,
+        //     });
+        // });
+        // let productPath = "/product/" + product.id;
+        // res.redirect(productPath);
+    },
+    save: async function (req, res, next) {
+        res.send(req.body);
     },
     delete: async function (req, res, next) {
         let product = await Productos.findByPk(req.params.id);
@@ -115,7 +181,7 @@ const controller = {
                 id_producto: req.params.id,
             },
         });
-        // destroy product details according to it's category
+        // destroy product details according to its category
         product.destroy();
         fotos.forEach((foto) => {
             foto.destroy();

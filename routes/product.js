@@ -22,8 +22,9 @@ var upload = multer({ storage: storage });
 router.get("/", controller.none);
 
 /* /add     CREATE */
-router.get("/add", mwLoggedIn, controller.create); // needs a new middleware, right now bounces guests
-router.post("/add", upload.array("pic", 7), controller.save);
+// router.get("/add", mwLoggedIn, controller.create); // needs a new middleware, right now bounces guests
+router.get("/add/:id",  controller.createOnCategory);
+router.post("/create", upload.array("pic", 7), controller.save);
 
 // READ
 router.get("/:id", controller.product);

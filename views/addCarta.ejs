@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("head") %>
+    <link rel="stylesheet" href="/stylesheets/register.css" />
+    <link rel="stylesheet" href="/stylesheets/addProduct.css" />
+    <script src="/js/addProductCategory.js"></script>
+</head>
+
+<body>
+    <header>
+        <%- include("header") %>
+    </header>
+    <main>
+
+        <form method="POST" enctype="multipart/form-data" action="/product/create" id="mainForm">
+            <!-- name -->
+            <div class="form-group">
+                <label for="nombre">Nombre de producto</label>
+                <input type="text" class="form-control" id="nombre" name="nombre"
+                    placeholder="Ej: Manual del Jugador Dungeons & Dragons 3.5">
+            </div>
+
+            <!-- price, number -->
+            <div class="form-group">
+                <label for="precio">Precio del producto</label>
+                <input type="text" name="precio" class="form-control" id="precio" placeholder="Ej: 150.50">
+            </div>
+            <!-- stock -->
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="text" name="stock" class="form-control" id="stock" placeholder="Stock">
+            </div>
+            <div class="invalid-feedback">Example invalid custom select feedback</div>
+
+            <!-- description -->
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea name="descripcion" class="form-control" id="descripcion" rows="3"
+                    placeholder="Condiciones, detalles, consideraciones varias."></textarea>
+            </div>
+            <span class="hide" id="carta">
+                <h3 style="color:green;">CARTA</h3>
+                <!-- tipo -->
+                <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    <select name="id_tipo">
+                        <% for (let tipo of tipos) { %>
+                        <option value="<%- tipo.id %>"><%- tipo.tipo %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <!-- subtipo -->
+                <div class="form-group">
+                    <label for="subtipo">Subtipo</label>
+                    <input type="text" name="subtipo" class="form-control" id="subtipo" placeholder="subtipo">
+                </div>
+                <!-- oracle -->
+                <div class="form-group">
+                    <label for="oracle">Oracle text</label>
+                    <input type="text" name="oracle" class="form-control" id="oracle" placeholder="oracle">
+                </div>
+                <!-- flavortext -->
+                <div class="form-group">
+                    <label for="flavortext">Flavortext</label>
+                    <input type="text" name="flavortext" class="form-control" id="flavortext" placeholder="flavortext">
+                </div>
+                <!-- mana -->
+                <div class="form-group">
+                    <label for="mana">Mana</label>
+                    <input type="text" name="mana" class="form-control" id="mana" placeholder="mana">
+                </div>
+                <!-- ataque -->
+                <div class="form-group">
+                    <label for="ataque">Ataque</label>
+                    <input type="text" name="ataque" class="form-control" id="ataque" placeholder="ataque">
+                </div>
+                <!-- Defensa -->
+                <div class="form-group">
+                    <label for="Defensa">Ataque</label>
+                    <input type="text" name="Defensa" class="form-control" id="Defensa" placeholder="Defensa">
+                </div>
+                <div class="form-group">
+                    <label for="id_edicion">Edición</label><br>
+                    <select name="id_edicion">
+                        <% for (let edicion of ediciones) { %>
+                        <option value="<%- edicion.id %> "><%- edicion.nombre %> - <%- edicion.anio %> </option>
+                        <% } %>
+                    </select>
+                </div>
+                <!-- id_arte -->
+                <div class="form-group">
+                    <label for="id_arte">Artista</label><br>
+                    <select name="id_arte">
+                        <% for (let arte of artes) { %>
+                        <option value="<%- arte.id %>"><%- arte.artista %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <!-- color -->
+                <label for="color">Color/es</label>
+                <div>
+                    <span id="colorBox">
+                        <input type="checkbox" id="color azul" name="azul" value="blue">
+                        <label for="azul">Azul</label>
+                    </span>
+                    <span id="colorBox">
+                        <input type="checkbox" id="color blanco" name="blanco" value="white">
+                        <label for="blanco">Blanco</label>
+                    </span>
+                    <span id="colorBox">
+                        <input type="checkbox" id="color negro" name="negro" value="black">
+                        <label for="negro">Negro</label>
+                    </span>
+                    <span id="colorBox">
+                        <input type="checkbox" id="color rojo" name="rojo" value="red">
+                        <label for="rojo">Rojo</label>
+                    </span>
+                    <span id="colorBox">
+                        <input type="checkbox" id="color verde" name="verde" value="green">
+                        <label for="verde">Verde</label>
+                    </span>
+                    <span id="colorBox">
+                        <input type="checkbox" id="color incoloro" name="incoloro" value="colorless">
+                        <label for="incoloro">Incoloro</label>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <input type="file" name="pic" class="form-control-file" id="prodPics" multiple>
+                </div>
+                <input type="submit" name="submit">
+            </span>
+        </form>
+
+    </main>
+
+    <footer><%- include("footer") %></footer>
+</body>
+
+</html>

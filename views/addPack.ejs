@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("head") %>
+    <link rel="stylesheet" href="/stylesheets/register.css" />
+    <link rel="stylesheet" href="/stylesheets/addProduct.css" />
+    <script src="/js/addBlister.js"></script>
+</head>
+
+<body>
+    <header>
+        <%- include("header") %>
+    </header>
+    <main>
+
+        <form method="POST" enctype="multipart/form-data" action="/product/create" id="mainForm">
+            <!-- name -->
+            <div class="form-group">
+                <label for="nombre">Nombre de producto</label>
+                <input type="text" class="form-control" id="nombre" name="nombre"
+                    placeholder="Ej: Manual del Jugador Dungeons & Dragons 3.5">
+            </div>
+
+            <!-- price, number -->
+            <div class="form-group">
+                <label for="precio">Precio del producto</label>
+                <input type="text" name="precio" class="form-control" id="precio" placeholder="Ej: 150.50">
+            </div>
+            <!-- stock -->
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="text" name="stock" class="form-control" id="stock" placeholder="Stock">
+            </div>
+            <div class="invalid-feedback">Example invalid custom select feedback</div>
+
+            <!-- description -->
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea name="descripcion" class="form-control" id="descripcion" rows="3"
+                    placeholder="Condiciones, detalles, consideraciones varias."></textarea>
+            </div>
+
+
+            <label for="id_edicion">Edición</label>
+            <select name="id_edicion">
+                <% for (let edicion of ediciones) { %>
+                <option value="<%- edicion.id %> "><%- edicion.nombre %> - <%- edicion.anio %> </option>
+                <% } %>
+            </select>
+            <!-- color -->
+            <div class="form-group">
+                <label for="color">Color</label>
+                <input type="text" name="color" class="form-control" id="color" placeholder="color">
+            </div>
+
+            <div class="form-group">
+                <input type="file" name="pic" class="form-control-file" id="prodPics" multiple>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Crear producto</button>
+
+        </form>
+
+    </main>
+
+    <footer><%- include("footer") %></footer>
+</body>
+
+</html>

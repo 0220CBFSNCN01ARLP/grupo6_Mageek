@@ -1,8 +1,31 @@
 1. Blisters
+arte (string 40)
+id_edicion
+
 2. Cartas
+oracle
+flavortext
+mana
+ataque
+defensa
+id_arte
+id_tipo
+subtipo
+id_color
+id_edicion
+limitado
+
 3. Dados
+color
+caras
+
 4. Folios
+color
+
 5. Packs
+id_color
+modelo
+id_edicion
 
 
 Colores de magic.

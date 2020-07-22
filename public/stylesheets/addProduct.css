@@ -1,0 +1,13 @@
+label {
+    font-weight: 600;
+}
+#colorBox {
+    width: 45%;
+    display: inline-block;
+} /* these two are for color checkboxes */
+#colorBox label {
+    font-weight: 400;
+}
+.form-control { /* stepping on bootstrap */
+    border-radius: 7px;
+}
