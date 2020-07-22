@@ -1,21 +1,20 @@
 window.addEventListener("load", function () {
-    let additionalInfo = document.getElementById("additionalInfo");
+    // load categories, forms, iterate on them
     let categoryBox = document.getElementById("id_categoria");
-    let vistaParcial = document.createElement("nav");
-    let category = categoryBox.options.selectedIndex;
-    let categoryList = ["addBlister","addCarta","addDado","addFolio","addPack"]
-
-
-    vistaParcial.innerHTML = `"<%- include("partials/${categoryList[category]}") %>`
-    additionalInfo.appendChild(vistaParcial)
-
-
+    let category = categoryBox.options.selectedIndex; //returns 0-4
+    let partialForms = document.getElementsByClassName("hide");
+    for (let i = 0; i != partialForms.length; i++) {
+        if (i != category) {
+            console.log(partialForms[i].style);
+            console.log(`ends category ${i}, ${category}`)
+            partialForms[i].style.display = "none"
+        }
+    };
     categoryBox.addEventListener("change", function () {
+        console.log(partialForms[category]);
+
+        partialForms[category].style.display = "none";
         category = categoryBox.options.selectedIndex;
-        console.log(additionalInfo)
-        additionalInfo.removeChild(vistaParcial);
-        let partialLink = `<%- include("partials/${categoryList[category]}") %>`;
-        vistaParcial.innerHTML = partialLink;
-        additionalInfo.appendChild(vistaParcial)
-    })
-})
+        partialForms[category].style.display = "block";
+    });
+});

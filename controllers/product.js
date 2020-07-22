@@ -1,17 +1,20 @@
 const fs = require("fs");
 const path = require("path");
 const {
+    Artes,
     Blisters,
     Cartas,
     Categorias,
+    Colores,
     Dados,
+    Ediciones,
     Folios,
     Fotos,
-    Productos,
     Packs,
+    Productos,
+    Tipos,
 } = require("../database/models");
 const getDetails = require(path.join(__dirname, "..", "controllers", "modules", "getDetails"));
-
 
 const controller = {
     none: async function (req, res, next) {
@@ -43,8 +46,31 @@ const controller = {
     },
     create: async function (req, res, next) {
         //goes to add page, GET
+        let artes = await Artes.findAll();
         let categorias = await Categorias.findAll();
-        res.render("addProduct", { categorias: categorias });
+        let colores = await Colores.findAll();
+        let ediciones = await Ediciones.findAll();
+        let tipos = await Tipos.findAll();
+        artes.sort((a, b) => {
+            if (a.artista > b.artista) {return 1;}
+            if (a.artista < b.artista) {return -1;}
+            return 0;
+        });
+        categorias.sort();
+        colores.sort();
+        ediciones.sort((a, b) => {
+            if (a.nombre > b.nombre) {return 1;}
+            if (a.nombre < b.nombre) {return -1;}
+            return 0;
+        });
+        tipos.sort();
+        res.render("addProduct", {
+            artes: artes,
+            categorias: categorias,
+            colores: colores,
+            ediciones: ediciones,
+            tipos: tipos,
+        });
     },
     save: async function (req, res, next) {
         console.log(`${req.body.file} ${req.body.pic}`);
@@ -79,8 +105,8 @@ const controller = {
     delete: async function (req, res, next) {
         let product = await Productos.findByPk(req.params.id);
         res.render("deleteProduct", {
-            product : product,
-        })
+            product: product,
+        });
     },
     destroy: async function (req, res, next) {
         let product = await Productos.findByPk(req.params.id);
@@ -124,11 +150,11 @@ const controller = {
                     model: Categorias,
                     as: "categorias",
                 },
-            ]
+            ],
         });
         for (let campo in req.body) {
-            product[campo] = req.body[campo]
-        };
+            product[campo] = req.body[campo];
+        }
         await product.save();
         let pictures = await Fotos.findAll({
             where: {
@@ -138,7 +164,7 @@ const controller = {
         let detalle;
         getDetails(product);
         res.render("detalle-producto", {
-            product : product,
+            product: product,
             pictures: pictures,
             detalle: detalle,
         });

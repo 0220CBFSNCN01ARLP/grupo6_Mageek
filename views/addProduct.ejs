@@ -55,7 +55,9 @@
                     <option value="<%- categoria.id %> "><%- categoria.categoria %> </option>
                     <% } %>
                 </select>
-                <div id="additionalInfo"></div>
+
+                <%- include("partials/addProductCategories") %>
+
                 <button class="btn btn-primary" type="submit">Crear producto</button>
 
             </form>
