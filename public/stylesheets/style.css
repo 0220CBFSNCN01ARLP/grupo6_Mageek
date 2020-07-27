@@ -168,11 +168,12 @@ padding-right: 15px;
 .box-footer{
     display: flex;
     flex-wrap: wrap;
-    margin-top: 3vh;    
+    margin-top: 6vh;    
 }
 
 .iconos-footer{
-    width: 50%;
+	width: 50%;
+	flex-grow: 1;
 }
 
 .img-footer{
@@ -185,7 +186,8 @@ padding-right: 15px;
 
 @media (min-width: 460px) and (orientation: landscape){
 .iconos-footer{
-    width: 25%;
+	width: 25%;
+	flex-grow: 1;
 }
 
 .img-footer{
