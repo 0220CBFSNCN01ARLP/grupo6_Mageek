@@ -5,7 +5,6 @@
   <%- include("partials/head") %>
   <!-- <link rel="stylesheet" href="/stylesheets/cart.css" /> -->
   <link rel="stylesheet" href="/stylesheets/index.css" />
-  <script src="/js/js-carousel.js"></script>
 </head>
 
 <body>
@@ -23,16 +22,17 @@
       <div class="carousel-item active">
         <img class="d-block w-100" src="https://giffiles.alphacoders.com/134/134965.gif" alt="First slide">
       </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="https://i.pinimg.com/originals/fb/9b/a7/fb9ba7cb6e1c52b320fe6a237790efef.gif" alt="Second slide">
+      <img class="d-block w-100" src="https://i.pinimg.com/originals/fb/9b/a7/fb9ba7cb6e1c52b320fe6a237790efef.gif"
+        alt="Second slide">
+    </div>
+
+    <div class="carousel-item">
+      <img class="d-block w-100" src="https://giffiles.alphacoders.com/174/174169.gif" alt="Third slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>h5 del carrusel</h5>
+        <p>p del carrusel</p>
       </div>
-      <div class="carousel-item">
-        <img class="d-block w-100" src="https://giffiles.alphacoders.com/174/174169.gif" alt="Third slide">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>...</h5>
-            <p>...</p>
-  </div>
-      </div>
+    </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -43,83 +43,45 @@
       <span class="sr-only">Next</span>
     </a>
   </main>
-  <!-- products -->
-  <article class="products-box">
-    <h1>categoria</h1>
-      <div class="product-list">
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-      </div>
-  </article>
-  <article class="products-box">
-    <h1>categoria</h1>
-      <div class="product-list">
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-      </div>
-  </article>
-  <article class="products-box">
-    <h1>categoria</h1>
-      <div class="product-list">
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-        <section class="product-index">
-          <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-          <h3>name</h3>
-          <h2>precio</h2>
-        </section>
-      </div>
-  </article>
-  <footer><%- include("partials/footer") %></footer>
-</body>
+  <!--Carousel Wrapper-->
+  <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
 
-</html>
+    <!--Controls-->
+    <di class="controls-top">
+      <a lass="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+      <a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+  </div>
+  <!--/Controls-->
+
+  <article class="products-box">
+    <h1>categoria</h1>
+    <div class="product-list">
+      <section class="product-index">
+        <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
+        <h3>name</h3>
+        <h2>precio</h2>
+      </section>
+      <section class="product-index">
+        <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
+        <h3>name</h3>
+        <h2>precio</h2>
+      </section>
+      <section class="product-index">
+        <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
+        <h3>name</h3>
+        <h2>precio</h2>
+      </section>
+      <section class="product-index">
+        <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
+        <h3>name</h3>
+        <h2>precio</h2>
+      </section>
+    </div>
+  </article>
+    <!--/.Carousel Wrapper-->
+
+    </div>
+    <!--/.Carousel Wrapper-->
+
+    </div>
+    <!--/.Carousel Wrapper-->
