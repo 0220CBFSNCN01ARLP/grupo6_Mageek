@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
             updated_at: { type: DataTypes.DATE },
             color: {
                 type: DataTypes.STRING(50),
-                unique: true,
             },
             caras: { type: DataTypes.INTEGER(3) },
             id_producto: {

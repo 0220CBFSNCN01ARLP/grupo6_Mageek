@@ -1,31 +1,61 @@
 const {
+    Artes,
     Blisters,
     Cartas,
     Categorias,
+    Colores,
     Dados,
+    Ediciones,
     Folios,
     Fotos,
     Productos,
     Packs,
+    Tipos,
 } = require("../../database/models");
+const { response } = require("../../app");
 
 const getDetails = async function getDetails(product) {
+    let detalle;
     switch (product.categorias.categoria) {
         case "blister":
             detalle = await Blisters.findOne({
                 where: {
                     id_producto: product.id,
                 },
+                include: [
+                    {
+                        model: Ediciones,
+                        as: "ediciones",
+                    },
+                ],
             });
-            break;
+            return detalle;
 
         case "carta":
             detalle = await Cartas.findOne({
                 where: {
                     id_producto: product.id,
                 },
+                include: [
+                    {
+                        model: Artes,
+                        as: "artes",
+                    },
+                    {
+                        model: Colores,
+                        as: "colores",
+                    },
+                    {
+                        model: Ediciones,
+                        as: "ediciones",
+                    },
+                    {
+                        model: Tipos,
+                        as: "tipos",
+                    },
+                ],
             });
-            break;
+            return detalle;
 
         case "dado":
             detalle = await Dados.findOne({
@@ -33,7 +63,7 @@ const getDetails = async function getDetails(product) {
                     id_producto: product.id,
                 },
             });
-            break;
+            return detalle;
 
         case "folio":
             detalle = await Folios.findOne({
@@ -41,15 +71,28 @@ const getDetails = async function getDetails(product) {
                     id_producto: product.id,
                 },
             });
-            break;
+            return detalle;
 
         case "pack":
             detalle = await Packs.findOne({
                 where: {
                     id_producto: product.id,
                 },
+                include: [
+                    {
+                        model: Ediciones,
+                        as: "ediciones",
+                    },
+                    {
+                        model: Colores,
+                        as: "colores",
+                    },
+                ],
             });
-            break;
+            return detalle;
+
+        default:
+            res.send("no u wont")
     }
-}
+};
 module.exports = getDetails;

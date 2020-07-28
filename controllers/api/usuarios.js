@@ -36,6 +36,11 @@ const controller = {
             ],
             attributes: { exclude: arrayOmitidos },
         });
+        usuario.dataValues.pais = usuario.paises.pais;
+        delete usuario.dataValues.paises
+        usuario.dataValues.tipo = usuario.permisos.permiso;
+        delete usuario.dataValues.permisos;
+
         res.send(usuario);
     },
     create: async function (req, res, next) {

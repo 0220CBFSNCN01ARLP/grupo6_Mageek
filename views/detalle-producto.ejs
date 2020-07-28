@@ -27,19 +27,19 @@
             <% } %>
             <% switch (product.categorias.categoria) { case "blister":%> <!-- blisters -->
 
-            <p>Edición: <%- detalle.edicion %> </p>
+            <p>Edición: <%- detalle.ediciones.dataValues.anio %> - <%- detalle.ediciones.dataValues.nombre %> </p>
             <p>Arte: <%- detalle.arte %> </p>
 
             <% ;break;case "carta":%> <!-- cartas -->
 
-            <p>tipo subtipo<%- detalle.tipo %> - <%- detalle.subtipo %> </p>
-            <p>edicion <%- detalle.edicion %> </p>
-            <p>oracle <%- detalle.oracle %> </p>
-            <p>flavortext <%- detalle.flavortext %> </p>
-            <p>limitado <%- detalle.limitado %> </p>
-            <p>color mana <%- detalle.color %>  <%- detalle.mana %> </p>
+            <p>tipo subtipo: <%- detalle.tipos.tipo %> - <%- detalle.subtipo %> </p>
+            <p>edicion: <%- detalle.ediciones.dataValues.anio %> - <%- detalle.ediciones.dataValues.nombre %> </p>
+            <p>oracle: <%- detalle.oracle %> </p>
+            <p>flavortext: <%- detalle.flavortext %> </p>
+            <p>limitado: <%- detalle.limitado %> </p>
+            <p>color: <%- detalle.colores.color %> - mana: <%- detalle.mana %> </p>
             <p>ataque-defensa <%- detalle.ataque %>/<%- detalle.defensa %>  </p>
-            <p>arte <%- detalle.arte %> </p>
+            <p>arte: <%- detalle.artes.artista %> </p>
 
             <% ;break;case "dado":%> <!-- dados -->
 
@@ -52,8 +52,9 @@
 
             <% ;break;case "pack":%> <!-- packs -->
 
-            <p>color: <%- detalle.color %></p>
-            <p>color: <%- detalle.edicion %></p>
+            <p>modelo: <%- detalle.modelo %></p>
+            <p>color: <%- detalle.colores.color %></p>
+            <p>Edición: <%- detalle.ediciones.dataValues.anio %> - <%- detalle.ediciones.dataValues.nombre %></p>
 
             <% } %>
     </main>

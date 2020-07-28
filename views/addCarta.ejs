@@ -5,7 +5,7 @@
     <%- include("partials/head") %>
     <link rel="stylesheet" href="/stylesheets/register.css" />
     <link rel="stylesheet" href="/stylesheets/addProduct.css" />
-    <script src="/js/addProductCategory.js"></script>
+    <script src="/js/addProduct.js"></script>
 </head>
 
 <body>
@@ -41,7 +41,6 @@
                     placeholder="Condiciones, detalles, consideraciones varias."></textarea>
             </div>
             <span class="hide" id="carta">
-                <h3 style="color:green;">CARTA</h3>
                 <!-- tipo -->
                 <div class="form-group">
                     <label for="tipo">Tipo</label>
@@ -76,10 +75,10 @@
                     <label for="ataque">Ataque</label>
                     <input type="text" name="ataque" class="form-control" id="ataque" placeholder="ataque">
                 </div>
-                <!-- Defensa -->
+                <!-- defensa -->
                 <div class="form-group">
-                    <label for="Defensa">Ataque</label>
-                    <input type="text" name="Defensa" class="form-control" id="Defensa" placeholder="Defensa">
+                    <label for="defensa">Ataque</label>
+                    <input type="text" name="defensa" class="form-control" id="defensa" placeholder="defensa">
                 </div>
                 <div class="form-group">
                     <label for="id_edicion">Edición</label><br>
@@ -129,6 +128,7 @@
                 <div class="form-group">
                     <input type="file" name="pic" class="form-control-file" id="prodPics" multiple>
                 </div>
+                <input type="hidden" name="id_categoria" value="1">
                 <input type="submit" name="submit">
             </span>
         </form>

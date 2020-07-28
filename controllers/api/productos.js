@@ -20,6 +20,9 @@ const controller = {
             attributes: { exclude: arrayOmitidos },
             include: [{ model: Categorias, as: "categorias" }],
         });
+        producto.dataValues.categoria = producto.categorias.categoria;
+        delete producto.dataValues.categorias;
+        delete producto.dataValues.id_categoria;
         res.send(producto);
     },
     create: async function (req, res, next) {

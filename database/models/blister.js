@@ -24,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
     );
     Blister.associate = function (models) {
         Blister.belongsTo(models.Ediciones, {
-            as: "edicion",
+            as: "ediciones",
             foreignKey: "id_edicion",
         });
         Blister.belongsTo(models.Productos, {
-            as: "producto",
+            as: "productos",
             foreignKey: "id_producto",
         });
     };
