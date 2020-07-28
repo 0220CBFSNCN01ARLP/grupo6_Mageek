@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     );
     Deseado.associate = function (models) {
         Deseado.belongsTo(models.Usuarios, {
-            as: "Usuarios",
+            as: "usuarios",
             foreignKey: "id_usuario",
         });
         Deseado.belongsTo(models.Productos, {

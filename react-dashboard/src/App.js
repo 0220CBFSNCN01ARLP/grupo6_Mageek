@@ -1,16 +1,15 @@
-import React from 'react';
-import './App.css';
-import Header from './components/Header'
-import Footero from './components/Footero';
+import React from "react";
+import "./App.css";
+import Sidenav from "./components/Sidenav/Sidenav";
+import Content from "./components/Content";
 
 function App() {
-  return (
-    <div>
-      < Header />
-      app.js working
-      < Footero />
-    </div>
-  )
+    return (
+        <div id="wrapper">
+            <Sidenav />;
+            <Content />;
+        </div>
+    );
 }
 
 export default App;

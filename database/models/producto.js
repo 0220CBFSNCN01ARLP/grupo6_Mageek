@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
             descripcion: { type: DataTypes.STRING(200) },
             nombre: {
                 type: DataTypes.STRING(50),
-                unique: true,
             },
             borrado: { type: DataTypes.INTEGER(1) },
         },

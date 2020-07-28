@@ -64,9 +64,6 @@ ALTER TABLE producto_en_carrito
 ADD CONSTRAINT `usuario_producto_carrito`
 UNIQUE (id_usuario,id_producto);
 
-ALTER TABLE productos
-MODIFY COLUMN `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL UNIQUE;
-
 #
 # TABLE STRUCTURE FOR: fotos
 #

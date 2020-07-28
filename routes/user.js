@@ -67,7 +67,7 @@ router.post("/success", function (req, res, next) {
 })
 
 // Read user
-router.get("/account", controller.account);
+router.get("/account", mwLoggedIn, controller.account);
 
 // Edit user
 router.get("/edit/:id", mwLoggedIn, controller.editor);
