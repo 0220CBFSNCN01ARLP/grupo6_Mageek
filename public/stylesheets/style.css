@@ -164,6 +164,13 @@ padding-right: 15px;
     padding-right: 0px;
 }
 
+/* Error 404 */
+
+.error404{
+	margin: 25%;
+	background-color: darkslategrey;
+}
+
 /* Footer */
 .box-footer{
     display: flex;
