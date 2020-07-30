@@ -11,3 +11,18 @@ label {
 .form-control { /* stepping on bootstrap */
     border-radius: 7px;
 }
+button{
+    border-radius: 20px;
+    background-color: #28A745;
+    color: #FFFFFF;
+    border-style: none;
+}
+form{
+    padding: 5%;
+    padding-top: 3%;
+}
+
+h1{
+    text-align: center;
+    margin-top: 2%;
+}

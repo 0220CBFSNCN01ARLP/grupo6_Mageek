@@ -1,4 +1,5 @@
-            <!-- id_pais -->
+/*
+           <!-- id_pais -->
             <select name="id_pais">
                 <% for (let pais of paises) { %>
                 <option value="<%- pais.id %> "><%- pais.pais %> </option>
