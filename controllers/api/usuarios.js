@@ -3,11 +3,33 @@ const { Usuarios, Paises, Permisos } = require("../../database/models");
 const controller = {
     list: async function (req, res, next) {
         // Register GET
+        let arrayOmitidos = [
+            "password",
+            "genero",
+            "created_at",
+            "updated_at",
+            "id_pais",
+            "id_permiso",
+            "numero_identidad",
+            "email",
+            "nacimiento",
+            "calle",
+            "departamento",
+            "localidad",
+            "provincia",
+            "pic",
+            "borrado",
+        ];
         let usuarios = await Usuarios.findAll({
             include: [
                 { model: Paises, as: "paises" },
                 { model: Permisos, as: "permisos" },
             ],
+            attributes: { exclude: arrayOmitidos },
+        });
+        usuarios.forEach(usuario => {
+            usuario.nombre += ` ${usuario.apellido}`
+            delete usuario.apellido;
         });
         res.send(usuarios);
     },

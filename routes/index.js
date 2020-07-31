@@ -10,7 +10,7 @@ const controller = require(__dirname + "/../controllers/index");
 router.get("/", controller.index);
 router.use("/product", productRouter);
 router.use("/user", userRouter);
-router.use("/productos", apiProductosRouter);
-router.use("/usuarios", apiUsuariosRouter);
+router.use("/api/productos", apiProductosRouter);
+router.use("/api/usuarios", apiUsuariosRouter);
 
 module.exports = router;

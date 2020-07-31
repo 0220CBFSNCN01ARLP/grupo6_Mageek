@@ -6,10 +6,9 @@ import Content from "./components/Content";
 function App() {
     return (
         <div id="wrapper">
-            <Sidenav />;
-            <Content />;
+            <Sidenav />
+            <Content />
         </div>
     );
 }
-
 export default App;
