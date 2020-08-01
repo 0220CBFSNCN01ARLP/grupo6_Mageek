@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         Dado.belongsTo(models.Productos, {
             as: "productos",
             foreignKey: "id_producto",
+            onDelete: "CASCADE",
         });
     };
     return Dado;

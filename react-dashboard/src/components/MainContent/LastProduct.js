@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import Product from "../Product";
-import {getLastProduct} from "../../fetcher"
+import { getLastProduct } from "../../fetcher";
 class LastProduct extends Component {
-    state = { product: "null" };
+    state = { product: "null", lastImage: "" };
     async updateState() {
         console.log("Updating state...");
         const product = await getLastProduct();
+        const [lastImage] = product.arrayImagenes.splice(-1);
         this.setState({
             product,
+            lastImage
         });
     }
     componentDidMount() {
@@ -17,7 +19,8 @@ class LastProduct extends Component {
     render() {
         let productDescription = this.state.product.descripcion;
         let productDetail = this.state.product.detail;
-        let lastProductImg = this.state.product.arrayImagenes;
+        console.log(this.state.lastImage);
+        let lastProductImg = this.state.lastImage;
         return (
             <div className="col-lg-6 mb-4">
                 <div className="card shadow mb-4">
@@ -26,7 +29,11 @@ class LastProduct extends Component {
                             Último producto cargado en la base de datos
                         </h6>
                     </div>
-                    <Product description={productDescription} detail={productDetail} imageURL={lastProductImg} />
+                    <Product
+                        description={productDescription}
+                        detail={productDetail}
+                        imageURL={lastProductImg}
+                    />
                 </div>
             </div>
         );

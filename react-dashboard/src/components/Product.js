@@ -15,7 +15,7 @@ const Product = (props) => {
                     alt=""
                 />
             </div>
-            <p>{props.description}{image}</p>
+            <p>{props.description}</p>
             <a target="_blank" rel="nofollow" href={productURL}>
                 Detalle del producto
             </a>

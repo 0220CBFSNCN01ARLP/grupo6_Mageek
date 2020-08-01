@@ -50,12 +50,10 @@ const controller = {
     list: async function (req, res, next) {
         let productos = { count: "" };
         var listaProductos = await Productos.findAll({
-            include: [
-                {
+            include: [{
                     model: Fotos,
                     as: "fotos",
-                },
-            ],
+                },],
         });
         // countByCategory → objeto literal con una propiedad por categoría con el
         // total de productos
@@ -100,18 +98,14 @@ const controller = {
             delete listaProductos[producto].dataValues.fotos;
             listaProductos[producto].dataValues.arrayImagenes = picArray;
         }
+        // sort products before handing over
         productos.products = listaProductos.sort((a, b) => {
-            if (a.dataValues.id > b.dataValues.id) {
-                return 1;
-            } else {
-                return -1;
-            }
+            if (a.dataValues.id > b.dataValues.id) { return 1; } else { return -1; }
         });
-        // let listaOrdenada =  listaOrdenada;
         res.send(productos);
     },
     detail: async function (req, res, next) {
-        let arrayOmitidos = ["descripcion", "borrado", "created_at", "updated_at"];
+        let arrayOmitidos = [ "borrado", "created_at", "updated_at"];
         let producto = await Productos.findByPk(req.params.id, {
             attributes: { exclude: arrayOmitidos },
             include: [{ model: Categorias, as: "categorias" }],
@@ -131,7 +125,7 @@ const controller = {
                     where: { id_producto: producto.dataValues.id },
                     include: [
                         { model: Ediciones, as: "ediciones" },
-                        { model: Colores, as: "Carta_Color" },
+                        { model: Colores, as: "colores" },
                         { model: Tipos, as: "tipos" },
                         { model: Artes, as: "artes" },
                     ],
@@ -173,11 +167,8 @@ const controller = {
         delete producto.dataValues.categorias;
         delete producto.dataValues.id_categoria;
         let fotos = await Fotos.findAll({ where: { id_producto: req.params.id } });
-        if (fotos.length > 0) {
-            producto.dataValues.foto = fotos[0].dataValues.url;
-        } else {
-            producto.dataValues.foto = null;
-        }
+        if (fotos.length > 0) { producto.dataValues.foto = fotos[0].dataValues.url; }
+        else { producto.dataValues.foto = null; }
         res.send(producto);
     },
     create: async function (req, res, next) {

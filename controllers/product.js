@@ -24,12 +24,7 @@ const controller = {
     product: async function (req, res) {
         // load product
         const product = await Productos.findByPk(req.params.id, {
-            include: [
-                {
-                    model: Categorias,
-                    as: "categorias",
-                },
-            ],
+            include: [{ model: Categorias, as: "categorias" }],
         });
         if (!product) res.send("product doesn't exist"); // PRODUCT 404
         let pictures = await Fotos.findAll({
@@ -37,8 +32,8 @@ const controller = {
                 id_producto: product.id,
             },
         });
-        console.log(product.dataValues.categorias)
-        let detalle = await getDetails(product,res);
+        console.log(product.dataValues.categorias);
+        let detalle = await getDetails(product, res);
         console.log(detalle);
         res.render("detalle-producto", {
             product: product,
@@ -64,16 +59,17 @@ const controller = {
         });
         categorias.sort();
         colores.sort();
-        ediciones.sort((a, b) => {
-            if (a.nombre > b.nombre) {
+        ediciones.sort();
+        console.log(typeof tipos);
+        tipos.sort((a, b) => {
+            if (a.tipo > b.tipo) {
                 return 1;
             }
-            if (a.nombre < b.nombre) {
+            if (a.tipo < b.tipo) {
                 return -1;
             }
             return 0;
         });
-        tipos.sort();
         res.render("addProduct", {
             artes: artes,
             categorias: categorias,
@@ -108,8 +104,16 @@ const controller = {
             }
             return 0;
         });
-        tipos.sort();
-
+        tipos.sort((a, b) => {
+            if (a.tipo > b.tipo) {
+                return 1;
+            }
+            if (a.tipo < b.tipo) {
+                return -1;
+            }
+            return 0;
+        });
+        let categoria = "";
         switch (req.params.id) {
             case "0":
                 categoria = "Blister";
@@ -129,7 +133,6 @@ const controller = {
             default:
                 res.send("default en el switch");
         }
-        console.log(artes);
         res.render(`add${categoria}`, {
             artes: artes,
             categorias: categorias,
@@ -137,8 +140,6 @@ const controller = {
             ediciones: ediciones,
             tipos: tipos,
         });
-
-        console.log(` ${typeof req.params.id}`);
         // validate
         // console.log(req.body);
         // for (let campo in req.body) {
@@ -176,29 +177,25 @@ const controller = {
             descripcion: req.body.descripcion,
         };
         let infoValidacion = req.body;
-        console.log(infoValidacion);
-        // let excepciones = [
-        //     "descripcion",
-        //     "subtipo",
-        //     "flavortext",
-        //     "oracle",
-        //     "mana",
-        //     "ataque",
-        //     "defensa",
-        //     "submit",
-        // ];
-        // excepciones.forEach((excepcion) => {
-        //     delete infoValidacion[excepcion];
-        // });
-        // for (let campo in infoValidacion) {
-        //     console.log(`${campo} : ${infoValidacion[campo]}`);
-        // }
+        let excepciones = [
+            "descripcion",
+            "subtipo",
+            "flavortext",
+            "oracle",
+            "mana",
+            "ataque",
+            "defensa",
+        ];
+        excepciones.forEach((excepcion,i) => {
+            datosProducto[excepcion] = infoValidacion[excepcion];
+            delete infoValidacion[excepcion]
+        });
         function validacionGeneral(info) {
             let errores = "";
             for (let campo in info) {
                 if (!info[campo]) {
                     errores += `
-                    ${campo} está vacío.`;
+                                ${campo} está vacío.`;
                 }
             }
             if (errores == "") {
@@ -244,18 +241,19 @@ const controller = {
                 datosProducto.id_categoria = "2";
                 nuevoProducto = await Productos.create(datosProducto);
                 console.log(req.body);
+                console.log(infoValidacion);
                 product = await Productos.findOne({
                     where: { id: nuevoProducto.id },
                     include: [{ model: Categorias, as: "categorias" }],
                 });
                 let datosCarta = {
                     id_tipo: req.body.id_tipo,
-                    subtipo: req.body.subtipo,
+                    subtipo: req.body.subtipo||" ",
                     oracle: req.body.oracle,
                     flavortext: req.body.flavortext,
                     mana: req.body.mana,
-                    ataque: req.body.ataque,
-                    defensa: req.body.defensa,
+                    ataque: req.body.ataque||" ",
+                    defensa: req.body.defensa||" ",
                     id_edicion: req.body.id_edicion,
                     id_arte: req.body.id_arte,
                     id_color: "3",
@@ -310,7 +308,7 @@ const controller = {
                 nuevoProducto = await Productos.create(datosProducto);
                 let datosFolio = {
                     id_producto: nuevoProducto.id,
-                    id_color: req.body.id_color,
+                    color: req.body.color,
                     id_edicion: req.body.id_edicion,
                     modelo: req.body.modelo,
                 };

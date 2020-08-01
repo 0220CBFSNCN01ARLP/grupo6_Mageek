@@ -33,18 +33,26 @@ module.exports = (sequelize, DataTypes) => {
         Producto.hasMany(models.Blisters, {
             as: "blisters",
             foreignKey: "id_producto",
+            onDelete: "CASCADE",
+            hooks: true,
         });
         Producto.hasMany(models.Cartas, {
             as: "cartas",
             foreignKey: "id_producto",
+            onDelete: "CASCADE",
+            hooks: true,
         });
         Producto.hasMany(models.Dados, {
             as: "dados",
             foreignKey: "id_producto",
+            onDelete: "CASCADE",
+            hooks: true
         });
         Producto.hasMany(models.Folios, {
             as: "folios",
             foreignKey: "id_producto",
+            onDelete: "CASCADE",
+            hooks: true,
         });
         Producto.hasMany(models.Historial_de_compras, {
             as: "historial_de_compra",
@@ -61,10 +69,14 @@ module.exports = (sequelize, DataTypes) => {
         Producto.hasMany(models.Packs, {
             as: "packs",
             foreignKey: "id_producto",
+            onDelete: "CASCADE",
+            hooks: true,
         });
         Producto.hasMany(models.Fotos, {
             as: "fotos",
             foreignKey: "id_producto",
+            onDelete: "CASCADE",
+            hooks: true,
         });
     };
     return Producto;

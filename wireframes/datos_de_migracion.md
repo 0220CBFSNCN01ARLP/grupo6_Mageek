@@ -44,12 +44,16 @@ Tipos de cartas.
 10. Némesis
 11. Commander
 
+<<<<<<< Updated upstream
 USE `mageek`
+=======
+
+USE mageek;
+>>>>>>> Stashed changes
 # Sacar columna 'borrado' de packs (superflua)
 alter table packs
 drop borrado;
 # Categorías
-USE mageek;
 update categorias set categoria="blister" where id=1;
 update categorias set categoria="carta" where id=2;
 update categorias set categoria="dado" where id=3;
@@ -57,7 +61,7 @@ update categorias set categoria="folio" where id=4;
 update categorias set categoria="pack" where id=5;
 # sacar constraint unique en color de dados
 ALTER TABLE dados
-modify column   `color` varchar(50) collate utf8_unicode_ci not null;
+modify column `color` varchar(50) collate utf8_unicode_ci not null;
 # actualizar tipos
 update tipos set tipo="Equipo" where id=1;
 update tipos set tipo="Tierra" where id=2;
