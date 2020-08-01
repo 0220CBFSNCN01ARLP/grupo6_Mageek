@@ -92,7 +92,6 @@ const controller = {
             ].dataValues.detail = `localhost:3000/api/productos/${listaProductos[producto].dataValues.id}`;
             let picArray = [];
             listaProductos[producto].dataValues.fotos.forEach((pic, index) => {
-                console.log(pic.url);
                 picArray.push(pic.url);
             });
             delete listaProductos[producto].dataValues.fotos;
@@ -144,10 +143,9 @@ const controller = {
                 break;
             case "folio":
                 let datosFolio = await Folios.findOne({
-                    where: { id_producto: producto.dataValues.id },
+                    where: { id_producto: req.params.id },
                 });
                 segundoFiltro(producto, datosFolio);
-                filtro;
                 break;
             case "pack":
                 let datosPack = await Packs.findOne({
@@ -159,6 +157,7 @@ const controller = {
                 });
                 segundoFiltro(producto, datosPack);
                 filtroColores(producto);
+                // datosCategoria.dataValues.id_color = 1;
                 filtroEdiciones(producto);
                 break;
             default:

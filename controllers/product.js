@@ -334,7 +334,7 @@ const controller = {
                 nuevoProducto = await Productos.create(datosProducto);
                 let datosPack = {
                     id_producto: nuevoProducto.id,
-                    modelo: req.body.modelo,
+                    modelo: req.body.modelo||"sin modelo",
                     id_edicion: req.body.id_edicion,
                     id_color: "3",
                 };

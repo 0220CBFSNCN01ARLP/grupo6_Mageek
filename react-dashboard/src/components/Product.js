@@ -1,6 +1,5 @@
 import React from "react";
 
-import dummyProductImg from "../assets/images/product_dummy.svg";
 
 const Product = (props) => {
     let productURL = `http://${props.detail}`
@@ -15,6 +14,7 @@ const Product = (props) => {
                     alt=""
                 />
             </div>
+            <strong>{props.nombre}</strong>
             <p>{props.description}</p>
             <a target="_blank" rel="nofollow" href={productURL}>
                 Detalle del producto
