@@ -2,26 +2,22 @@ import React from "react";
 
 import dummyProductImg from "../assets/images/product_dummy.svg";
 
-const Product = () => {
+const Product = (props) => {
+    let productURL = `http://${props.detail}`
+    let image = `http://localhost:3000/img/${props.imageURL}`;
     return (
         <div className="card-body">
             <div className="text-center">
                 <img
                     className="img-fluid px-3 px-sm-4 mt-3 mb-4"
-                    style={{ width: "25rem" }}
-                    src={dummyProductImg}
+                    style={{ width: "20rem" }}
+                    src={image}
                     alt=""
                 />
             </div>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Dolores, consequatur explicabo officia inventore libero
-                veritatis iure voluptate reiciendis a magnam, vitae, aperiam
-                voluptatum non corporis quae dolorem culpa exercitationem
-                ratione?
-            </p>
-            <a target="_blank" rel="nofollow" href="/">
-                View product detail
+            <p>{props.description}{image}</p>
+            <a target="_blank" rel="nofollow" href={productURL}>
+                Detalle del producto
             </a>
         </div>
     );

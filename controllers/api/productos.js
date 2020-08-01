@@ -49,7 +49,14 @@ function filtroArtes(producto) {
 const controller = {
     list: async function (req, res, next) {
         let productos = { count: "" };
-        var listaProductos = await Productos.findAll();
+        var listaProductos = await Productos.findAll({
+            include: [
+                {
+                    model: Fotos,
+                    as: "fotos",
+                },
+            ],
+        });
         // count (length)
         productos.count = listaProductos.length;
         // countByCategory → objeto literal con una propiedad por categoría con el
@@ -68,7 +75,6 @@ const controller = {
             pack: listaPack.length,
         };
         // ○ products → array con la colección de products, cada uno con:
-        productos.products = listaProductos;
         // ■ id
         // ■ name
         //  de description
@@ -82,11 +88,20 @@ const controller = {
             if (listaProductos[producto].dataValues.borrado) {
                 listaProductos.splice(producto, 1);
             }
+
             listaProductos[
                 producto
             ].dataValues.detail = `localhost:3000/api/productos/${listaProductos[producto].dataValues.id}`;
+            let picArray = [];
+            listaProductos[producto].dataValues.fotos.forEach((pic, index) => {
+                console.log(pic.url);
+                picArray.push(pic.url);
+            });
+            delete listaProductos[producto].dataValues.fotos;
+            listaProductos[producto].dataValues.arrayImagenes = picArray;
         }
-        res.json(productos);
+        productos.products = listaProductos;
+        res.send(productos);
     },
     detail: async function (req, res, next) {
         let arrayOmitidos = ["descripcion", "borrado", "created_at", "updated_at"];
@@ -109,7 +124,7 @@ const controller = {
                     where: { id_producto: producto.dataValues.id },
                     include: [
                         { model: Ediciones, as: "ediciones" },
-                        { model: Colores, as: "colores" },
+                        { model: Colores, as: "Carta_Color" },
                         { model: Tipos, as: "tipos" },
                         { model: Artes, as: "artes" },
                     ],

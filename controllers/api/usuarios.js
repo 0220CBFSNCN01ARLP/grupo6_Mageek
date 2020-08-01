@@ -11,7 +11,6 @@ const controller = {
             "id_pais",
             "id_permiso",
             "numero_identidad",
-            "email",
             "nacimiento",
             "calle",
             "departamento",
@@ -29,9 +28,17 @@ const controller = {
         });
         usuarios.forEach(usuario => {
             usuario.nombre += ` ${usuario.apellido}`
-            delete usuario.apellido;
         });
-        res.send(usuarios);
+        let resultados = { count: usuarios.length }
+        resultados.users = usuarios.map((usuario) => {
+            return {
+                id: usuario.id,
+                nombre: usuario.nombre,
+                email: usuario.email,
+                detail: `http://localhost:3000/api/usuarios/${usuario.id}`
+            }
+        })
+        res.send(resultados);
     },
     detail: async function (req, res, next) {
         let arrayOmitidos = [
