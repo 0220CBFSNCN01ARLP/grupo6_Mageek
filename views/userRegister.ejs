@@ -4,7 +4,7 @@
 <head>
     <%- include("partials/head") %>
     <link rel="stylesheet" href="/stylesheets/style.css" />
-    <!-- <link rel="stylesheet" href="/stylesheets/register.css" /> -->
+    <link rel="stylesheet" href="/stylesheets/register.css" />
 </head>
 
 <body>
@@ -14,7 +14,7 @@
 
     <main>
     <div class="signup-form">
-    <form action="/user/login" method="post">
+    <form action="/user/register" method="post">
 		<h2>lOGIN</h2>
 		<p class="hint-text">Sign up with your social media account or email address</p>
 		<div class="social-btn text-center">
@@ -24,36 +24,64 @@
 		</div>
 		<div class="or-seperator"><b>or</b></div>
         <div class="form-group">
-        	<input type="text" class="form-control input-lg" name="username" placeholder="Username" required="required">
+        	<input type="text" class="form-control input-lg" name="username" placeholder="Nombre de Usuario" required="required">
         </div>
 		<div class="form-group">
-        	<input type="email" class="form-control input-lg" name="email" placeholder="Email Address" required="required">
+        	<input type="email" class="form-control input-lg" name="email" placeholder="Direccion Email" required="required">
         </div>
 		<div class="form-group">
-            <input type="password" class="form-control input-lg" name="password" placeholder="Password" required="required">
+            <input type="password" class="form-control input-lg" name="password" placeholder="Contraseña" required="required">
         </div>
-                    <!-- id_pais -->
-            <select name="id_pais">
-                <% for (let pais of paises) { %>
-                <option value="<%- pais.id %> "><%- pais.pais %> </option>
-                <% } %>
-            </select>
-            <!-- pic -->
-            <div class="input-group">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-  </div>
-  <div class="custom-file">
-    <input type="file" class="custom-file-input" id="inputGroupFile01"
-      aria-describedby="inputGroupFileAddon01">
-    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-  </div>
-</div>
+        <div class="form-group">
+            <input type="password" class="form-control input-lg" name="pass2" placeholder="Confirmar contraseña" required="required">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" name="nombre" placeholder="Nombres" required="required">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" name="apellido" placeholder="Apellidos" required="required">
+        </div>
+        <div class="form-group">
+            <input type="number" class="form-control input-lg" name="numero_identidad" placeholder="Numero De Identidad">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" name="genero" placeholder="Genero">
+        </div>
+        <div class="form-group">
+            <input type="date" class="form-control input-lg" name="nacimiento" placeholder="Nacimiento" required="required">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" name="calle" placeholder="Direccion" required="required">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" name="departamento" placeholder="Departamento">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" name="localidad" placeholder="Localidad" required="required">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control input-lg" name="provincia" placeholder="Provincia" required="required">
+        </div>
+        <!-- id_pais -->
+        <select class="form-group browser-default custom-select custom-select-sm" name="id_pais" required="required">
+            <option value="" disabled selected>Nacionalidad</option>
+            <% for (let pais of paises) { %>
+            <option value="<%- pais.id %> "><%- pais.pais %> </option>
+            <% } %>
+        </select>
+        <!-- pic -->
+        <div class="form-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+            </div>
+        </div>
         <div class="form-group">
             <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Login</button>
         </div>
     </form>
-    <div class="text-center">No tienes cuenta? <a href="/user/register">Registrate aqui</a></div>
+    <div class="text-center">Ya tiene cuenta? <a href="/user/login">Ingresa aqui</a></div>
 </div>
     </main>
 

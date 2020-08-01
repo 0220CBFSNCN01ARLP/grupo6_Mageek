@@ -9,4 +9,11 @@
             <div class="form-group">
                 <label for="pic">Foto de perfil</label>
                 <input type="file" class="pic" name="pic" id="pic">
-            </div>
+            </div>*/
+select{
+    border-radius: 30px!important;
+    height: 40px!important;
+}
+.custom-file{
+    border-radius: 30px!important;
+}

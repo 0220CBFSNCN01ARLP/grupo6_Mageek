@@ -44,7 +44,7 @@ Tipos de cartas.
 10. Némesis
 11. Commander
 
-
+USE `mageek`
 # Sacar columna 'borrado' de packs (superflua)
 alter table packs
 drop borrado;

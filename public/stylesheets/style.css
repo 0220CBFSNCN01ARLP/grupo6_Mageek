@@ -11,6 +11,9 @@ body {
 	}
 	.form-control:focus {
         border-color: #5cb85c;
+	}
+	.browser-default:focus {
+        border-color: #5cb85c;
     }
     .form-control, .btn {
         border-radius: 50px;
