@@ -44,16 +44,29 @@ Tipos de cartas.
 10. Némesis
 11. Commander
 
+
 # Sacar columna 'borrado' de packs (superflua)
-alter table "packs" drop "borrado"
-
+alter table packs
+drop borrado;
 # Categorías
-update categorias set categoria="blister" where id=1
-update categorias set categoria="carta" where id=2
-update categorias set categoria="dado" where id=3
-update categorias set categoria="folio" where id=4
-update categorias set categoria="pack" where id=5
-
+USE mageek;
+update categorias set categoria="blister" where id=1;
+update categorias set categoria="carta" where id=2;
+update categorias set categoria="dado" where id=3;
+update categorias set categoria="folio" where id=4;
+update categorias set categoria="pack" where id=5;
 # sacar constraint unique en color de dados
-alter table dados
+ALTER TABLE dados
 modify column   `color` varchar(50) collate utf8_unicode_ci not null;
+# actualizar tipos
+update tipos set tipo="Equipo" where id=1;
+update tipos set tipo="Tierra" where id=2;
+update tipos set tipo="Encantamiento" where id=3;
+update tipos set tipo="Instantáneo" where id=4;
+update tipos set tipo="Criatura" where id=5;
+update tipos set tipo="Conjuro" where id=6;
+update tipos set tipo="Planeswalker" where id=7;
+update tipos set tipo="Plano" where id=8;
+update tipos set tipo="Evento" where id=9;
+update tipos set tipo="Némesis" where id=10;
+update tipos set tipo="Commander" where id=11;

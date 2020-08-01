@@ -37,7 +37,8 @@ const controller = {
                 id_producto: product.id,
             },
         });
-        let detalle = await getDetails(product);
+        console.log(product.dataValues.categorias)
+        let detalle = await getDetails(product,res);
         console.log(detalle);
         res.render("detalle-producto", {
             product: product,

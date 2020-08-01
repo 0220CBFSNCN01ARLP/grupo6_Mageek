@@ -6,7 +6,10 @@ const Category = (props) => {
     return (
         <div className={`${ancho} mb-4`}>
             <div className={`card bg-${props.color} text-white shadow`}>
-                <div className="card-body">{props.categoria} </div>
+                <div className="card-body">
+                    {props.categoria}
+                    <span className="float-right">|  {props.cantidad}</span>{" "}
+                </div>
             </div>
         </div>
     );

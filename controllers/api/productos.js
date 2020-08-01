@@ -57,8 +57,6 @@ const controller = {
                 },
             ],
         });
-        // count (length)
-        productos.count = listaProductos.length;
         // countByCategory → objeto literal con una propiedad por categoría con el
         // total de productos
         let listaBlister = await Blisters.findAll();
@@ -67,6 +65,8 @@ const controller = {
         let listaFolio = await Folios.findAll();
         let listaPack = await Packs.findAll();
 
+        // count (length)
+        productos.count = listaProductos.length;
         productos.countByCategory = {
             blister: listaBlister.length,
             carta: listaCarta.length,
@@ -100,7 +100,14 @@ const controller = {
             delete listaProductos[producto].dataValues.fotos;
             listaProductos[producto].dataValues.arrayImagenes = picArray;
         }
-        productos.products = listaProductos;
+        productos.products = listaProductos.sort((a, b) => {
+            if (a.dataValues.id > b.dataValues.id) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        // let listaOrdenada =  listaOrdenada;
         res.send(productos);
     },
     detail: async function (req, res, next) {
@@ -168,6 +175,8 @@ const controller = {
         let fotos = await Fotos.findAll({ where: { id_producto: req.params.id } });
         if (fotos.length > 0) {
             producto.dataValues.foto = fotos[0].dataValues.url;
+        } else {
+            producto.dataValues.foto = null;
         }
         res.send(producto);
     },

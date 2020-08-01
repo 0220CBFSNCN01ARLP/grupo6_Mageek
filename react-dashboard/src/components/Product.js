@@ -4,7 +4,7 @@ import dummyProductImg from "../assets/images/product_dummy.svg";
 
 const Product = (props) => {
     let productURL = `http://${props.detail}`
-    let image = `http://localhost:3000/img/${props.imageURL}`;
+    let image = `http://localhost:3000/img/product/${props.imageURL}`;
     return (
         <div className="card-body">
             <div className="text-center">

@@ -3,6 +3,11 @@ export async function getProducts() {
     const productsResult = await productList.json();
     return productsResult.products;
 }
+export async function getCategoryAmounts() {
+    const productList = await fetch("http://localhost:3000/api/productos");
+    const productsResult = await productList.json();
+    return productsResult.countByCategory;
+}
 // export async function getSales() {
 //     const productList = await fetch("http://localhost:3000/api/productos");
 // }

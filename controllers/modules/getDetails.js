@@ -14,8 +14,9 @@ const {
 } = require("../../database/models");
 const { response } = require("../../app");
 
-const getDetails = async function getDetails(product) {
+const getDetails = async function getDetails(product, res) {
     let detalle;
+    console.log(product.dataValues.categorias.dataValues.categoria)
     switch (product.categorias.categoria) {
         case "blister":
             detalle = await Blisters.findOne({
@@ -92,7 +93,7 @@ const getDetails = async function getDetails(product) {
             return detalle;
 
         default:
-            res.send("no u wont")
+            res.send(product)
     }
 };
 module.exports = getDetails;
