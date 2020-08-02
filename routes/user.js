@@ -71,7 +71,7 @@ router.get("/account", mwLoggedIn, controller.account);
 
 // Edit user
 router.get("/edit/:id", mwLoggedIn, controller.editor);
-router.put("/edit/:id", mwLoggedIn, controller.logEdit);
+router.patch("/edit/:id", mwLoggedIn, controller.logEdit);
 
 // Failed Register
 router.get("/registerFailed", function (req,res,next) {

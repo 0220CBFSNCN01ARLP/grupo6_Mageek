@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING(50),
                 unique: true,
             },
-            multicolor: { type: DataTypes.INTEGER(1) },
         },
         {
             tableName: "colores",

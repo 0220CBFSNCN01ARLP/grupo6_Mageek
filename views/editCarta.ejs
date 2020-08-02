@@ -14,23 +14,23 @@
     </header>
     <main>
         <h1>Agrega tu producto</h1>
-        <form method="POST" enctype="multipart/form-data" action="/product/create" id="mainForm">
+        <form method="POST" enctype="multipart/form-data" action="/product/<%- product.id %>/update" id="mainForm">
             <!-- name -->
             <div class="form-group">
-                <label for="nombre">Nombre de producto</label>
+                <label for="nombre">Nombre </label>
                 <input type="text" class="form-control" id="nombre" name="nombre"
-                    placeholder="Ej: Manual del Jugador Dungeons & Dragons 3.5">
+                    placeholder="Ej: Manual del Jugador Dungeons & Dragons 3.5" value="<%- product.nombre %>">
             </div>
 
             <!-- price, number -->
             <div class="form-group">
-                <label for="precio">Precio del producto</label>
-                <input type="number" step="any" name="precio" class="form-control" id="precio" placeholder="Ej: 150.50">
+                <label for="precio">Precio</label>
+                <input type="number" step="any" name="precio" class="form-control" id="precio" placeholder="Ej: 150.50" value="<%- product.precio %>" >
             </div>
             <!-- stock -->
             <div class="form-group">
                 <label for="stock">Stock</label>
-                <input type="number" name="stock" class="form-control" id="stock" placeholder="Stock">
+                <input type="number" min="0" name="stock" class="form-control" id="stock" placeholder="Stock" value="<%- product.stock %>">
             </div>
             <div class="invalid-feedback">Example invalid custom select feedback</div>
 
@@ -38,7 +38,7 @@
             <div class="form-group">
                 <label for="descripcion">Descripción</label>
                 <textarea name="descripcion" class="form-control" id="descripcion" rows="3"
-                    placeholder="Condiciones, detalles, consideraciones varias."></textarea>
+                    placeholder="Condiciones, detalles, consideraciones varias."><%- product.descripcion %></textarea>
             </div>
             <span class="hide" id="carta">
                 <!-- tipo -->
@@ -46,45 +46,45 @@
                     <label for="tipo">Tipo</label>
                     <select name="id_tipo">
                         <% for (let tipo of tipos) { %>
-                        <option value="<%- tipo.id %>"><%- tipo.tipo %></option>
+                        <option <% if (tipo.dataValues.id == detalle.dataValues.id_tipo) { %> selected <% } %> value="<%- tipo.dataValues.id %>"><%- tipo.dataValues.tipo %></option>
                         <% } %>
                     </select>
                 </div>
                 <!-- subtipo -->
                 <div class="form-group">
                     <label for="subtipo">Subtipo</label>
-                    <input type="text" name="subtipo" class="form-control" id="subtipo" placeholder="subtipo">
+                    <input type="text" name="subtipo" class="form-control" id="subtipo" value="<%- detalle.dataValues.subtipo %>"placeholder="subtipo">
                 </div>
                 <!-- oracle -->
                 <div class="form-group">
                     <label for="oracle">Oracle text</label>
-                    <input type="text" name="oracle" class="form-control" id="oracle" placeholder="oracle">
+                    <input type="text" name="oracle" class="form-control" id="oracle" placeholder="oracle" value="<%- detalle.dataValues.oracle %>">
                 </div>
                 <!-- flavortext -->
                 <div class="form-group">
                     <label for="flavortext">Flavortext</label>
-                    <input type="text" name="flavortext" class="form-control" id="flavortext" placeholder="flavortext">
+                    <input type="text" name="flavortext" class="form-control" id="flavortext" placeholder="flavortext" value="<%- detalle.dataValues.flavortext %>">
                 </div>
                 <!-- mana -->
                 <div class="form-group">
                     <label for="mana">Mana</label>
-                    <input type="text" name="mana" class="form-control" id="mana" placeholder="mana">
+                    <input type="text" name="mana" class="form-control" id="mana" placeholder="mana" value="<%- detalle.dataValues.mana %>">
                 </div>
                 <!-- ataque -->
                 <div class="form-group">
                     <label for="ataque">Ataque</label>
-                    <input type="text" name="ataque" class="form-control" id="ataque" placeholder="ataque">
+                    <input type="text" name="ataque" class="form-control" id="ataque" placeholder="ataque" value="<%- detalle.dataValues.ataque %>">
                 </div>
                 <!-- defensa -->
                 <div class="form-group">
                     <label for="defensa">Defensa</label>
-                    <input type="text" name="defensa" class="form-control" id="defensa" placeholder="defensa">
+                    <input type="text" name="defensa" class="form-control" id="defensa" placeholder="defensa" value="<%- detalle.dataValues.defensa %>">
                 </div>
                 <div class="form-group">
                     <label for="id_edicion">Edición</label><br>
                     <select name="id_edicion">
                         <% for (let edicion of ediciones) { %>
-                        <option value="<%- edicion.id %> "><%- edicion.nombre %> - <%- edicion.anio %> </option>
+                        <option <% if (edicion.dataValues.id == detalle.dataValues.id_edicion) { %> selected <% } %> value="<%- edicion.dataValues.id %>"><%- edicion.dataValues.edicion %></option>
                         <% } %>
                     </select>
                 </div>
@@ -93,7 +93,7 @@
                     <label for="id_arte">Artista</label><br>
                     <select name="id_arte">
                         <% for (let arte of artes) { %>
-                        <option value="<%- arte.id %>"><%- arte.artista %></option>
+                        <option <% if (arte.dataValues.id == detalle.dataValues.id_arte) { %> selected <% } %> value="<%- arte.dataValues.id %>"><%- arte.dataValues.artista %></option>
                         <% } %>
                     </select>
                 </div>
@@ -129,7 +129,7 @@
                     <input type="file" name="pic" class="form-control-file" id="prodPics" multiple>
                 </div>
                 <input type="hidden" name="id_categoria" value="1">
-                <button type="submit">Crear producto</button>
+                <button type="submit">Editar producto</button>
             </span>
         </form>
 

@@ -74,3 +74,50 @@ update tipos set tipo="Plano" where id=8;
 update tipos set tipo="Evento" where id=9;
 update tipos set tipo="Némesis" where id=10;
 update tipos set tipo="Commander" where id=11;
+# insertar colores nuevos
+SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS `colores`;
+CREATE TABLE `colores` (
+  `id` int(12) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `color` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (100000, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (010000, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'blanco');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (001000, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'negro');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (000100, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'rojo');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (000010, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (000001, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'incoloro');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (110000, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_blanco');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (101000, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_negro');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (100100, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_rojo');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (100010, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (011000, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'blanco_negro');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (010100, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'blanco_rojo');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (010010, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'blanco_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (001100, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'negro_rojo');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (001010, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'negro_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (000110, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'rojo_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (111000, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_blanco_negro');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (110100, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_blanco_rojo');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (110010, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_blanco_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (101100, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_negro_rojo');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (101010, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_negro_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (100110, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_rojo_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (011100, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'blanco_negro_rojo');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (011010, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'blanco_negro_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (010110, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'blanco_rojo_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (001110, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'negro_rojo_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (111100, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_blanco_negro_rojo');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (111010, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_blanco_negro_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (110110, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_blanco_rojo_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (101110, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_negro_rojo_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (011110, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'blanco_negro_rojo_verde');
+INSERT INTO `colores` (`id`, `created_at`, `updated_at`, `color`) VALUES (111110, '2006-09-10 11:40:45', '1972-02-17 21:43:20', 'azul_blanco_negro_rojo_verde');
+
+SET FOREIGN_KEY_CHECKS=1;
+
+

@@ -29,10 +29,11 @@ function filtroEdiciones(producto) {
     delete producto.dataValues.id_edicion;
 }
 function filtroColores(producto) {
-    producto.dataValues.color = producto.dataValues.colores.color;
-    delete producto.dataValues.colores;
-    delete producto.dataValues.id_producto;
-    delete producto.dataValues.id_color;
+    console.log(producto.dataValues)
+    // producto.dataValues.color = producto.dataValues.colores.color;
+    // delete producto.dataValues.colores;
+    // delete producto.dataValues.id_producto;
+    // delete producto.dataValues.id_color;
 }
 function filtroTipos(producto) {
     producto.dataValues.tipo = producto.dataValues.tipos.tipo;

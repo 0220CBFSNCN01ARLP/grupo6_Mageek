@@ -33,7 +33,7 @@ module.exports = router;
 // UPDATE
 
 router.get("/:id/update", mwLoggedIn, controller.update);
-router.put("/:id/update", mwLoggedIn, controller.stash);
+router.patch("/:id/update", mwLoggedIn, controller.stash);
 
 // DESTROY
 router.get("/:id/delete", mwLoggedIn, controller.delete);

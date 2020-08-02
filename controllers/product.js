@@ -16,7 +16,7 @@ const {
 } = require("../database/models");
 const { info, exception } = require("console");
 const getDetails = require(path.join(__dirname, "..", "controllers", "modules", "getDetails"));
-
+const { setColorValue } = require(path.join(__dirname, "..", "controllers", "modules", "colorService"));
 const controller = {
     none: async function (req, res, next) {
         res.redirect("/");
@@ -28,9 +28,7 @@ const controller = {
         });
         if (!product) res.send("product doesn't exist"); // PRODUCT 404
         let pictures = await Fotos.findAll({
-            where: {
-                id_producto: product.id,
-            },
+            where: { id_producto: product.id, },
         });
         console.log(product.dataValues.categorias);
         let detalle = await getDetails(product, res);
@@ -41,43 +39,35 @@ const controller = {
             detalle: detalle,
         });
     },
-    create: async function (req, res, next) {
-        //goes to add page, GET
-        let artes = await Artes.findAll();
-        let categorias = await Categorias.findAll();
-        let colores = await Colores.findAll();
-        let ediciones = await Ediciones.findAll();
-        let tipos = await Tipos.findAll();
-        artes.sort((a, b) => {
-            if (a.artista > b.artista) {
-                return 1;
-            }
-            if (a.artista < b.artista) {
-                return -1;
-            }
-            return 0;
-        });
-        categorias.sort();
-        colores.sort();
-        ediciones.sort();
-        console.log(typeof tipos);
-        tipos.sort((a, b) => {
-            if (a.tipo > b.tipo) {
-                return 1;
-            }
-            if (a.tipo < b.tipo) {
-                return -1;
-            }
-            return 0;
-        });
-        res.render("addProduct", {
-            artes: artes,
-            categorias: categorias,
-            colores: colores,
-            ediciones: ediciones,
-            tipos: tipos,
-        });
-    },
+    // create: async function (req, res, next) {
+    //     //goes to add page, GET
+    //     let artes = await Artes.findAll();
+    //     let categorias = await Categorias.findAll();
+    //     let colores = await Colores.findAll();
+    //     let ediciones = await Ediciones.findAll();
+    //     let tipos = await Tipos.findAll();
+    //     artes.sort((a, b) => {
+    //         if (a.artista > b.artista) { return 1; }
+    //         if (a.artista < b.artista) { return -1; }
+    //         return 0;
+    //     });
+    //     categorias.sort();
+    //     colores.sort();
+    //     ediciones.sort();
+    //     console.log(typeof tipos);
+    //     tipos.sort((a, b) => {
+    //         if (a.tipo > b.tipo) { return 1; }
+    //         if (a.tipo < b.tipo) { return -1; }
+    //         return 0;
+    //     });
+    //     res.render("addProduct", {
+    //         artes: artes,
+    //         categorias: categorias,
+    //         colores: colores,
+    //         ediciones: ediciones,
+    //         tipos: tipos,
+    //     });
+    // },
     createOnCategory: async function (req, res, next) {
         let artes = await Artes.findAll();
         let categorias = await Categorias.findAll();
@@ -85,32 +75,20 @@ const controller = {
         let ediciones = await Ediciones.findAll();
         let tipos = await Tipos.findAll();
         artes.sort((a, b) => {
-            if (a.artista > b.artista) {
-                return 1;
-            }
-            if (a.artista < b.artista) {
-                return -1;
-            }
+            if (a.artista > b.artista) { return 1; }
+            if (a.artista < b.artista) { return -1; }
             return 0;
         });
         categorias.sort();
         colores.sort();
         ediciones.sort((a, b) => {
-            if (a.nombre > b.nombre) {
-                return 1;
-            }
-            if (a.nombre < b.nombre) {
-                return -1;
-            }
+            if (a.nombre > b.nombre) { return 1; }
+            if (a.nombre < b.nombre) { return -1; }
             return 0;
         });
         tipos.sort((a, b) => {
-            if (a.tipo > b.tipo) {
-                return 1;
-            }
-            if (a.tipo < b.tipo) {
-                return -1;
-            }
+            if (a.tipo > b.tipo) {return 1;}
+            if (a.tipo < b.tipo) {return -1;}
             return 0;
         });
         let categoria = "";
@@ -140,34 +118,6 @@ const controller = {
             ediciones: ediciones,
             tipos: tipos,
         });
-        // validate
-        // console.log(req.body);
-        // for (let campo in req.body) {
-        //     if (!req.body[campo].trim()) {
-        //         res.send(`El campo ${campo} está vacío.`);
-        //     }
-        // }
-        // await Productos.create(req.body);
-        // let product = await Productos.findOne({
-        //     where: {
-        //         nombre: req.body.nombre,
-        //     },
-        //     include: [
-        //         {
-        //             model: Categorias,
-        //             as: "categorias",
-        //         },
-        //     ],
-        // });
-        // req.files.forEach(async function (file) {
-        //     let foto = await Fotos.create({
-        //         created_at: Date.now(),
-        //         url: file.filename,
-        //         id_producto: product.id,
-        //     });
-        // });
-        // let productPath = "/product/" + product.id;
-        // res.redirect(productPath);
     },
     save: async function (req, res, next) {
         let datosProducto = {
@@ -246,6 +196,15 @@ const controller = {
                     where: { id: nuevoProducto.id },
                     include: [{ model: Categorias, as: "categorias" }],
                 });
+                let colors = [
+                    req.body.azul,
+                    req.body.blanco,
+                    req.body.negro,
+                    req.body.rojo,
+                    req.body.verde,
+                    req.body.incoloro,
+                ];
+                let idColores = setColorValue(colors);
                 let datosCarta = {
                     id_tipo: req.body.id_tipo,
                     subtipo: req.body.subtipo||" ",
@@ -256,15 +215,10 @@ const controller = {
                     defensa: req.body.defensa||" ",
                     id_edicion: req.body.id_edicion,
                     id_arte: req.body.id_arte,
-                    id_color: "3",
+                    id_color: idColores,
                     id_producto: product.id,
                 };
-                let colores = ["azul", "blanco", "negro", "rojo", "verde", "incoloro"];
-                colores.forEach((color) => {
-                    if (req.body[color]) {
-                        datosCarta[color] = true;
-                    }
-                });
+
                 let nuevaCarta = await Cartas.create(datosCarta);
 
                 req.files.forEach(async function (file) {
@@ -388,39 +342,52 @@ const controller = {
     },
     update: async function (req, res, next) {
         const product = await Productos.findByPk(req.params.id, {
-            include: [
-                {
-                    model: Categorias,
-                    as: "categorias",
-                },
-            ],
+            include: [{ model: Categorias, as: "categorias", },],
         });
         const categorias = await Categorias.findAll();
-        res.render("editProduct", {
-            producto: product,
+        const tipos = await Tipos.findAll();
+        const artes = await Artes.findAll();
+        const ediciones = await Ediciones.findAll();
+        let linkCategoria = product.categorias.dataValues.categoria[0].toUpperCase();
+        linkCategoria += product.categorias.dataValues.categoria.slice(
+            1,
+            product.categorias.dataValues.categoria.length
+        );
+        let detalle;
+        detalle = await getDetails(product, res);
+        console.log(detalle.dataValues)
+        res.render(`edit${linkCategoria}`, {
+            product: product.dataValues,
             categorias: categorias,
+            tipos: tipos,
+            detalle: detalle,
+            ediciones: ediciones,
+            artes: artes,
         });
     },
     stash: async function (req, res, next) {
         let product = await Productos.findByPk(req.params.id, {
-            include: [
-                {
-                    model: Categorias,
-                    as: "categorias",
-                },
-            ],
+            include: [{ model: Categorias, as: "categorias", },],
         });
-        for (let campo in req.body) {
-            product[campo] = req.body[campo];
+        let colors = {
+            azul: req.body.azul,
+            blanco: req.body.blanco,
+            negro: req.body.negro,
+            rojo: req.body.rojo,
+            verde: req.body.verde,
+            incoloro: req.body.incoloro,
         }
-        await product.save();
-        let pictures = await Fotos.findAll({
-            where: {
-                id_producto: product.id,
-            },
-        });
+        product.color = setColorValue(colors);
+        console.log (product.color)
+        for (let campo in req.body) { product[campo] = req.body[campo]; }
+        // await product.save();
+        // let pictures = await Fotos.findAll({
+        //     where: {
+        //         id_producto: product.id,
+        //     },
+        // });
         let detalle;
-        getDetails(product);
+        getDetails(product,res);
 
         console.log(detalle);
         res.render("detalle-producto", {
