@@ -19,7 +19,15 @@ const { setColorValue, prepareColors } = require("./modules/colorService");
 const { getDetails, saveDetails } = require("./modules/categoryDataService");
 const controller = {
     none: async function (req, res, next) {
-        res.redirect("/");
+        let allProducts = await Productos.findAll();
+        let productList = [];
+        for (let i = 0; i < 10; i++){
+            productList.push(allProducts[i]);
+        }
+        // res.send(productList);
+        res.render("/product", {
+            productList: productList,
+        });
     },
     product: async function (req, res) {
         // load product
@@ -75,53 +83,41 @@ const controller = {
         let ediciones = await Ediciones.findAll();
         let tipos = await Tipos.findAll();
         artes.sort((a, b) => {
-            if (a.artista > b.artista) {
-                return 1;
-            }
-            if (a.artista < b.artista) {
-                return -1;
-            }
+            if (a.artista > b.artista) {return 1;}
+            if (a.artista < b.artista) {return -1;}
             return 0;
         });
         categorias.sort();
         colores.sort();
         ediciones.sort((a, b) => {
-            if (a.nombre > b.nombre) {
-                return 1;
-            }
-            if (a.nombre < b.nombre) {
-                return -1;
-            }
+            if (a.nombre > b.nombre) {return 1;}
+            if (a.nombre < b.nombre) {return -1;}
             return 0;
         });
         tipos.sort((a, b) => {
-            if (a.tipo > b.tipo) {
-                return 1;
-            }
-            if (a.tipo < b.tipo) {
-                return -1;
-            }
+            if (a.tipo > b.tipo) {return 1;}
+            if (a.tipo < b.tipo) {return -1;}
             return 0;
         });
         let categoria = "";
         switch (req.params.id) {
-            case "0":
+            case "1":
                 categoria = "Blister";
                 break;
-            case "1":
+            case "2":
                 categoria = "Carta";
                 break;
-            case "2":
+            case "3":
                 categoria = "Dado";
                 break;
-            case "3":
+            case "4":
                 categoria = "Folio";
                 break;
-            case "4":
+            case "5":
                 categoria = "Pack";
                 break;
             default:
-                res.send("default en el switch");
+                res.redirect("/error404");
         }
         res.render(`add${categoria}`, {
             artes: artes,
@@ -148,7 +144,13 @@ const controller = {
             "ataque",
             "defensa",
         ];
-        excepciones.forEach((excepcion, i) => {
+        let flavortext = req.body.flavortext;
+        let oracle = req.body.oracle;
+        let mana = req.body.mana;
+        let subtipo = req.body.subtipo;
+        let ataque = req.body.ataque;
+        let defensa = req.body.defensa;
+        excepciones.forEach(excepcion => {
             datosProducto[excepcion] = infoValidacion[excepcion];
             delete infoValidacion[excepcion];
         });
@@ -174,7 +176,7 @@ const controller = {
         let product;
         let productPath;
         switch (infoValidacion.id_categoria) {
-            case "0": // Blister
+            case "1": // Blister
                 datosProducto.id_categoria = "1";
                 nuevoProducto = await Productos.create(datosProducto);
                 let datosBlister = {
@@ -199,11 +201,11 @@ const controller = {
                 res.redirect(productPath);
                 break;
 
-            case "1": // Carta magic
+            case "2": // Carta magic
+            console.log("got to cartas");
+            console.log(req.body);
                 datosProducto.id_categoria = "2";
                 nuevoProducto = await Productos.create(datosProducto);
-                console.log(req.body);
-                console.log(infoValidacion);
                 product = await Productos.findOne({
                     where: { id: nuevoProducto.id },
                     include: [{ model: Categorias, as: "categorias" }],
@@ -216,18 +218,18 @@ const controller = {
                     req.body.verde,
                     req.body.incoloro,
                 ];
-                let idColores = setColorValue(colors);
+                let idColors = setColorValue(colors);
                 let datosCarta = {
                     id_tipo: req.body.id_tipo,
-                    subtipo: req.body.subtipo || " ",
-                    oracle: req.body.oracle,
-                    flavortext: req.body.flavortext,
-                    mana: req.body.mana,
-                    ataque: req.body.ataque || " ",
-                    defensa: req.body.defensa || " ",
+                    subtipo: subtipo || " ",
+                    oracle: oracle,
+                    flavortext: flavortext,
+                    mana: mana,
+                    ataque: ataque || " ",
+                    defensa: defensa || " ",
                     id_edicion: req.body.id_edicion,
                     id_arte: req.body.id_arte,
-                    id_color: idColores,
+                    id_color: idColors,
                     id_producto: product.id,
                 };
 
@@ -244,7 +246,7 @@ const controller = {
                 res.redirect(productPath);
                 break;
 
-            case "2": // Dado
+            case "3": // Dado
                 datosProducto.id_categoria = "3";
                 nuevoProducto = await Productos.create(datosProducto);
                 let datosDado = {
@@ -269,7 +271,7 @@ const controller = {
                 res.redirect(productPath);
                 break;
 
-            case "3": // Folio
+            case "4": // Folio
                 datosProducto.id_categoria = "4";
                 nuevoProducto = await Productos.create(datosProducto);
                 let datosFolio = {
@@ -295,14 +297,23 @@ const controller = {
                 res.redirect(productPath);
                 break;
 
-            case "4": // Pack
+            case "5": // Pack
                 datosProducto.id_categoria = "5";
+                let colores = [
+                    req.body.azul,
+                    req.body.blanco,
+                    req.body.negro,
+                    req.body.rojo,
+                    req.body.verde,
+                    req.body.incoloro,
+                ];
+                let idColores = setColorValue(colores);
                 nuevoProducto = await Productos.create(datosProducto);
                 let datosPack = {
                     id_producto: nuevoProducto.id,
                     modelo: req.body.modelo || "sin modelo",
                     id_edicion: req.body.id_edicion,
-                    id_color: "3",
+                    id_color: idColores,
                 };
                 let nuevoPack = await Packs.create(datosPack);
 
@@ -368,12 +379,20 @@ const controller = {
         let detalle = await getDetails(product, res);
         let arrayColores = prepareColors(detalle.dataValues.id_color);
         ediciones.sort((a, b) => {
-            if (a.dataValues.anio < b.dataValues.anio) {return 1;}
-            if (a.dataValues.anio > b.dataValues.anio) {return -1;}
+            if (a.dataValues.anio < b.dataValues.anio) {
+                return 1;
+            }
+            if (a.dataValues.anio > b.dataValues.anio) {
+                return -1;
+            }
         });
         artes.sort((a, b) => {
-            if (a.dataValues.artista > b.dataValues.artista) {return 1;}
-            if (a.dataValues.artista < b.dataValues.artista) {return -1;}
+            if (a.dataValues.artista > b.dataValues.artista) {
+                return 1;
+            }
+            if (a.dataValues.artista < b.dataValues.artista) {
+                return -1;
+            }
         });
         res.render(`edit${linkCategoria}`, {
             product: product.dataValues,

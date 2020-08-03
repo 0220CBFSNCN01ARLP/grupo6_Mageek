@@ -6,6 +6,9 @@ const Product = (props) => {
     let image = `http://localhost:3000/img/product/${props.imageURL}`;
     return (
         <div className="card-body">
+            <p>
+                <strong>{props.name}</strong>
+            </p>
             <div className="text-center">
                 <img
                     className="img-fluid px-3 px-sm-4 mt-3 mb-4"
@@ -14,7 +17,6 @@ const Product = (props) => {
                     alt=""
                 />
             </div>
-            <strong>{props.nombre}</strong>
             <p>{props.description}</p>
             <a target="_blank" rel="nofollow" href={productURL}>
                 Detalle del producto

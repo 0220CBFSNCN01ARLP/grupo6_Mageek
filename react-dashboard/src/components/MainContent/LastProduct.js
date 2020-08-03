@@ -17,6 +17,7 @@ class LastProduct extends Component {
         this.stateInterval = setInterval(this.updateState.bind(this), 10 * 1000);
     }
     render() {
+        let productName = this.state.product.nombre;
         let productDescription = this.state.product.descripcion;
         let productDetail = this.state.product.detail;
         console.log(this.state.lastImage);
@@ -30,6 +31,7 @@ class LastProduct extends Component {
                         </h6>
                     </div>
                     <Product
+                        name={productName}
                         description={productDescription}
                         detail={productDetail}
                         imageURL={lastProductImg}
