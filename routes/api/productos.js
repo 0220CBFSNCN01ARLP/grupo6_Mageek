@@ -3,6 +3,9 @@ const router = express.Router();
 let apiProductosController = require(__dirname + "/../../controllers/api/productos");
 
 router.get("/", apiProductosController.list); //all
+router.patch("/", function(req, res, next){
+    res.send(req.body);
+}); //all
 router.get("/:id", apiProductosController.detail); //detalle
 router.post("/crear", apiProductosController.create); //crear
 router.patch("/:id/actualizar", apiProductosController.update); //actualizar

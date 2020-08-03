@@ -13,6 +13,22 @@ const colorService = {
             return null;
         }
     },
+    prepareColors: function (colors) {
+        colors = colors.toString();
+        while (colors.length < 6) {
+            colors = "0" + colors;
+        }
+        let arrayColores = [
+            colors[0],
+            colors[1],
+            colors[2],
+            colors[3],
+            colors[4],
+            colors[5],
+        ];
+        console.log(arrayColores)
+        return arrayColores;
+    }
 };
 
 module.exports = colorService;

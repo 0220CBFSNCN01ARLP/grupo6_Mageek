@@ -15,8 +15,8 @@ const {
     Tipos,
 } = require("../database/models");
 const { info, exception } = require("console");
-const getDetails = require(path.join(__dirname, "..", "controllers", "modules", "getDetails"));
-const { setColorValue } = require(path.join(__dirname, "..", "controllers", "modules", "colorService"));
+const { setColorValue, prepareColors } = require("./modules/colorService");
+const { getDetails, saveDetails } = require("./modules/categoryDataService");
 const controller = {
     none: async function (req, res, next) {
         res.redirect("/");
@@ -28,7 +28,7 @@ const controller = {
         });
         if (!product) res.send("product doesn't exist"); // PRODUCT 404
         let pictures = await Fotos.findAll({
-            where: { id_producto: product.id, },
+            where: { id_producto: product.id },
         });
         console.log(product.dataValues.categorias);
         let detalle = await getDetails(product, res);
@@ -75,20 +75,32 @@ const controller = {
         let ediciones = await Ediciones.findAll();
         let tipos = await Tipos.findAll();
         artes.sort((a, b) => {
-            if (a.artista > b.artista) { return 1; }
-            if (a.artista < b.artista) { return -1; }
+            if (a.artista > b.artista) {
+                return 1;
+            }
+            if (a.artista < b.artista) {
+                return -1;
+            }
             return 0;
         });
         categorias.sort();
         colores.sort();
         ediciones.sort((a, b) => {
-            if (a.nombre > b.nombre) { return 1; }
-            if (a.nombre < b.nombre) { return -1; }
+            if (a.nombre > b.nombre) {
+                return 1;
+            }
+            if (a.nombre < b.nombre) {
+                return -1;
+            }
             return 0;
         });
         tipos.sort((a, b) => {
-            if (a.tipo > b.tipo) {return 1;}
-            if (a.tipo < b.tipo) {return -1;}
+            if (a.tipo > b.tipo) {
+                return 1;
+            }
+            if (a.tipo < b.tipo) {
+                return -1;
+            }
             return 0;
         });
         let categoria = "";
@@ -136,9 +148,9 @@ const controller = {
             "ataque",
             "defensa",
         ];
-        excepciones.forEach((excepcion,i) => {
+        excepciones.forEach((excepcion, i) => {
             datosProducto[excepcion] = infoValidacion[excepcion];
-            delete infoValidacion[excepcion]
+            delete infoValidacion[excepcion];
         });
         function validacionGeneral(info) {
             let errores = "";
@@ -207,12 +219,12 @@ const controller = {
                 let idColores = setColorValue(colors);
                 let datosCarta = {
                     id_tipo: req.body.id_tipo,
-                    subtipo: req.body.subtipo||" ",
+                    subtipo: req.body.subtipo || " ",
                     oracle: req.body.oracle,
                     flavortext: req.body.flavortext,
                     mana: req.body.mana,
-                    ataque: req.body.ataque||" ",
-                    defensa: req.body.defensa||" ",
+                    ataque: req.body.ataque || " ",
+                    defensa: req.body.defensa || " ",
                     id_edicion: req.body.id_edicion,
                     id_arte: req.body.id_arte,
                     id_color: idColores,
@@ -288,7 +300,7 @@ const controller = {
                 nuevoProducto = await Productos.create(datosProducto);
                 let datosPack = {
                     id_producto: nuevoProducto.id,
-                    modelo: req.body.modelo||"sin modelo",
+                    modelo: req.body.modelo || "sin modelo",
                     id_edicion: req.body.id_edicion,
                     id_color: "3",
                 };
@@ -341,21 +353,28 @@ const controller = {
         res.redirect(link);
     },
     update: async function (req, res, next) {
-        const product = await Productos.findByPk(req.params.id, {
-            include: [{ model: Categorias, as: "categorias", },],
-        });
         const categorias = await Categorias.findAll();
         const tipos = await Tipos.findAll();
         const artes = await Artes.findAll();
         const ediciones = await Ediciones.findAll();
+        const product = await Productos.findByPk(req.params.id, {
+            include: [{ model: Categorias, as: "categorias" }],
+        });
         let linkCategoria = product.categorias.dataValues.categoria[0].toUpperCase();
         linkCategoria += product.categorias.dataValues.categoria.slice(
             1,
             product.categorias.dataValues.categoria.length
         );
-        let detalle;
-        detalle = await getDetails(product, res);
-        console.log(detalle.dataValues)
+        let detalle = await getDetails(product, res);
+        let arrayColores = prepareColors(detalle.dataValues.id_color);
+        ediciones.sort((a, b) => {
+            if (a.dataValues.anio < b.dataValues.anio) {return 1;}
+            if (a.dataValues.anio > b.dataValues.anio) {return -1;}
+        });
+        artes.sort((a, b) => {
+            if (a.dataValues.artista > b.dataValues.artista) {return 1;}
+            if (a.dataValues.artista < b.dataValues.artista) {return -1;}
+        });
         res.render(`edit${linkCategoria}`, {
             product: product.dataValues,
             categorias: categorias,
@@ -363,33 +382,42 @@ const controller = {
             detalle: detalle,
             ediciones: ediciones,
             artes: artes,
+            colores: arrayColores,
         });
     },
     stash: async function (req, res, next) {
+        console.log("stash function, logging body then color:");
+        console.log(req.body);
         let product = await Productos.findByPk(req.params.id, {
-            include: [{ model: Categorias, as: "categorias", },],
+            include: [{ model: Categorias, as: "categorias" }],
         });
-        let colors = {
-            azul: req.body.azul,
-            blanco: req.body.blanco,
-            negro: req.body.negro,
-            rojo: req.body.rojo,
-            verde: req.body.verde,
-            incoloro: req.body.incoloro,
-        }
-        product.color = setColorValue(colors);
-        console.log (product.color)
-        for (let campo in req.body) { product[campo] = req.body[campo]; }
-        // await product.save();
-        // let pictures = await Fotos.findAll({
-        //     where: {
-        //         id_producto: product.id,
-        //     },
-        // });
-        let detalle;
-        getDetails(product,res);
+        let colors = [
+            req.body.azul,
+            req.body.blanco,
+            req.body.negro,
+            req.body.rojo,
+            req.body.verde,
+            req.body.incoloro,
+        ];
+        product.color = Number(setColorValue(colors));
+        console.log(product.color);
+        let newProductValues = {
+            nombre: req.body.nombre,
+            stock: req.body.stock,
+            precio: req.body.precio,
+            descripcion: req.body.descripcion,
+            id_categoria: req.body.id_categoria,
+        };
 
-        console.log(detalle);
+        // await product.save();
+        let pictures = await Fotos.findAll({
+            where: {
+                id_producto: product.id,
+            },
+        });
+        let detalle = await getDetails(product, res);
+        await saveDetails(product, detalle);
+        console.log(req.body);
         res.render("detalle-producto", {
             product: product,
             pictures: pictures,
