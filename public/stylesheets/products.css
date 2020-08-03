@@ -1,0 +1,12 @@
+.sidenav{
+    background-color: lightyellow;
+    width: 100%;
+}
+.list-menu{
+    list-style: none;
+}
+.list-types {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}

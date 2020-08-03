@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include("partials/head") %>
+  <link rel="stylesheet" href="/stylesheets/products.css">
+  <link rel="stylesheet" href="/stylesheets/index.css" />
+</head>
+<body>
+    <header>
+        <%- include("partials/header") %>
+    </header>
+    <article class="sidenav">
+        <div class="card-body">
+					<h5 class="card-title">Tipo de productos</h5>
+					<ul class="list-menu list-types">
+						<li><a href="#">Dado |<span class="badge badge-pill badge-light">120</span> </a></li>
+						<li><a href="#">Cartas |<span class="badge badge-pill badge-light">42</span> </a></li>
+						<li><a href="#">Blisters |</a><span class="badge badge-pill badge-light">16</span> </a></li>
+                        <li><a href="#">Packs |<span class="badge badge-pill badge-light">34</span></a></li>
+                        <li><a href="#">Folios |<span class="badge badge-pill badge-light">34</span></a></li>
+					</ul>
+				</div>
+        <div class="card-body ">
+				<h5 class="card-title">Colores</h5>
+			
+				<div class="row">
+					<div class="col-md-6">
+						<label class="custom-control custom-checkbox">
+						  <input type="checkbox" checked="" class="custom-control-input">
+						  <div class="custom-control-label">Rojo</div>
+						</label>
+					</div> <!-- col.// -->
+					<div class="col-md-6">
+						<label class="custom-control custom-checkbox">
+						  <input type="checkbox" checked="" class="custom-control-input">
+						  <div class="custom-control-label">Verde</div>
+						</label>
+					</div> <!-- col.// -->
+					<div class="col-md-6">
+						<label class="custom-control custom-checkbox">
+						  <input type="checkbox" checked="" class="custom-control-input">
+						  <div class="custom-control-label">Azul</div>
+						</label>
+					</div> <!-- col.// -->
+					<div class="col-md-6">
+						<label class="custom-control custom-checkbox">
+						  <input type="checkbox" checked="" class="custom-control-input">
+						  <div class="custom-control-label">Negro</div>
+						</label>
+					</div> <!-- col.// -->
+					<div class="col-md-6">
+						<label class="custom-control custom-checkbox">
+						  <input type="checkbox" class="custom-control-input">
+						  <div class="custom-control-label">Blanco</div>
+						</label>
+					</div> <!-- col.// -->
+					<div class="col-md-6">
+						<label class="custom-control custom-checkbox">
+						  <input type="checkbox" checked="" class="custom-control-input">
+						  <div class="custom-control-label">Incoloro </div>
+						</label>
+					</div> <!-- col.// -->
+				</div> <!-- row.// -->
+			</div>
+    </article>
+    
+    <%- include("partials/container-products") %>
+    
+    <%- include("partials/container-products") %>
+    
+    <%- include("partials/container-products") %>
+    
+    <%- include("partials/container-products") %>
+
+    <footer>
+        <%- include("partials/footer") %>
+    </footer>
+</body>
