@@ -1,45 +1,6 @@
-<!-- DEPRECATED CODE
-
-    <div class="container producto">
-    <article class="row justify-content-around">
-        <div class="col-12 menu-imagen">
-            <img src="/img/ragingGoblin.jpeg" alt="Raging Goblin - R">
-        </div>
-    </article>
-</div> -->
-
-<!-- IMPLEMENTAR HOVER PARA LEER LA DESCRIPCION -->
-<!-- param: producto -->
-<article class="col-12 producto row">
-    <div class="col-12 imagen-producto-cont align-self-center justify-content-center">
-        <img src="/img/ragingGoblin.jpeg" class="imagen-producto center"> <!-- link name -->
-    </div>
-    <div class="col-12 cuerpo-articulo row align-items-start">
-        <h3 class="categorias"><!-- route to categories eg tabletop > RPG > dice --></h3>
-        <h1 class="nombre-producto col-9">
-            <a href="/product/1">
-                <%= product.name %>
-            </a>
-        </h1>
-    </div>
-    <div class="col-6 price">
-        <p class="">$<%= product.price %> </p>
-    </div>
-    <div class="col-6 align-self-center">
-    </div>
-    <p class="descripcion center col-11"><%= product.description %></p>
-    <div class="cantidad col-11 column justify-content-around">
-        <form class="col-11 center" style="padding-right: 5px;" id="add-to-cart" method="POST" action="">
-            <label for="cantidad" class="cantidad-etiqueta center" style="display: inline-block;">Cantidad:</label>
-            <select name="cantidad" id="cantidad">
-                <option value="1" class="value">1</option>
-                <option value="2" class="value">2</option>
-                <option value="3" class="value">3</option>
-                <option value="4" class="value">4</option>
-                <option value="5" class="value">5</option>
-            </select>
-            <button type="submit" class="btn btn-success  center add-cart">Añadir al carrito</button>
-        </form>
-    </div>
+<div class="box-index">
+    <a href="/producto/id"><img id="img-product-index" src="/img/ragingGoblin.jpeg" alt="product"></a>
+    <h2>price</h2>
+    <h4>name</h4>
+    <button type="button" class="btn btn-success btn-rounded">Add to cart <i class="fa fa-shopping-cart"></i></button>
 </div>
-</article>

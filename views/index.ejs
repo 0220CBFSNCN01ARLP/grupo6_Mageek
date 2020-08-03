@@ -43,41 +43,19 @@
       <span class="sr-only">Next</span>
     </a>
   </main>
-  <!--Carousel Wrapper-->
-  <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+  
+  <h1>mas vendidos</h1>
 
-    <!--Controls-->
-    <di class="controls-top">
-      <a lass="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-      <a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
-  </div>
-  <!--/Controls-->
+  <%- include("partials/container-products") %>
 
-  <article class="products-box">
-    <h1>categoria</h1>
-    <div class="product-list">
-      <section class="product-index">
-        <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-        <h3>name</h3>
-        <h2>precio</h2>
-      </section>
-      <section class="product-index">
-        <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-        <h3>name</h3>
-        <h2>precio</h2>
-      </section>
-      <section class="product-index">
-        <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-        <h3>name</h3>
-        <h2>precio</h2>
-      </section>
-      <section class="product-index">
-        <img src="/img/ragingGoblin.jpeg" alt="" width="60%">
-        <h3>name</h3>
-        <h2>precio</h2>
-      </section>
-    </div>
-  </article>
+  <h1>nuevos</h1>
+
+  <%- include("partials/container-products") %>
+
+  <h1>se agotan</h1>
+
+  <%- include("partials/container-products") %>
+
   <footer>
     <%- include("partials/footer") %>
   </footer>
