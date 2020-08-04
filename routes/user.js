@@ -47,6 +47,7 @@ router.post(
 
 // Logout
 router.post("/logout", controller.logout);
+router.get("/logout", controller.logout);
 
 // Landing page, redirects wether logged in
 

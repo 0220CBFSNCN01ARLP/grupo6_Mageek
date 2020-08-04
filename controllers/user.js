@@ -16,6 +16,7 @@ const controller = {
     userRegister: async function (req, res, next) {
         // Register GET
         let paises = await Paises.findAll();
+        paises.sort((a, b) => { if (a.pais < b.pais) { return -1 } else { return 1 } });
         res.render("userRegister", { paises: paises });
     },
 

@@ -52,6 +52,15 @@ UPDATE `paises` SET `pais`='England' WHERE id = 12;
 UPDATE `paises` SET `pais`='Eslovenia' WHERE id = 7;
 UPDATE `paises` SET `pais`='Non-Syrian Arab Republic' WHERE id = 18;
 UPDATE `paises` SET `pais`='APERTURE science HQ' WHERE id = 39;
+UPDATE `paises` SET `pais`='Middle of nowhere' WHERE id = 79;
+UPDATE `paises` SET `pais`='Left of nowhere' WHERE id = 67;
+UPDATE `paises` SET `pais`='House next door' WHERE id = 97;
+UPDATE `paises` SET `pais`='House next block' WHERE id = 93;
+UPDATE `paises` SET `pais`='Seriously stahp' WHERE id = 66;
+UPDATE `paises` SET `pais`='Chadwick' WHERE id = 88;
+UPDATE `paises` SET `pais`='Wonderland' WHERE id = 60;
+UPDATE `paises` SET `pais`='Turkmenistang' WHERE id = 59;
+UPDATE `paises` SET `pais`='ExampleCountry' WHERE id = 70;
 ALTER TABLE paises
 MODIFY COLUMN `pais` varchar(40) COLLATE utf8_unicode_ci NOT NULL UNIQUE;
 

@@ -38,44 +38,15 @@ const controller = {
         let pictures = await Fotos.findAll({
             where: { id_producto: product.id },
         });
-        console.log(product.dataValues.categorias);
         let detalle = await getDetails(product, res);
-        console.log(detalle);
+        console.log(200);
+        // console.log(detalle);
         res.render("detalle-producto", {
             product: product,
             pictures: pictures,
             detalle: detalle,
         });
     },
-    // create: async function (req, res, next) {
-    //     //goes to add page, GET
-    //     let artes = await Artes.findAll();
-    //     let categorias = await Categorias.findAll();
-    //     let colores = await Colores.findAll();
-    //     let ediciones = await Ediciones.findAll();
-    //     let tipos = await Tipos.findAll();
-    //     artes.sort((a, b) => {
-    //         if (a.artista > b.artista) { return 1; }
-    //         if (a.artista < b.artista) { return -1; }
-    //         return 0;
-    //     });
-    //     categorias.sort();
-    //     colores.sort();
-    //     ediciones.sort();
-    //     console.log(typeof tipos);
-    //     tipos.sort((a, b) => {
-    //         if (a.tipo > b.tipo) { return 1; }
-    //         if (a.tipo < b.tipo) { return -1; }
-    //         return 0;
-    //     });
-    //     res.render("addProduct", {
-    //         artes: artes,
-    //         categorias: categorias,
-    //         colores: colores,
-    //         ediciones: ediciones,
-    //         tipos: tipos,
-    //     });
-    // },
     createOnCategory: async function (req, res, next) {
         let artes = await Artes.findAll();
         let categorias = await Categorias.findAll();
@@ -175,6 +146,8 @@ const controller = {
         let nuevoProducto;
         let product;
         let productPath;
+        datosProducto.created_at = new Date();
+        datosProducto.updated_at = new Date();
         switch (infoValidacion.id_categoria) {
             case "1": // Blister
                 datosProducto.id_categoria = "1";
@@ -220,6 +193,8 @@ const controller = {
                 ];
                 let idColors = setColorValue(colors);
                 let datosCarta = {
+                    created_at: new Date(),
+                    updated_at: new Date(),
                     id_tipo: req.body.id_tipo,
                     subtipo: subtipo || " ",
                     oracle: oracle,
@@ -232,7 +207,7 @@ const controller = {
                     id_color: idColors,
                     id_producto: product.id,
                 };
-
+                console.log(oracle,oracle.length);
                 let nuevaCarta = await Cartas.create(datosCarta);
 
                 req.files.forEach(async function (file) {
@@ -379,20 +354,12 @@ const controller = {
         let detalle = await getDetails(product, res);
         let arrayColores = prepareColors(detalle.dataValues.id_color);
         ediciones.sort((a, b) => {
-            if (a.dataValues.anio < b.dataValues.anio) {
-                return 1;
-            }
-            if (a.dataValues.anio > b.dataValues.anio) {
-                return -1;
-            }
+            if (a.dataValues.anio < b.dataValues.anio) {return 1;}
+            if (a.dataValues.anio > b.dataValues.anio) {return -1;}
         });
         artes.sort((a, b) => {
-            if (a.dataValues.artista > b.dataValues.artista) {
-                return 1;
-            }
-            if (a.dataValues.artista < b.dataValues.artista) {
-                return -1;
-            }
+            if (a.dataValues.artista > b.dataValues.artista) {return 1;}
+            if (a.dataValues.artista < b.dataValues.artista) {return -1;}
         });
         res.render(`edit${linkCategoria}`, {
             product: product.dataValues,

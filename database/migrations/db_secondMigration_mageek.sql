@@ -1,58 +1,4 @@
-1. Blisters
-arte (string 40)
-id_edicion
-
-2. Cartas
-oracle
-flavortext
-mana
-ataque
-defensa
-id_arte
-id_tipo
-subtipo
-id_color
-id_edicion
-limitado
-
-3. Dados
-color
-caras
-
-4. Folios
-color
-
-5. Packs
-id_color
-modelo
-id_edicion
-
-
-Colores de magic.
- -hacer tabla foránea!
-
-Tipos de cartas.
-1. Equipo
-2. Tierra
-3. Encantamiento
-4. Instantáneo
-5. Criatura
-6. Conjuro
-7. Planeswalker
-8. Plano
-9. Evento
-10. Némesis
-11. Commander
-
-<<<<<<< Updated upstream
-USE `mageek`
-=======
-
 USE mageek;
->>>>>>> Stashed changes
-# Sacar columna 'borrado' de packs (superflua)
-alter table packs
-drop borrado;
 # Categorías
 update categorias set categoria="blister" where id=1;
 update categorias set categoria="carta" where id=2;
@@ -76,11 +22,11 @@ update tipos set tipo="Némesis" where id=10;
 update tipos set tipo="Commander" where id=11;
 # cambiar tabla usuarios
 alter table usuarios
-drop column genero
-drop column numero_identidad
-drop column departamento
-drop column localidad
-drop column provincia
+drop column genero,
+drop column numero_identidad,
+drop column departamento,
+drop column localidad,
+drop column provincia;
 # insertar colores nuevos
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `colores`;
@@ -150,4 +96,8 @@ INSERT INTO `cartas` (`id`,`created_at`,`updated_at`,`oracle`,`flavortext`,`mana
 INSERT INTO `cartas` (`id`,`created_at`,`updated_at`,`oracle`,`flavortext`,`mana`,`ataque`,`defensa`,`subtipo`,`id_arte`,`id_tipo`,`id_color`,`id_edicion`,`id_producto`) VALUES (DEFAULT,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","Flying, first strike, trample. Once each turn, while you're searching your library, you may pay 1Black, reveal Infernal Spawn of Infernal Spawn of Evil from your library and say 'I'm coming, too'","If you do, Infernal Spawn of Infernal Spawn of Evil deals 2 damage to a player of your choice.","8BB",8,8,"Demon child",17,5,1000,81,205);
 INSERT INTO `cartas` (`id`,`created_at`,`updated_at`,`oracle`,`flavortext`,`mana`,`ataque`,`defensa`,`subtipo`,`id_arte`,`id_tipo`,`id_color`,`id_edicion`,`id_producto`) VALUES (DEFAULT,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","First strike T: Reveal your hand and discard a card of target opponent's choice. Then that player reveals their hand and discards a card of your choice.","Activate this ability only any time you could cast a sorcery.","BBR",3,2,"Hechicero humano",1,5,001100,8,206);
 INSERT INTO `cartas` (`id`,`created_at`,`updated_at`,`oracle`,`flavortext`,`mana`,`ataque`,`defensa`,`subtipo`,`id_arte`,`id_tipo`,`id_color`,`id_edicion`,`id_producto`) VALUES (DEFAULT,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","If this spell is the first spell you've cast this game, you may cast it without paying its mana cost.","Look at the top five cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.","1G","","","",26,4,000010,73,207);
-INSERT INTO `cartas` (`id`,`created_at`,`updated_at`,`oracle`,`flavortext`,`mana`,`ataque`,`defensa`,`subtipo`,`id_arte`,`id_tipo`,`id_color`,`id_edicion`,`id_producto`) VALUES (DEFAULT,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","Pursuant to subsection 3.1(4) of Richard's Rules of Order, at the beginning of the upkeep of each participant in this game of the Magic: The Gathering® trading card game","(hereafter known as "PLAYER"), that PLAYER performs all actions in the sequence of previously added actions (hereafter known as "ACTION QUEUE"), in the order those actions were added, then adds...","3BB","","","",53,3,100000,81,208);
+INSERT INTO `cartas` (`id`,`created_at`,`updated_at`,`oracle`,`flavortext`,`mana`,`ataque`,`defensa`,`subtipo`,`id_arte`,`id_tipo`,`id_color`,`id_edicion`,`id_producto`) VALUES (DEFAULT,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","Pursuant to subsection 3.1(4) of Richard's Rules of Order, at the beginning of the upkeep of each participant in this game of the Magic: The Gathering® trading card game","(hereafter known as 'PLAYER'), that PLAYER performs all actions in the sequence of previously added actions (hereafter known as 'ACTION QUEUE'), in the order those actions were added, then adds...","3BB","","","",53,3,100000,81,208);
+
+INSERT INTO usuarios (created_at,updated_at,nombre_de_usuario,nombre,apellido,email,nacimiento,calle,id_pais,id_permiso,pic,borrado,password) VALUES 
+(NULL,NULL,'emeli_lamejor_93','Nombre1 Nombre2','Apellido1 Apellido2','email@email.com','1996-06-06','calle falsa 123',60,2,NULL,NULL,'$2b$10$4ti72zbuTHnWVDAJlbAIrO.jIz6XsOAkitieo0vy44f0GR9hrEqEa')
+;

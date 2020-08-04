@@ -36,7 +36,6 @@ app.use(
 );
 app.use(cookieParser(secret));
 app.use(express.static(path.join(__dirname, "public")));
-
 // Router
 const indexRouter = require("./routes/index");
 
