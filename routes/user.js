@@ -3,18 +3,8 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const path = require("path");
-const controller = require(path.join(
-    __dirname,
-    "..",
-    "controllers",
-    "user"
-));
-const mwLoggedIn = require(path.join( //checks logged status
-    __dirname,
-    "..",
-    "middlewares",
-    "mwIsLoggedIn"
-));
+const controller = require("../controllers/user");
+const { mwLoggedIn } = require("../middlewares/mwIsLoggedIn");
 
 
 // SET STORAGE W/ MULTER
@@ -50,7 +40,6 @@ router.post("/logout", controller.logout);
 router.get("/logout", controller.logout);
 
 // Landing page, redirects wether logged in
-
 router.get("/login", mwLoggedIn, controller.entry);
 router.post("/login", controller.checkin);
 
@@ -58,8 +47,7 @@ router.post("/login", controller.checkin);
 
 router.get("/cart", mwLoggedIn, controller.cart);
 
-// add products
-
+// success - redirects to homepage
 router.get("/success", function (req, res, next) {
     res.render("success");
 })

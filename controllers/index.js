@@ -1,3 +1,4 @@
+// imports
 const {
     Artes,
     Blisters,
@@ -12,9 +13,12 @@ const {
     Productos,
     Tipos,
 } = require("../database/models");
+const { recordUser } = require("./modules/userCatcher");
 
+// functions
 const controller = {
     index: async (req, res, next) => {
+        const userLoggedStatus = recordUser (req, res, next);
         let user = req.session.userId || req.cookies.userId;
         let todaysProduct = Math.floor(Math.random() * (208 - 201)) + 201;
         let product = await Productos.findByPk(todaysProduct, { include: [{ model: Categorias, as: "categorias" }], });
@@ -24,7 +28,9 @@ const controller = {
             product: product,
             fotos: fotos,
             user: user,
+            userLoggedStatus: userLoggedStatus
         });
     },
 };
+
 module.exports = controller;

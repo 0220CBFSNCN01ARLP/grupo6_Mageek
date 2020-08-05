@@ -1,10 +1,11 @@
-var express = require("express");
-var router = express.Router();
+// Imports
+const express = require("express");
+const router = express.Router();
 const productRouter = require("./product");
 const userRouter = require("./user");
 const apiProductosRouter = require("./api/productos");
 const apiUsuariosRouter = require("./api/usuarios");
-const controller = require(__dirname + "/../controllers/index");
+const controller = require("../controllers/index");
 
 /* GET home page. */
 router.get("/", controller.index);

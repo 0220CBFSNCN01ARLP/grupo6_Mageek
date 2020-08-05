@@ -1,23 +1,28 @@
+// imports
 const bcrypt = require("bcrypt");
 const { Usuarios, Paises, Permisos } = require("../database/models");
+const { recordUser } = require("./modules/userCatcher");
 
 // module
 const catchUser = async function (cookie, session) {
     if (cookie || session) {
         return await Usuarios.findOne({
             where: { id: cookie || session },
-        });
+        }); /* Load user in cookies or session*/
     } else {
-        console.log(`cookie: ${cookie} · session: ${session}`); // Load user in cookies or session
+        console.log(`cookie: ${cookie} · session: ${session}`);
     }
 };
 
 const controller = {
     userRegister: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         // Register GET
         let paises = await Paises.findAll();
-        paises.sort((a, b) => { if (a.pais < b.pais) { return -1 } else { return 1 } });
-        res.render("userRegister", { paises: paises });
+        paises.sort((a, b) => {
+            if (a.pais < b.pais) { return -1; } else { return 1; }
+        });
+        res.render("userRegister", { paises: paises, userLoggedStatus: userLoggedStatus, });
     },
 
     create: async function (req, res, next) {
@@ -30,31 +35,33 @@ const controller = {
         req.body.id_permiso = 2; // enforce user privileges
         let hashedPass = bcrypt.hashSync(req.body.password, 10);
         if (!bcrypt.compareSync(req.body.pass2, hashedPass)) {
-            //compares pass, already hashed
+            // checks hashed password
             res.send(`password mismatch
                 passwords are ${req.body.password}|${req.body.pass2}`);
         }
         req.body.password = hashedPass;
         let user = await Usuarios.create(req.body);
         req.session.userId = user.id;
-        res.render("userAccount", { user: user });
+        res.render("userAccount", { user: user, userLoggedStatus: userLoggedStatus });
     },
 
     entry: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         let user = await catchUser(req.cookies.userId, req.session.userId);
-
         if (!user) {
-            // If there's no user found, delete cookies, notify&stop
+            // If no user is found, delete cookies&stop
             res.clearCookie("userId");
-            res.render("login");
+            res.render("login", { userLoggedStatus: userLoggedStatus, });
         } else {
             res.render("userAccount", {
                 user: user,
+                userLoggedStatus: userLoggedStatus,
             });
         }
     },
 
     checkin: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         let user = await Usuarios.findOne({
             where: { email: req.body.logInfo },
         });
@@ -72,22 +79,22 @@ const controller = {
                     });
                 }
                 req.session.userId = user.id;
-                res.render("userAccount", {
-                    user: user,
-                });
+                res.render("userAccount", { user: user, userLoggedStatus: userLoggedStatus });
                 res.end();
             }
         }
-        res.send("non-existant user");
+        res.render("userRegister", { userLoggedStatus: userLoggedStatus, });
     },
 
     logout: (req, res, next) => {
         res.clearCookie("userId");
         req.session.userId = null;
-        res.render("login");
+        const userLoggedStatus = false;
+        res.render("login", { userLoggedStatus: userLoggedStatus, });
     },
 
     logEdit: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         // Load user
         // validate each field
         if (req.body == undefined) {
@@ -118,7 +125,7 @@ const controller = {
                 }
             }
             await user.save();
-            res.render("userAccount", { user: user });
+            res.render("userAccount", { user: user, userLoggedStatus: userLoggedStatus });
         }
     },
 
@@ -135,18 +142,23 @@ const controller = {
             res.send("error");
         }
         let paises = await Paises.findAll();
+        let userLoggedStatus;
+        user ? userLoggedStatus = true : userLoggedStatus = false;
         // check user db for matches, else discard cookie
         return res.render("userEdit", {
             user: user,
             paises: paises,
+            userLoggedStatus: userLoggedStatus,
         });
     },
 
     cart: (req, res, next) => {
-        res.render("cart", { title: "Express" }); // Needs DB
+        const userLoggedStatus = recordUser(req, res, next);
+        res.render("cart", { title: "Express", userLoggedStatus: userLoggedStatus }); // Needs DB
     },
 
     account: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         let user;
         let loggedUser = req.cookies.userId || req.session.userId;
         if (loggedUser) {
@@ -155,18 +167,20 @@ const controller = {
         } else {
             res.send("error");
         }
-        res.render("userAccount", { user: user });
+        res.render("userAccount", { user: user, userLoggedStatus: userLoggedStatus });
     },
     getDelete: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         let user = await catchUser(req.params.id);
-        res.render("userDelete", { user: user });
+        res.render("userDelete", { user: user, userLoggedStatus: userLoggedStatus });
     },
     delete: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         let loggedUser = req.cookies.userId || req.session.userId;
         if (loggedUser == req.params.id) {
             let user = await catchUser(req.params.id);
             user.destroy();
-            res.render("success");
+            res.render("success", { userLoggedStatus: userLoggedStatus });
         } else {
             res.send("Algo falló");
         }

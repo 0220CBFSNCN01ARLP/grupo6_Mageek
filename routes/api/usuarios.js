@@ -1,7 +1,10 @@
+// Imports
 const express = require("express");
 const router = express.Router();
-let controller = require(__dirname + "/../../controllers/api/usuarios");
+const controller = require("../../controllers/api/usuarios");
 
+
+//    /api/usuarios
 router.get("/", controller.list);
 router.get("/:id", controller.detail);
 router.post("/crear", controller.create);

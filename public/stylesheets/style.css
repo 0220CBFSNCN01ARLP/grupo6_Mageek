@@ -197,3 +197,10 @@ nav{
 }
 
 }
+
+@media only screen and (min-width: 768px) {
+	.form-inline {
+		padding: 7px;
+		padding-top: 10px;
+	}
+}

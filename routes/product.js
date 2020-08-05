@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
 const path = require("path");
-const controller = require(__dirname + "/../controllers/product");
-const mwLoggedIn = require(path.join(__dirname, "..", "middlewares", "mwIsLoggedIn"));
+const controller = require("../controllers/product");
+const { mwLoggedIn } = require("../middlewares/mwIsLoggedIn");
 const { Fotos } = require("../database/models");
 
 // SET STORAGE

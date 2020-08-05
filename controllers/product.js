@@ -1,5 +1,4 @@
-const fs = require("fs");
-const path = require("path");
+// imports
 const {
     Artes,
     Blisters,
@@ -14,23 +13,27 @@ const {
     Productos,
     Tipos,
 } = require("../database/models");
-const { info, exception } = require("console");
 const { setColorValue, prepareColors } = require("./modules/colorService");
 const { getDetails, saveDetails } = require("./modules/categoryDataService");
+const { recordUser } = require("./modules/userCatcher");
+
 const controller = {
     none: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         let allProducts = await Productos.findAll();
         let productList = [];
-        for (let i = 0; i < 10; i++){
+        for (let i = 0; i < 10; i++) {
             productList.push(allProducts[i]);
         }
         // res.send(productList);
         res.render("/product", {
             productList: productList,
+            userLoggedStatus: userLoggedStatus,
         });
     },
     product: async function (req, res) {
         // load product
+        const userLoggedStatus = recordUser(req, res, next);
         const product = await Productos.findByPk(req.params.id, {
             include: [{ model: Categorias, as: "categorias" }],
         });
@@ -39,25 +42,24 @@ const controller = {
             where: { id_producto: product.id },
         });
         let detalle = await getDetails(product, res);
-        console.log(200);
-        // console.log(detalle);
         res.render("detalle-producto", {
             product: product,
             pictures: pictures,
             detalle: detalle,
+            userLoggedStatus:userLoggedStatus,
         });
     },
     createOnCategory: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         let artes = await Artes.findAll();
         let categorias = await Categorias.findAll();
         let colores = await Colores.findAll();
         let ediciones = await Ediciones.findAll();
         let tipos = await Tipos.findAll();
         artes.sort((a, b) => {
-            if (a.artista > b.artista) {return 1;}
-            if (a.artista < b.artista) {return -1;}
-            return 0;
+            if (a.artista > b.artista) { return 1; } if (a.artista < b.artista) { return -1; } return 0;
         });
+        // sorting arrays
         categorias.sort();
         colores.sort();
         ediciones.sort((a, b) => {
@@ -70,35 +72,27 @@ const controller = {
             if (a.tipo < b.tipo) {return -1;}
             return 0;
         });
+        // generating url
         let categoria = "";
-        switch (req.params.id) {
-            case "1":
-                categoria = "Blister";
-                break;
-            case "2":
-                categoria = "Carta";
-                break;
-            case "3":
-                categoria = "Dado";
-                break;
-            case "4":
-                categoria = "Folio";
-                break;
-            case "5":
-                categoria = "Pack";
-                break;
-            default:
-                res.redirect("/error404");
-        }
+        if (Number(req.params.id) === 1) categoria = "Blister";
+        if (Number(req.params.id) === 2) categoria = "Carta";
+        if (Number(req.params.id) === 3) categoria = "Dado";
+        if (Number(req.params.id) === 4) categoria = "Folio";
+        if (Number(req.params.id) === 5) categoria = "Pack";
+        console.log(categoria);
+        if (categoria == "") res.redirect("/error404");
+        // render the data
         res.render(`add${categoria}`, {
             artes: artes,
             categorias: categorias,
             colores: colores,
             ediciones: ediciones,
             tipos: tipos,
+            userLoggedStatus: userLoggedStatus,
         });
     },
     save: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         let datosProducto = {
             nombre: req.body.nombre,
             precio: req.body.precio,
@@ -121,7 +115,7 @@ const controller = {
         let subtipo = req.body.subtipo;
         let ataque = req.body.ataque;
         let defensa = req.body.defensa;
-        excepciones.forEach(excepcion => {
+        excepciones.forEach((excepcion) => {
             datosProducto[excepcion] = infoValidacion[excepcion];
             delete infoValidacion[excepcion];
         });
@@ -175,8 +169,8 @@ const controller = {
                 break;
 
             case "2": // Carta magic
-            console.log("got to cartas");
-            console.log(req.body);
+                console.log("got to cartas");
+                console.log(req.body);
                 datosProducto.id_categoria = "2";
                 nuevoProducto = await Productos.create(datosProducto);
                 product = await Productos.findOne({
@@ -207,7 +201,7 @@ const controller = {
                     id_color: idColors,
                     id_producto: product.id,
                 };
-                console.log(oracle,oracle.length);
+                console.log(oracle, oracle.length);
                 let nuevaCarta = await Cartas.create(datosCarta);
 
                 req.files.forEach(async function (file) {
@@ -313,12 +307,15 @@ const controller = {
         }
     },
     delete: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         let product = await Productos.findByPk(req.params.id);
         res.render("deleteProduct", {
             product: product,
+            userLoggedStatus:userLoggedStatus,
         });
     },
     destroy: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         let product = await Productos.findByPk(req.params.id);
         let fotos = await Fotos.findAll({
             where: {
@@ -330,7 +327,7 @@ const controller = {
         fotos.forEach((foto) => {
             foto.destroy();
         });
-        res.render("success");
+        res.render("success", { userLoggedStatus: userLoggedStatus, });
     },
     destroyPicture: async function (req, res, next) {
         let foto = await Fotos.findByPk(req.params.fotoId);
@@ -339,6 +336,7 @@ const controller = {
         res.redirect(link);
     },
     update: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         const categorias = await Categorias.findAll();
         const tipos = await Tipos.findAll();
         const artes = await Artes.findAll();
@@ -354,12 +352,20 @@ const controller = {
         let detalle = await getDetails(product, res);
         let arrayColores = prepareColors(detalle.dataValues.id_color);
         ediciones.sort((a, b) => {
-            if (a.dataValues.anio < b.dataValues.anio) {return 1;}
-            if (a.dataValues.anio > b.dataValues.anio) {return -1;}
+            if (a.dataValues.anio < b.dataValues.anio) {
+                return 1;
+            }
+            if (a.dataValues.anio > b.dataValues.anio) {
+                return -1;
+            }
         });
         artes.sort((a, b) => {
-            if (a.dataValues.artista > b.dataValues.artista) {return 1;}
-            if (a.dataValues.artista < b.dataValues.artista) {return -1;}
+            if (a.dataValues.artista > b.dataValues.artista) {
+                return 1;
+            }
+            if (a.dataValues.artista < b.dataValues.artista) {
+                return -1;
+            }
         });
         res.render(`edit${linkCategoria}`, {
             product: product.dataValues,
@@ -369,9 +375,11 @@ const controller = {
             ediciones: ediciones,
             artes: artes,
             colores: arrayColores,
+            userLoggedStatus: userLoggedStatus,
         });
     },
     stash: async function (req, res, next) {
+        const userLoggedStatus = recordUser(req, res, next);
         console.log("stash function, logging body then color:");
         console.log(req.body);
         let product = await Productos.findByPk(req.params.id, {
@@ -408,6 +416,7 @@ const controller = {
             product: product,
             pictures: pictures,
             detalle: detalle,
+            userLoggedStatus: userLoggedStatus,
         });
     },
 };
