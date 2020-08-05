@@ -17,8 +17,8 @@ const { recordUser } = require("./modules/userCatcher");
 
 // functions
 const controller = {
-    index: async (req, res, next) => {
-        const userLoggedStatus = recordUser (req, res, next);
+    index: async (req, res) => {
+        const userLoggedStatus = recordUser (req, res);
         let user = req.session.userId || req.cookies.userId;
         let todaysProduct = Math.floor(Math.random() * (208 - 201)) + 201;
         let product = await Productos.findByPk(todaysProduct, { include: [{ model: Categorias, as: "categorias" }], });

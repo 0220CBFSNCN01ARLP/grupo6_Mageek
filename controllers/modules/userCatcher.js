@@ -1,7 +1,7 @@
 // functions
 const userCatcher = {
     // if no user is in cookies or session, return false
-    recordUser: function (req, res, next) {
+    recordUser: function (req, res) {
         // Validate content
         console.log('about to start with the catcher');
         console.log(`mw: checking session/cookies ${req.session.userId} - ${req.cookies.userId}`);

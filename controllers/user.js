@@ -15,8 +15,8 @@ const catchUser = async function (cookie, session) {
 };
 
 const controller = {
-    userRegister: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+    userRegister: async function (req, res,) {
+        const userLoggedStatus = recordUser(req, res);
         // Register GET
         let paises = await Paises.findAll();
         paises.sort((a, b) => {
@@ -25,7 +25,7 @@ const controller = {
         res.render("userRegister", { paises: paises, userLoggedStatus: userLoggedStatus, });
     },
 
-    create: async function (req, res, next) {
+    create: async function (req, res) {
         // validate user
         for (let campo in req.body) {
             if (!req.body[campo].trim()) {
@@ -45,8 +45,8 @@ const controller = {
         res.render("userAccount", { user: user, userLoggedStatus: userLoggedStatus });
     },
 
-    entry: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+    entry: async function (req, res) {
+        const userLoggedStatus = recordUser(req, res);
         let user = await catchUser(req.cookies.userId, req.session.userId);
         if (!user) {
             // If no user is found, delete cookies&stop
@@ -60,13 +60,13 @@ const controller = {
         }
     },
 
-    checkin: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+    checkin: async function (req, res) {
+        let userLoggedStatus;
         let user = await Usuarios.findOne({
             where: { email: req.body.logInfo },
         });
         if (user) {
-            const passMatch = await bcrypt.compare(req.body.password, user.password);
+            let passMatch = await bcrypt.compare(req.body.password, user.password);
             if (!passMatch) {
                 console.log(`passwords mismatch: ${req.body.password}, ${user.password}`);
                 res.send("pass mismatch, needs a view");
@@ -79,22 +79,24 @@ const controller = {
                     });
                 }
                 req.session.userId = user.id;
+                userLoggedStatus = recordUser(req, res);
                 res.render("userAccount", { user: user, userLoggedStatus: userLoggedStatus });
                 res.end();
             }
         }
+        userLoggedStatus = recordUser(req, res);
         res.render("userRegister", { userLoggedStatus: userLoggedStatus, });
     },
 
-    logout: (req, res, next) => {
+    logout: (req, res) => {
         res.clearCookie("userId");
         req.session.userId = null;
         const userLoggedStatus = false;
         res.render("login", { userLoggedStatus: userLoggedStatus, });
     },
 
-    logEdit: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+    logEdit: async function (req, res) {
+        const userLoggedStatus = recordUser(req, res);
         // Load user
         // validate each field
         if (req.body == undefined) {
@@ -129,7 +131,7 @@ const controller = {
         }
     },
 
-    editor: async function (req, res, next) {
+    editor: async function (req, res) {
         // get the logged user
         // let user = catchUser(req.cookies.userId, req.session.userId);
         let user;
@@ -152,13 +154,13 @@ const controller = {
         });
     },
 
-    cart: (req, res, next) => {
-        const userLoggedStatus = recordUser(req, res, next);
+    cart: (req, res) => {
+        const userLoggedStatus = recordUser(req, res);
         res.render("cart", { title: "Express", userLoggedStatus: userLoggedStatus }); // Needs DB
     },
 
     account: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+        const userLoggedStatus = recordUser(req, res);
         let user;
         let loggedUser = req.cookies.userId || req.session.userId;
         if (loggedUser) {
@@ -169,13 +171,13 @@ const controller = {
         }
         res.render("userAccount", { user: user, userLoggedStatus: userLoggedStatus });
     },
-    getDelete: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+    getDelete: async function (req, res) {
+        const userLoggedStatus = recordUser(req, res);
         let user = await catchUser(req.params.id);
         res.render("userDelete", { user: user, userLoggedStatus: userLoggedStatus });
     },
-    delete: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+    delete: async function (req, res) {
+        const userLoggedStatus = recordUser(req, res);
         let loggedUser = req.cookies.userId || req.session.userId;
         if (loggedUser == req.params.id) {
             let user = await catchUser(req.params.id);

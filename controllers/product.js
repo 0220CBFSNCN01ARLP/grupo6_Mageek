@@ -19,7 +19,7 @@ const { recordUser } = require("./modules/userCatcher");
 
 const controller = {
     none: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+        const userLoggedStatus = recordUser(req, res);
         let allProducts = await Productos.findAll();
         let productList = [];
         for (let i = 0; i < 10; i++) {
@@ -33,7 +33,7 @@ const controller = {
     },
     product: async function (req, res) {
         // load product
-        const userLoggedStatus = recordUser(req, res, next);
+        const userLoggedStatus = recordUser(req, res);
         const product = await Productos.findByPk(req.params.id, {
             include: [{ model: Categorias, as: "categorias" }],
         });
@@ -50,7 +50,7 @@ const controller = {
         });
     },
     createOnCategory: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+        const userLoggedStatus = recordUser(req, res);
         let artes = await Artes.findAll();
         let categorias = await Categorias.findAll();
         let colores = await Colores.findAll();
@@ -92,7 +92,7 @@ const controller = {
         });
     },
     save: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+        const userLoggedStatus = recordUser(req, res);
         let datosProducto = {
             nombre: req.body.nombre,
             precio: req.body.precio,
@@ -307,7 +307,7 @@ const controller = {
         }
     },
     delete: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+        const userLoggedStatus = recordUser(req, res);
         let product = await Productos.findByPk(req.params.id);
         res.render("deleteProduct", {
             product: product,
@@ -315,7 +315,7 @@ const controller = {
         });
     },
     destroy: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+        const userLoggedStatus = recordUser(req, res);
         let product = await Productos.findByPk(req.params.id);
         let fotos = await Fotos.findAll({
             where: {
@@ -336,7 +336,7 @@ const controller = {
         res.redirect(link);
     },
     update: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+        const userLoggedStatus = recordUser(req, res);
         const categorias = await Categorias.findAll();
         const tipos = await Tipos.findAll();
         const artes = await Artes.findAll();
@@ -379,7 +379,7 @@ const controller = {
         });
     },
     stash: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+        const userLoggedStatus = recordUser(req, res);
         console.log("stash function, logging body then color:");
         console.log(req.body);
         let product = await Productos.findByPk(req.params.id, {
