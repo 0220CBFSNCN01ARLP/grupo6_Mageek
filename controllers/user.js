@@ -16,7 +16,7 @@ const catchUser = async function (cookie, session) {
 
 const controller = {
     userRegister: async function (req, res,) {
-        const userLoggedStatus = recordUser(req, res);
+        const userLoggedStatus = await recordUser(req, res);
         // Register GET
         let paises = await Paises.findAll();
         paises.sort((a, b) => {
@@ -46,7 +46,7 @@ const controller = {
     },
 
     entry: async function (req, res) {
-        const userLoggedStatus = recordUser(req, res);
+        let userLoggedStatus = await recordUser(req, res);
         let user = await catchUser(req.cookies.userId, req.session.userId);
         if (!user) {
             // If no user is found, delete cookies&stop
@@ -62,9 +62,7 @@ const controller = {
 
     checkin: async function (req, res) {
         let userLoggedStatus;
-        let user = await Usuarios.findOne({
-            where: { email: req.body.logInfo },
-        });
+        let user = await Usuarios.findOne({ where: { email: req.body.logInfo }, });
         if (user) {
             let passMatch = await bcrypt.compare(req.body.password, user.password);
             if (!passMatch) {
@@ -96,7 +94,7 @@ const controller = {
     },
 
     logEdit: async function (req, res) {
-        const userLoggedStatus = recordUser(req, res);
+        const userLoggedStatus = await recordUser(req, res);
         // Load user
         // validate each field
         if (req.body == undefined) {
@@ -154,13 +152,13 @@ const controller = {
         });
     },
 
-    cart: (req, res) => {
-        const userLoggedStatus = recordUser(req, res);
+    cart: async (req, res) => {
+        const userLoggedStatus = await recordUser(req, res);
         res.render("cart", { title: "Express", userLoggedStatus: userLoggedStatus }); // Needs DB
     },
 
     account: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res);
+        const userLoggedStatus = await recordUser(req, res);
         let user;
         let loggedUser = req.cookies.userId || req.session.userId;
         if (loggedUser) {
@@ -172,12 +170,12 @@ const controller = {
         res.render("userAccount", { user: user, userLoggedStatus: userLoggedStatus });
     },
     getDelete: async function (req, res) {
-        const userLoggedStatus = recordUser(req, res);
+        const userLoggedStatus = await recordUser(req, res);
         let user = await catchUser(req.params.id);
         res.render("userDelete", { user: user, userLoggedStatus: userLoggedStatus });
     },
     delete: async function (req, res) {
-        const userLoggedStatus = recordUser(req, res);
+        const userLoggedStatus = await recordUser(req, res);
         let loggedUser = req.cookies.userId || req.session.userId;
         if (loggedUser == req.params.id) {
             let user = await catchUser(req.params.id);

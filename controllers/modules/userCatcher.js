@@ -1,7 +1,10 @@
+// imports
+const { Usuarios } = require("../../database/models");
+
 // functions
 const userCatcher = {
     // if no user is in cookies or session, return false
-    recordUser: function (req, res) {
+    recordUser: async function (req, res) {
         // Validate content
         console.log('about to start with the catcher');
         console.log(`mw: checking session/cookies ${req.session.userId} - ${req.cookies.userId}`);
@@ -10,12 +13,10 @@ const userCatcher = {
             return false;
         }
         let credentials; // assign credentials
-        req.session.userId
-        ? (credentials = req.session.userId)
-        : (credentials = req.cookies.userId);
+        req.session.userId ? (credentials = req.session.userId) : (credentials = req.cookies.userId);
         if (!isNaN(credentials)) {
-            console.log('true!');
-            return true;
+            let user = await Usuarios.findByPk(credentials);
+            return Number(user.id_permiso);
         }
         console.log('false :(');
         return false;
