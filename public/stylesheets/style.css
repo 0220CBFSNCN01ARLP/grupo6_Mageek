@@ -1,4 +1,9 @@
 /* * */
+html, body {
+  margin:0px;
+  height:100%;
+}
+
 
 body {
         font-family: 'Roboto', sans-serif;
@@ -164,43 +169,15 @@ nav{
 }
 
 /* Footer */
-.box-footer{
-    display: flex;
-    flex-wrap: wrap;  
-	padding: 10%; 
+footer{
+	background-color: #000000;
+	color: whitesmoke;
+	padding-bottom: 25px;
+	margin-top: 25px;
 }
-
-.iconos-footer{
-	width: 50%;
-	flex-grow: 1;
+hr{
+	border: 1px solid #28A745;
 }
-
-.img-footer{
-    width: 4vh;
-}
-
-.map{
-    height: 4vh;
-}
-
-@media (min-width: 460px) and (orientation: landscape){
-.iconos-footer{
-	width: 25%;
-	flex-grow: 1;
-}
-
-.img-footer{
-    width: 20%;
-}
-.map{
-    height: 20%;
-}
-
-}
-
-@media only screen and (min-width: 768px) {
-	.form-inline {
-		padding: 7px;
-		padding-top: 10px;
-	}
+.tags{
+	color: whitesmoke;
 }
