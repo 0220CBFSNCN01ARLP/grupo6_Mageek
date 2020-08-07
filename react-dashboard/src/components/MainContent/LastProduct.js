@@ -6,7 +6,7 @@ class LastProduct extends Component {
     async updateState() {
         console.log("Updating state...");
         const product = await getLastProduct();
-        const [lastImage] = product.arrayImagenes.splice(-1);
+        const [lastImage] = product.pic.splice(-1);
         this.setState({
             product,
             lastImage

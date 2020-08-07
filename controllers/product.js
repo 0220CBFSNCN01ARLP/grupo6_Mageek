@@ -16,7 +16,9 @@ const {
 const { setColorValue, prepareColors } = require("./modules/colorService");
 const { getDetails, saveDetails } = require("./modules/categoryDataService");
 const { recordUser } = require("./modules/userCatcher");
+const { check, validationResult, body } = require("express-validator");
 
+// export
 const controller = {
     none: async function (req, res, next) {
         const userLoggedStatus = recordUser(req, res, next);
@@ -46,7 +48,7 @@ const controller = {
             product: product,
             pictures: pictures,
             detalle: detalle,
-            userLoggedStatus:userLoggedStatus,
+            userLoggedStatus: userLoggedStatus,
         });
     },
     createOnCategory: async function (req, res, next) {
@@ -57,19 +59,21 @@ const controller = {
         let ediciones = await Ediciones.findAll();
         let tipos = await Tipos.findAll();
         artes.sort((a, b) => {
-            if (a.artista > b.artista) { return 1; } if (a.artista < b.artista) { return -1; } return 0;
+            if (a.artista > b.artista) {return 1;};
+            if (a.artista < b.artista) {return -1;};
+            return 0;
         });
         // sorting arrays
         categorias.sort();
         colores.sort();
         ediciones.sort((a, b) => {
-            if (a.nombre > b.nombre) {return 1;}
-            if (a.nombre < b.nombre) {return -1;}
+            if (a.nombre > b.nombre) {return 1;};
+            if (a.nombre < b.nombre) {return -1;};
             return 0;
         });
         tipos.sort((a, b) => {
-            if (a.tipo > b.tipo) {return 1;}
-            if (a.tipo < b.tipo) {return -1;}
+            if (a.tipo > b.tipo) {return 1;};
+            if (a.tipo < b.tipo) {return -1;};
             return 0;
         });
         // generating url
@@ -311,7 +315,7 @@ const controller = {
         let product = await Productos.findByPk(req.params.id);
         res.render("deleteProduct", {
             product: product,
-            userLoggedStatus:userLoggedStatus,
+            userLoggedStatus: userLoggedStatus,
         });
     },
     destroy: async function (req, res, next) {
@@ -327,7 +331,7 @@ const controller = {
         fotos.forEach((foto) => {
             foto.destroy();
         });
-        res.render("success", { userLoggedStatus: userLoggedStatus, });
+        res.render("success", { userLoggedStatus: userLoggedStatus });
     },
     destroyPicture: async function (req, res, next) {
         let foto = await Fotos.findByPk(req.params.fotoId);
@@ -379,45 +383,81 @@ const controller = {
         });
     },
     stash: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
-        console.log("stash function, logging body then color:");
-        console.log(req.body);
-        let product = await Productos.findByPk(req.params.id, {
-            include: [{ model: Categorias, as: "categorias" }],
-        });
-        let colors = [
-            req.body.azul,
-            req.body.blanco,
-            req.body.negro,
-            req.body.rojo,
-            req.body.verde,
-            req.body.incoloro,
-        ];
-        product.color = Number(setColorValue(colors));
-        console.log(product.color);
-        let newProductValues = {
-            nombre: req.body.nombre,
-            stock: req.body.stock,
-            precio: req.body.precio,
-            descripcion: req.body.descripcion,
-            id_categoria: req.body.id_categoria,
-        };
-
-        // await product.save();
-        let pictures = await Fotos.findAll({
-            where: {
-                id_producto: product.id,
-            },
-        });
-        let detalle = await getDetails(product, res);
-        await saveDetails(product, detalle);
-        console.log(req.body);
-        res.render("detalle-producto", {
-            product: product,
-            pictures: pictures,
-            detalle: detalle,
-            userLoggedStatus: userLoggedStatus,
-        });
+        const userLoggedStatus = await recordUser(req, res);
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            // re-render edit with errors
+            const categorias = await Categorias.findAll();
+            const tipos = await Tipos.findAll();
+            const artes = await Artes.findAll();
+            const ediciones = await Ediciones.findAll();
+            const product = await Productos.findByPk(req.params.id, {
+                include: [{ model: Categorias, as: "categorias" }],
+            });
+            let linkCategoria = product.categorias.dataValues.categoria[0].toUpperCase();
+            linkCategoria += product.categorias.dataValues.categoria.slice(
+                1,
+                product.categorias.dataValues.categoria.length
+            );
+            let detalle = await getDetails(product, res);
+            let arrayColores = prepareColors(detalle.dataValues.id_color);
+            ediciones.sort((a, b) => {
+                if (a.dataValues.anio < b.dataValues.anio) { return 1; }
+                if (a.dataValues.anio > b.dataValues.anio) { return -1; }
+            });
+            artes.sort((a, b) => {
+                if (a.dataValues.artista > b.dataValues.artista) {return 1;}
+                if (a.dataValues.artista < b.dataValues.artista) {return -1;}
+            });
+            res.send(errors);
+            res.end();
+            res.render(`edit${linkCategoria}`, {
+                product: product.dataValues,
+                categorias: categorias,
+                tipos: tipos,
+                detalle: detalle,
+                ediciones: ediciones,
+                artes: artes,
+                colores: arrayColores,
+                userLoggedStatus: userLoggedStatus,
+                errors: errors.errors,
+            });
+        } else {
+            // everything's ok, continue
+            console.log();
+            console.log("stash function, logging body then color:");
+            console.log();
+            let product = await Productos.findByPk(req.params.id, {
+                include: [{ model: Categorias, as: "categorias" }],
+            });
+            let colors = [
+                req.body.azul,
+                req.body.blanco,
+                req.body.negro,
+                req.body.rojo,
+                req.body.verde,
+                req.body.incoloro,
+            ];
+            console.log(colors);
+            // await product.save();
+            product.dataValues.color = Number(setColorValue(colors));
+            let pictures = await Fotos.findAll({
+                where: {
+                    id_producto: product.id,
+                },
+            });
+            let detalle = await getDetails(product, res);
+            // detalle.dataValues.id_color = product.dataValues.color;
+            await saveDetails(product, detalle);
+            res.send(product);
+            res.end();
+            // res.render("detalle-producto", {
+            //     product: product,
+            //     pictures: pictures,
+            //     detalle: detalle,
+            //     userLoggedStatus: userLoggedStatus,
+            // });
+        }
     },
 };
 module.exports = controller;

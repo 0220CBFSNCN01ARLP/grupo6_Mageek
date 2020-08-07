@@ -3,20 +3,20 @@ import PageHeader from "./PageHeader";
 import InfoCard from "./InfoCard";
 import LastProduct from "./LastProduct";
 import CategoriesList from "./CategoriesList";
-import { getProducts, getUsers } from "../../fetcher";
+import { getProducts, getUsers, getSales } from "../../fetcher";
 
 class PageContent extends Component {
-    state = { lastProduct: null, products: [], sales: [], users: [] };
+    state = { lastProduct: null, products: [], sales: 0, users: [] };
     async updateState() {
         console.log("updating state");
         const products = await getProducts();
         this.setState({
             products,
         });
-        // const sales = await getSales();
-        // this.setState({
-        //     sales,
-        // });
+        const sales = await getSales();
+        this.setState({
+            sales,
+        });
         const users = await getUsers();
         this.setState({
             users,
@@ -30,6 +30,8 @@ class PageContent extends Component {
     render() {
         const productAmount = this.state.products.length;
         const userAmount = this.state.users.length;
+        const sales = this.state.sales;
+        const formattedSales = `$ ${sales}`
         return (
             <div className="container-fluid">
                 <PageHeader />
@@ -42,8 +44,8 @@ class PageContent extends Component {
                     />
                     <InfoCard
                         color="success"
-                        titulo="VENTAS"
-                        numero="$3.666"
+                        titulo="CAPITAL EN STOCK"
+                        numero={formattedSales}
                         icono="fas fa-hand-holding-usd"
                     />
                     <InfoCard
@@ -54,8 +56,8 @@ class PageContent extends Component {
                     />
                 </div>
                 <div className="row">
-                    <LastProduct />
                     <CategoriesList />
+                    <LastProduct />
                 </div>
             </div>
         );
