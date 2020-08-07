@@ -13,61 +13,81 @@
     </header>
 
     <main>
-    <div class="signup-form">
-    <form action="/user/register" method="post">
-		<h2>Registrar usuario</h2>
-		<p class="hint-text">Sign up with your social media account or email address</p>
-		<div class="social-btn text-center">
-			<a href="#" class="btn btn-primary btn-lg"><i class="fa fa-facebook"></i> Facebook</a>
-			<a href="#" class="btn btn-info btn-lg"><i class="fa fa-twitter"></i> Twitter</a>
-			<a href="#" class="btn btn-danger btn-lg"><i class="fa fa-google"></i> Google</a>
-		</div>
-		<div class="or-seperator"><b>or</b></div>
-        <div class="form-group">
-        	<input type="text" class="form-control input-lg" name="nombre_de_usuario" placeholder="Nombre de Usuario" required="required">
+        <div class="signup-form">
+            <form action="/user/register" method="post">
+                <h2>Registrar usuario</h2>
+                <p class="hint-text">Sign up with your social media account or email address</p>
+                <div class="social-btn text-center">
+                    <a href="#" class="btn btn-primary btn-lg"><i class="fa fa-facebook"></i> Facebook</a>
+                    <a href="#" class="btn btn-info btn-lg"><i class="fa fa-twitter"></i> Twitter</a>
+                    <a href="#" class="btn btn-danger btn-lg"><i class="fa fa-google"></i> Google</a>
+                </div>
+                <div class="or-seperator"><b>or</b></div>
+                <% if (typeof errors != "undefined") { %>
+                <ul>
+                    <% for (let i=0;i<errors.length;i++) { %>
+                    <li>
+                        <p style="color:red;">
+                            <%= errors[i].msg %>
+                        </p>
+                    </li>
+                    <% } %>
+                </ul>
+                <% } %>
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" name="nombre_de_usuario"
+                        placeholder="Nombre de Usuario" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control input-lg" name="email" placeholder="Direccion Email"
+                        required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control input-lg" name="password" placeholder="Contraseña"
+                        required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control input-lg" name="pass2" placeholder="Confirmar contraseña"
+                        required="required">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" name="nombre" placeholder="Nombres"
+                        required="required">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" name="apellido" placeholder="Apellidos"
+                        required="required">
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-control input-lg" name="nacimiento" placeholder="Nacimiento"
+                        required="required">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" name="calle" placeholder="Direccion"
+                        required="required">
+                </div>
+                <!-- id_pais -->
+                <select class="form-group browser-default custom-select custom-select-sm" name="id_pais"
+                    required="required">
+                    <option value="" disabled selected>Nacionalidad</option>
+                    <% for (let pais of paises) { %>
+                    <option value="<%- pais.id %>"><%- pais.pais %> </option>
+                    <% } %>
+                </select>
+                <!-- pic -->
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                            aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Login</button>
+                </div>
+            </form>
+            <div class="text-center">Ya tiene cuenta? <a href="/user/login">Ingresa aqui</a></div>
         </div>
-		<div class="form-group">
-        	<input type="email" class="form-control input-lg" name="email" placeholder="Direccion Email" required="required">
-        </div>
-		<div class="form-group">
-            <input type="password" class="form-control input-lg" name="password" placeholder="Contraseña" required="required">
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control input-lg" name="pass2" placeholder="Confirmar contraseña" required="required">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control input-lg" name="nombre" placeholder="Nombres" required="required">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control input-lg" name="apellido" placeholder="Apellidos" required="required">
-        </div>
-        <div class="form-group">
-            <input type="date" class="form-control input-lg" name="nacimiento" placeholder="Nacimiento" required="required">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control input-lg" name="calle" placeholder="Direccion" required="required">
-        </div>
-        <!-- id_pais -->
-        <select class="form-group browser-default custom-select custom-select-sm" name="id_pais" required="required">
-            <option value="" disabled selected>Nacionalidad</option>
-            <% for (let pais of paises) { %>
-            <option value="<%- pais.id %> "><%- pais.pais %> </option>
-            <% } %>
-        </select>
-        <!-- pic -->
-        <div class="form-group">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01"
-                aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile01">Seleccionar archivo</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-success btn-lg btn-block signup-btn">Login</button>
-        </div>
-    </form>
-    <div class="text-center">Ya tiene cuenta? <a href="/user/login">Ingresa aqui</a></div>
-</div>
     </main>
 
     <footer><%- include("partials/footer") %></footer>

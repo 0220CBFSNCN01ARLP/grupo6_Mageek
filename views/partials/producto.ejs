@@ -3,5 +3,7 @@
     <h4><%- product.nombre %></h4>
     <h5 style="color:darkgreen;">$<%- product.precio %></h5>
     <% if (product.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!</h4><% } %>
-    <button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i class="fa fa-shopping-cart"></i></button>
+    <a href="/user/saveToCart/<%= product.id %>">
+        <button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i class="fa fa-shopping-cart"></i></button>
+    </a>
 </div>
