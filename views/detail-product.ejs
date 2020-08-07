@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("partials/head") %>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/productD.css" />
+</head>
+
+<body>
+    <header>
+        <%- include("partials/header") %>
+    </header>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-sm-5 div-img-productD">
+                <% for (let picture of pictures) { %>
+                    <img class="img-productD" src="/img/product/<%= picture.url %>"></img>
+                <% } %>
+            </div>
+            <div class="col-sm-5 col-xs-12 detail-important">
+                <h1> <%- product.nombre %> </h1>
+                <p>Quedan: <%- product.stock %>. </p>
+                <p>Cuestan: $<%- product.precio %> cada uno.</p>
+                <p>Es de la categoría: <%- product.categorias.categoria %>.</p>
+                <% if (product.borrado) {%>
+                    <p>BORRADO</p>
+                <% } %>
+            </div>
+        </div>
+    </main>
+    
+        <% switch (product.categorias.categoria) { case "blister":%> <!-- blisters -->
+
+            <%- include("partials/detail-blister") %>
+
+            <% ;break;case "carta":%> <!-- cartas -->
+
+            <%- include("partials/detail-card") %>
+
+            <% ;break;case "dado":%> <!-- dados -->
+
+            <%- include("partials/detail-dice") %>
+
+            <% ;break;case "folio":%> <!-- folios -->
+
+            <p>color: <%- detalle.color %></p>
+
+            <% ;break;case "pack":%> <!-- packs -->
+
+            <%- include("partials/detail-packs") %>
+
+            <% } %>
+
+
+    <div class="clearfix"></div>
+
+    <footer><%- include("partials/footer") %></footer>
+</body>
+
+</html>

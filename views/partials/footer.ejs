@@ -65,10 +65,30 @@
           <a class="tags" href="/product">Productos</a>
         </p>
         <p>
-          <a class="tags" href="/user/account">Usuarios</a>
+          <% if (userLoggedStatus===1||userLoggedStatus===2) { %>
+                <li class="footer-item dropdown " id="loggedMenu">
+                    <a class="footer-link dropdown-toggle waves-effect waves-light" id="footerbarDropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+                    <div class="dropdown-menu dropdown-info" aria-labelledby="footerbarDropdownMenuLink">
+                        <a class="dropdown-item waves-effect waves-light" href="/user/account">Cuenta</a>
+                        <!-- <a class="dropdown-item waves-effect waves-light" href="#">add product</a> -->
+                        <a class="dropdown-item waves-effect waves-light" href="/user/logout">Salir</a>
+                    </div>
+                </li>
+            <% } else { %>
+                <!-- not logged -->
+                <li class="footer-item dropdown" id="unloggedMenu">
+                    <a class="footer-link dropdown-toggle waves-effect waves-light" id="footerbarDropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuarios</a>
+                    <div class="dropdown-menu dropdown-info" aria-labelledby="footerbarDropdownMenuLink">
+                        <a class="dropdown-item waves-effect waves-light" href="/user/login">Acceso</a>
+                        <a class="dropdown-item waves-effect waves-light" href="/user/register">Registrate!</a>
+                    </div>
+                </li>
+            <% } %>
         </p>
         <p>
-          <a class="tags" href="/cart">Carrito</a>
+          <a class="tags" href="/cart"><i class="fa fa-shopping-cart"></i></a>
         </p>
         <p>
             <a class="tags" href="#header">Esta bien, sube</a>

@@ -1,0 +1,54 @@
+.title-user-account{
+    text-align: center;
+    margin: 3%;
+}
+.account-pic-div{
+    float: left;
+    width: 80%;
+    padding-left: 30px;
+}
+.account-logout-div{
+    float: left;
+    width: 20%;
+    padding-right: 10px;
+    text-align: center;
+}
+.clearfix{
+    clear: both;
+}
+#user-edit-btn{
+    margin-bottom: 10px;
+}
+#user-delete-btn{
+    margin-top: 10px;
+}
+.form-edit{
+    margin: 3% 10%;
+}
+#btn-edit{
+    margin-top: 12px;
+}
+/*   <%= user.url %>
+        <a href="/user/edit/<%= user.id %>">
+            <button class="btn btn-success">Editar usuario</button></a>
+        <% if (userLoggedStatus === 2) { %>
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Añadir productos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="/product/add/1">Blisters</a>
+                <a class="dropdown-item" href="/product/add/2">Cartas</a>
+                <a class="dropdown-item" href="/product/add/3">Dados</a>
+                <a class="dropdown-item" href="/product/add/4">Folios</a>
+                <a class="dropdown-item" href="/product/add/5">Packs</a>
+            </div>
+        </div>
+        <% } %>
+
+
+
+        <a href="/user/delete/<%= user.id %>">
+            <button class="btn btn-danger">Borrar usuario</button></a>
+

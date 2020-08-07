@@ -181,3 +181,24 @@ hr{
 .tags{
 	color: whitesmoke;
 }
+.footer-item{
+	list-style-type: none;
+}
+@media (min-width: 768px){
+footer{
+	background-color: #000000;
+	color: whitesmoke;
+	padding-bottom: 25px;
+	margin-top: 25px;
+	height: 100vh;
+}
+}
+
+@media (min-height: 395px){
+footer{
+	background-color: #000000;
+	color: whitesmoke;
+	padding-bottom: 25px;
+	margin-top: 25px;
+}
+}
