@@ -1,7 +1,9 @@
 // imports
 const bcrypt = require("bcrypt");
-const { Usuarios, Paises, Permisos } = require("../database/models");
+const { Usuarios, Paises, Permisos, Productos_en_carrito } = require("../database/models");
 const { recordUser } = require("./modules/userCatcher");
+const { getProducts } = require("./modules/productCatcher");
+const { check, validationResult, body } = require("express-validator");
 
 // module
 const catchUser = async function (cookie, session) {
@@ -15,18 +17,41 @@ const catchUser = async function (cookie, session) {
 };
 
 const controller = {
-    userRegister: async function (req, res,) {
+    userRegister: async function (req, res) {
         const userLoggedStatus = await recordUser(req, res);
         // Register GET
         let paises = await Paises.findAll();
         paises.sort((a, b) => {
-            if (a.pais < b.pais) { return -1; } else { return 1; }
+            if (a.pais < b.pais) {
+                return -1;
+            } else {
+                return 1;
+            }
         });
-        res.render("userRegister", { paises: paises, userLoggedStatus: userLoggedStatus, });
+        res.render("userRegister", { paises: paises, userLoggedStatus: userLoggedStatus });
     },
 
     create: async function (req, res) {
+        const userLoggedStatus = await recordUser(req, res);
         // validate user
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let paises = await Paises.findAll();
+            paises.sort((a, b) => {
+                if (a.pais < b.pais) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+            console.log(errors);
+            res.render("userRegister", {
+                errors: errors.errors,
+                userLoggedStatus: userLoggedStatus,
+                paises: paises,
+            });
+            res.end();
+        }
         for (let campo in req.body) {
             if (!req.body[campo].trim()) {
                 res.send(`El campo ${campo} está vacío.`);
@@ -51,7 +76,7 @@ const controller = {
         if (!user) {
             // If no user is found, delete cookies&stop
             res.clearCookie("userId");
-            res.render("login", { userLoggedStatus: userLoggedStatus, });
+            res.render("login", { userLoggedStatus: userLoggedStatus });
         } else {
             res.render("userAccount", {
                 user: user,
@@ -62,7 +87,7 @@ const controller = {
 
     checkin: async function (req, res) {
         let userLoggedStatus;
-        let user = await Usuarios.findOne({ where: { email: req.body.logInfo }, });
+        let user = await Usuarios.findOne({ where: { email: req.body.logInfo } });
         if (user) {
             let passMatch = await bcrypt.compare(req.body.password, user.password);
             if (!passMatch) {
@@ -83,24 +108,40 @@ const controller = {
             }
         }
         userLoggedStatus = recordUser(req, res);
-        res.render("userRegister", { userLoggedStatus: userLoggedStatus, });
+        res.render("userRegister", { userLoggedStatus: userLoggedStatus });
     },
 
     logout: (req, res) => {
         res.clearCookie("userId");
         req.session.userId = null;
         const userLoggedStatus = false;
-        res.render("login", { userLoggedStatus: userLoggedStatus, });
+        res.render("login", { userLoggedStatus: userLoggedStatus });
     },
 
     logEdit: async function (req, res) {
         const userLoggedStatus = await recordUser(req, res);
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let paises = await Paises.findAll();
+            paises.sort((a, b) => {
+                if (a.pais < b.pais) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+            res.render("userEdit", {
+                errors: errors.errors,
+                userLoggedStatus: userLoggedStatus,
+                paises: paises,
+            });
+            res.end();
+        }
         // Load user
         // validate each field
         if (req.body == undefined) {
             res.send("Necesita enviar algún dato!");
         } // update validation later
-        let campos = Object.entries(req.body);
         for (let campo in req.body) {
             if (!req.body[campo].trim()) {
                 res.send(`El campo ${campo} está vacío.`);
@@ -113,7 +154,7 @@ const controller = {
         if (!bcrypt.compareSync(req.body.pass2, hashedPass)) {
             //compares pass, already hashed
             res.send(`password mismatch
-                passwords are ${req.body.password}|${req.body.pass2}`);
+            passwords are ${req.body.password}|${req.body.pass2}`);
         } else {
             // save to DB
             let user = await Usuarios.findByPk(req.params.id);
@@ -130,8 +171,8 @@ const controller = {
     },
 
     editor: async function (req, res) {
+        let userLoggedStatus;
         // get the logged user
-        // let user = catchUser(req.cookies.userId, req.session.userId);
         let user;
         console.log(`${req.cookies.userId} || ${req.session.userId}) == ${req.params.id}`);
         let loggedUser = req.cookies.userId || req.session.userId;
@@ -142,8 +183,8 @@ const controller = {
             res.send("error");
         }
         let paises = await Paises.findAll();
-        let userLoggedStatus;
-        user ? userLoggedStatus = true : userLoggedStatus = false;
+        console.log(user);
+        user ? (userLoggedStatus = await recordUser(req, res)) : (userLoggedStatus = false);
         // check user db for matches, else discard cookie
         return res.render("userEdit", {
             user: user,
@@ -153,10 +194,39 @@ const controller = {
     },
 
     cart: async (req, res) => {
+        let loggedUser = req.cookies.userId || req.session.userId;
         const userLoggedStatus = await recordUser(req, res);
-        res.render("cart", { title: "Express", userLoggedStatus: userLoggedStatus }); // Needs DB
+        const cartArray = await Productos_en_carrito.findAll({ where: { id_usuario: loggedUser } });
+        if (cartArray.length == 0) {
+            res.send("no cart, go shop");
+            res.end;
+        };
+        let productIds = [];
+        for (let cartItem of cartArray) {
+            productIds.push(cartItem.dataValues.id_producto);
+        }
+        let productArray = await getProducts(productIds);
+        console.log(productArray[0]);
+        res.render("carrito", {
+            userLoggedStatus: userLoggedStatus,
+            cartArray: cartArray,
+            productArray: productArray,
+            total: 0,
+        }); // Needs DB
     },
-
+    saveToCart: async function (req, res) {
+        const userLoggedStatus = await recordUser(req, res);
+        let loggedUser = req.cookies.userId || req.session.userId;
+        let cartEntry = {
+            created_at: new Date(),
+            updated_at: new Date(),
+            id_usuario: loggedUser,
+            id_producto: req.params.prodId,
+            cantidad: "1",
+        };
+        let result = await Productos_en_carrito.create(cartEntry);
+        res.send(result);
+    },
     account: async function (req, res, next) {
         const userLoggedStatus = await recordUser(req, res);
         let user;

@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
             borrado: { type: DataTypes.INTEGER(1)},
         },
         {
-            tableName: "productos_en_carrito",
+            tableName: "producto_en_carrito",
             timestamps: false
         }
     );

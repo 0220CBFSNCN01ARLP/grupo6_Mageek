@@ -59,15 +59,19 @@ const controller = {
         foundUser.dataValues.pais = foundUser.paises.pais;
         foundUser.dataValues.tipo = foundUser.permisos.permiso;
         let usuario = {
-            data: {
                 id: foundUser.id,
                 nombre_de_usuario: foundUser.dataValues.nombre_de_usuario,
                 nombre: foundUser.nombre + " " + foundUser.apellido,
                 pais: foundUser.dataValues.pais,
                 tipo: foundUser.dataValues.tipo,
-            },
         };
-        res.send(usuario);
+        let resultado = {
+            metadata: {
+                endpoint: `http://localhost:3000/api/usuarios`,
+            },
+            data: usuario,
+        }
+        res.send(resultado);
     },
     create: async function (req, res, next) {
         let user = {
@@ -80,7 +84,7 @@ const controller = {
             nacimiento: req.body.nacimiento,
             calle: req.body.calle,
             id_pais: req.body.id_pais,
-            id_permiso: 1,
+            id_permiso: 1, // enforce user status
         };
         let hashedPass = bcrypt.hashSync(req.body.password, 10);
         if (!bcrypt.compareSync(req.body.pass2, hashedPass)) {
