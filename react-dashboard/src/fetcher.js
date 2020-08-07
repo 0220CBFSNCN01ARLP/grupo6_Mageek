@@ -13,7 +13,6 @@ export async function getSales() {
     const productsResult = await productList.json();
     let capital = 0;
     productsResult.data.map(product => {
-        console.log(product.precio*product.stock);
         capital += product.stock * product.precio;
     })
     capital = Math.trunc(Number(capital));

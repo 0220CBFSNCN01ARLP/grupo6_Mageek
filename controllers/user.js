@@ -225,7 +225,7 @@ const controller = {
             cantidad: "1",
         };
         let result = await Productos_en_carrito.create(cartEntry);
-        res.send(result);
+        res.redirect("/user/carrito");
     },
     account: async function (req, res, next) {
         const userLoggedStatus = await recordUser(req, res);

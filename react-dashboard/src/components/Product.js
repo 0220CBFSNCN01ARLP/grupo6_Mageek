@@ -2,7 +2,8 @@ import React from "react";
 
 
 const Product = (props) => {
-    let productURL = `http://${props.detail}`
+    let productURL = `${props.detail}`
+    console.log(productURL)
     let image = `http://localhost:3000/img/product/${props.imageURL}`;
     return (
         <div className="card-body">
@@ -18,7 +19,7 @@ const Product = (props) => {
                 />
             </div>
             <p>{props.description}</p>
-            <a target="_blank" rel="nofollow" href={productURL}>
+            <a target="_blank" rel="noopener noreferrer" href={productURL}>
                 Detalle del producto
             </a>
         </div>

@@ -7,7 +7,7 @@ const { recordUser } = require("../controllers/modules/userCatcher");
 const logMiddleware = {
     // if no user is in cookies or session, default to index
     mwLoggedIn: async function (req, res, next) {
-        const userLoggedStatus = recordUser(req, res, next);
+        const userLoggedStatus = await recordUser(req, res);
         // Validate content
         console.log(`mw: checking session/cookies ${req.session.userId} - ${req.cookies.userId}`);
         if (req.session.userId == undefined && req.cookies.userId == undefined) {
