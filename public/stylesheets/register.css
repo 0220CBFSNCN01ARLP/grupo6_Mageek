@@ -17,3 +17,7 @@ select{
 .custom-file{
     border-radius: 30px!important;
 }
+
+.done{
+    text-align: center;
+}

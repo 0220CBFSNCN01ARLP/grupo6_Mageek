@@ -12,15 +12,16 @@
     </header>
 
     <main>
-        <!-- Frase -->
-        <h1 class="">Eliminar usuario <%= user.nombre_de_usuario %> </h1>
-        <!-- Formulario -->
-
-        <h3>Está seguro de avanzar? Esta decisión es permanente.</h3>
-        <form action="/user/delete/<%= user.id %>?_method=delete" method="post">
-        <button type="submit" class="btn btn-danger">Eliminar usuario</button>
-        </form>
-
+        <div>
+            <!-- Frase -->
+            <h1 class="">Eliminar usuario <%= user.nombre_de_usuario %> </h1>
+            <!-- Formulario -->
+            
+            <h3>Está seguro de avanzar? Esta decisión es permanente.</h3>
+            <form action="/user/delete/<%= user.id %>?_method=delete" method="post">
+                <button type="submit" class="btn btn-danger">Eliminar usuario</button>
+            </form>
+        </div>
     </main>
 
     <nav></nav>

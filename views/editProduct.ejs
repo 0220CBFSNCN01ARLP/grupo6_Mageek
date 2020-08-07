@@ -25,6 +25,7 @@
                     <label for="nombre">Nombre de producto</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" value="<%= producto.nombre %>">
                 </div>
+                <a href="/product/<%= producto.id %>/deletePicture/<%= picture.id %>"><button type="submit" class="btn btn-danger">delete image</button></a>
 
                 <!-- price -->
                 <div class="form-group">

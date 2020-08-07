@@ -3,7 +3,7 @@
 
 <head>
     <%- include("partials/head") %>
-    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <link rel="stylesheet" href="/stylesheets/user-account.css">
 </head>
 
 <body>
@@ -11,7 +11,7 @@
         <%- include("partials/header") %>
     </header>
 
-    <main>
+    <main class="form-edit">
         <!-- Frase -->
         <h1 class="">Edición de usuario:</h1>
         <!-- Formulario -->
@@ -47,17 +47,6 @@
                 <input type="text" class="form-control" id="apellido" name="apellido" aria-describedby="Apellido"
                     value="<%- user.apellido %>">
             </div>
-            <!-- numero_identidad -->
-            <div class="form-group">
-                <label for="numero_identidad">Número de identidad</label>
-                <input type="text" class="form-control" id="numero_identidad" name="numero_identidad"
-                    aria-describedby="numero_identidad" value="<%- user.numero_identidad %>">
-            </div>
-            <!-- genero -->
-            <div class="form-group">
-                <label for="genero">Genero</label>
-                <input type="text" class="form-control" id="genero" name="genero" aria-describedby="genero" value="<%- user.genero %>">
-            </div>
             <!-- email -->
             <div class="form-group">
                 <label for="email">Email</label>
@@ -75,25 +64,6 @@
                 <label for="calle">Calle</label>
                 <input type="text" class="form-control" id="calle" name="calle" aria-describedby="calle" value="<%- user.calle %>">
             </div>
-            <!-- departamento -->
-            <div class="form-group">
-                <label for="departamento">Departamento</label>
-                <input type="text" class="form-control" id="departamento" name="departamento" aria-describedby="departamento"
-                    value="<%- user.departamento %>">
-            </div>
-            <!-- localidad -->
-            <div class="form-group">
-                <label for="localidad">localidad</label>
-                <input type="text" class="form-control" id="localidad" name="localidad" aria-describedby="localidad"
-                    value="<%- user.localidad %>">
-            </div>
-            <!-- provincia -->
-            <div class="form-group">
-                <label for="provincia">provincia</label>
-                <input type="text" class="form-control" id="provincia" name="provincia" aria-describedby="provincia"
-                    value="<%- user.provincia %>">
-            </div>
-
             <!-- id_pais -->
             <select name="id_pais">
                 <% for (let pais of paises) { %>
@@ -101,7 +71,8 @@
                 <% } %>
             </select>
             <!-- Submit -->
-            <button class="btn btn-primary" type="submit">Finalizar edición</button>
+            <br>
+            <button id="btn-edit"class="btn btn-success" type="submit">Finalizar edición</button>
         </form>
 
 
