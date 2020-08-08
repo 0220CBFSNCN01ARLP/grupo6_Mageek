@@ -6,6 +6,7 @@ const userRouter = require("./user");
 const apiProductosRouter = require("./api/productos");
 const apiUsuariosRouter = require("./api/usuarios");
 const controller = require("../controllers/index");
+// const mwIsLoggedIn = require("../middlewares/mwIsLoggedIn.js")
 
 /* GET home page. */
 router.get("/", controller.index);
