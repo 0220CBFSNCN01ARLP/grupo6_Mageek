@@ -21,11 +21,7 @@ const { check, validationResult, body } = require("express-validator");
 // export
 const controller = {
     none: async function (req, res, next) {
-<<<<<<< HEAD
         const userLoggedStatus = await recordUser(req, res);
-=======
-        const userLoggedStatus = recordUser(req, res);
->>>>>>> 56c8536c299a8f210aec7fda084a7f8eb3dc6ea9
         let allProducts = await Productos.findAll();
         let productList = [];
         for (let i = 0; i < 10; i++) {
@@ -39,11 +35,7 @@ const controller = {
     },
     product: async function (req, res) {
         // load product
-<<<<<<< HEAD
         const userLoggedStatus = await recordUser(req, res);
-=======
-        const userLoggedStatus = recordUser(req, res);
->>>>>>> 56c8536c299a8f210aec7fda084a7f8eb3dc6ea9
         const product = await Productos.findByPk(req.params.id, {
             include: [{ model: Categorias, as: "categorias" }],
         });
@@ -60,11 +52,7 @@ const controller = {
         });
     },
     createOnCategory: async function (req, res, next) {
-<<<<<<< HEAD
         const userLoggedStatus = await recordUser(req, res);
-=======
-        const userLoggedStatus = recordUser(req, res);
->>>>>>> 56c8536c299a8f210aec7fda084a7f8eb3dc6ea9
         let artes = await Artes.findAll();
         let categorias = await Categorias.findAll();
         let colores = await Colores.findAll();
@@ -108,11 +96,7 @@ const controller = {
         });
     },
     save: async function (req, res, next) {
-<<<<<<< HEAD
         const userLoggedStatus = await recordUser(req, res);
-=======
-        const userLoggedStatus = recordUser(req, res);
->>>>>>> 56c8536c299a8f210aec7fda084a7f8eb3dc6ea9
         let datosProducto = {
             nombre: req.body.nombre,
             precio: req.body.precio,
