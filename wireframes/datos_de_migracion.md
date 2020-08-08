@@ -151,3 +151,63 @@ INSERT INTO `cartas` (`id`,`created_at`,`updated_at`,`oracle`,`flavortext`,`mana
 INSERT INTO `cartas` (`id`,`created_at`,`updated_at`,`oracle`,`flavortext`,`mana`,`ataque`,`defensa`,`subtipo`,`id_arte`,`id_tipo`,`id_color`,`id_edicion`,`id_producto`) VALUES (DEFAULT,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","First strike T: Reveal your hand and discard a card of target opponent's choice. Then that player reveals their hand and discards a card of your choice.","Activate this ability only any time you could cast a sorcery.","BBR",3,2,"Hechicero humano",1,5,001100,8,206);
 INSERT INTO `cartas` (`id`,`created_at`,`updated_at`,`oracle`,`flavortext`,`mana`,`ataque`,`defensa`,`subtipo`,`id_arte`,`id_tipo`,`id_color`,`id_edicion`,`id_producto`) VALUES (DEFAULT,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","If this spell is the first spell you've cast this game, you may cast it without paying its mana cost.","Look at the top five cards of your library. You may reveal a creature or land card from among them and put it into your hand. Put the rest on the bottom of your library in a random order.","1G","","","",26,4,000010,73,207);
 INSERT INTO `cartas` (`id`,`created_at`,`updated_at`,`oracle`,`flavortext`,`mana`,`ataque`,`defensa`,`subtipo`,`id_arte`,`id_tipo`,`id_color`,`id_edicion`,`id_producto`) VALUES (DEFAULT,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","Pursuant to subsection 3.1(4) of Richard's Rules of Order, at the beginning of the upkeep of each participant in this game of the Magic: The Gathering® trading card game","(hereafter known as "PLAYER"), that PLAYER performs all actions in the sequence of previously added actions (hereafter known as "ACTION QUEUE"), in the order those actions were added, then adds...","3BB","","","",53,3,100000,81,208);
+
+
+
+USE mageek;
+
+INSERT INTO productos (`id`,`created_at`,`updated_at`,`id_categoria`,`stock`,`precio`,`nombre`,`descripion`,`borrado`)
+# 4 blisters
+VALUES (211,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",1,10,0.99,"Blister Unhinged - vintage","Un blister sin tocar del '04."),
+(212,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",1,10,1.99,"Blister Dissension","Blister de la expansión Dissension."),
+(213,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",1,10,2.49,"Blister Throne of Eldraine","Blister de la expansión Throne of Eldraine."),
+(214,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",1,10,3.99,"Blister Rivals of Ixalan","Blister de la edición Rivals of Ixalan."),
+# 4 dados
+(221,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",3,10,2.99,"Dados Planar Chaos clásicos","Dos dados de 6 caras para jugar planechase con tus amigues!"),
+(222,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",3,10,1.99,"Dado de contadores","Para poder jugar sin interrupciones ni dudas! Precio por unidad."),
+(223,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",3,10,0.99,"Dado Spindown clásico","Acelerá tus juegos con los spindown de toda la vida! Consultar por colores/ediciones."),
+(224,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",3,10,7.99,"Dados metálicos de contadores","Precio por unidad."),
+# 4 folios
+(231,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",4,10,0.99,"Folios de Sorin Markov","Protegé tus cartas con el planeswalker de Innistrad!"),
+(232,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",4,10,0.99,"Folios de StarCityGames","Disfrutá jugando con protectores de nuestra competencia! No sé quién subió este producto."),
+(233,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",4,10,0.99,"Folios de colores clásicos","Folios de colores sólidos para proteger tus cartas de los elementos! Una solución económica para un problema caro."),
+(234,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",4,10,0.99,"Folios translúcidos","Protegé tus cartas sin perder jugabilidad ni diseño!"),
+# 3 packs
+(241,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",5,10,0.99,"Mazo de Throne of Eldraine","Acompañá a Chulane con tu primer mazo, o reforzá tus otros mazos con esta excelente oportunidad!"),
+(242,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",5,10,0.99,"Mazo prearmado de Rivals of Ixalan","Acompañá a Vraska con tu primer mazo, o reforzá tus otros mazos con esta excelente oportunidad!"),
+(243,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",5,10,0.99,"Mazo de Dissension","Acompañá al gremio Rakdos con tu primer mazo, o reforzá tus otros mazos con esta excelente oportunidad!");
+
+INSERT INTO ediciones (`id`,`created_at`,`updated_at`,`anio`,`nombre`)
+VALUES (101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",2004,"unhinged"),
+(102,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",2006,"dissension"),
+(103,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",2019,"throne of eldraine"),
+(104,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",2018,"rivals of ixalan"),
+(105,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",1998,"unglued");
+
+
+INSERT INTO blisters (`id`,`created_at`,`updated_at`,`Arte` ,`id_producto`,`id_edicion`) 
+
+VALUES (101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","unhinged",211,101),
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","dissension",212,102),
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","throne of eldraine",213,103),
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","rivals of ixalan",214,104);
+
+INSERT INTO dados (`id`,`created_at`,`updated_at`,`color`,`caras`,`id_producto`)
+VALUES (101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","negro",6,221),
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","blanco y negro",6,222),
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","surtido",20,223),
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","metálico",6,224);
+
+INSERT INTO folios (`id`,`created_at`,`updated_at`,`color`,`id_producto`)
+VALUES (101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","negro - ilustrado",231),
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","natural - ilustrado",232),
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","surtido",233),
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0","translúcido",234);
+
+
+INSERT INTO packs (`id`,`created_at`,`updated_at`,`id_color`,`modelo`,`id_edicion`,`id_producto`)
+VALUES (101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",110010,"chulane",103,241), # eld
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",001000,"vraska",104,242), #ixa
+(101,"2020-08-03 14:49:40.0","2020-08-03 14:49:40.0",110000,"rakdos",102,243); #diss
+
+

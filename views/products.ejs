@@ -64,14 +64,21 @@
 				</div> <!-- row.// -->
 			</div>
     </article>
-    
-    <%- include("partials/container-products") %>
-    
-    <%- include("partials/container-products") %>
-    
-    <%- include("partials/container-products") %>
-    
-    <%- include("partials/container-products") %>
+
+	<% for (let index=0;index<productList.length;index++) { %>
+<div class="box-index">
+	<a href="/product/<%= productList[index].dataValues.id %>"><img id="img-product-index" src="/img/product/<%- picArray[index][0].dataValues.url %>"
+			alt="product"></a>
+	<h4><%- productList[index].dataValues.nombre %></h4>
+	<h5 style="color:darkgreen;">$<%- productList[index].dataValues.precio %></h5>
+	<% if (productList[index].dataValues.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!</h4><% } %>
+	<a href="/user/saveToCart/<%= productList[index].dataValues.id %>">
+		<button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i
+				class="fa fa-shopping-cart"></i></button>
+	</a>
+</div>
+
+	<% } %>
 
     <footer>
         <%- include("partials/footer") %>

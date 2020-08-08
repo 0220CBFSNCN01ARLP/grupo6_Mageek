@@ -22,14 +22,24 @@ const { check, validationResult, body } = require("express-validator");
 const controller = {
     none: async function (req, res, next) {
         const userLoggedStatus = await recordUser(req, res);
-        let allProducts = await Productos.findAll();
-        let productList = [];
-        for (let i = 0; i < 10; i++) {
-            productList.push(allProducts[i]);
-        }
+        let allProducts = await Productos.findAll({
+            order: [["id", "DESC"]],
+            limit: 10,
+        });
+        // let productList = [];
+        // for (let i = 0; i < 10; i++) {
+        //     productList.push(allProducts[i]);
+        // }
         // res.send(productList);
+        let picArray = [];
+        for (let i = 0; i < allProducts.length;i++){
+            let pics = await Fotos.findAll({ where: { id_producto: allProducts[i].dataValues.id } });
+             picArray.push(pics);
+        };
+        console.log(picArray);
         res.render("products", {
-            productList: productList,
+            productList: allProducts,
+            picArray: picArray,
             userLoggedStatus: userLoggedStatus,
         });
     },
@@ -59,21 +69,33 @@ const controller = {
         let ediciones = await Ediciones.findAll();
         let tipos = await Tipos.findAll();
         artes.sort((a, b) => {
-            if (a.artista > b.artista) {return 1;};
-            if (a.artista < b.artista) {return -1;};
+            if (a.artista > b.artista) {
+                return 1;
+            }
+            if (a.artista < b.artista) {
+                return -1;
+            }
             return 0;
         });
         // sorting arrays
         categorias.sort();
         colores.sort();
         ediciones.sort((a, b) => {
-            if (a.nombre > b.nombre) {return 1;};
-            if (a.nombre < b.nombre) {return -1;};
+            if (a.nombre > b.nombre) {
+                return 1;
+            }
+            if (a.nombre < b.nombre) {
+                return -1;
+            }
             return 0;
         });
         tipos.sort((a, b) => {
-            if (a.tipo > b.tipo) {return 1;};
-            if (a.tipo < b.tipo) {return -1;};
+            if (a.tipo > b.tipo) {
+                return 1;
+            }
+            if (a.tipo < b.tipo) {
+                return -1;
+            }
             return 0;
         });
         // generating url
@@ -402,12 +424,20 @@ const controller = {
             let detalle = await getDetails(product, res);
             let arrayColores = prepareColors(detalle.dataValues.id_color);
             ediciones.sort((a, b) => {
-                if (a.dataValues.anio < b.dataValues.anio) { return 1; }
-                if (a.dataValues.anio > b.dataValues.anio) { return -1; }
+                if (a.dataValues.anio < b.dataValues.anio) {
+                    return 1;
+                }
+                if (a.dataValues.anio > b.dataValues.anio) {
+                    return -1;
+                }
             });
             artes.sort((a, b) => {
-                if (a.dataValues.artista > b.dataValues.artista) {return 1;}
-                if (a.dataValues.artista < b.dataValues.artista) {return -1;}
+                if (a.dataValues.artista > b.dataValues.artista) {
+                    return 1;
+                }
+                if (a.dataValues.artista < b.dataValues.artista) {
+                    return -1;
+                }
             });
             res.send(errors);
             res.end();

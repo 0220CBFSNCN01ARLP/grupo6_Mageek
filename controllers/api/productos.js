@@ -99,14 +99,13 @@ const controller = {
         let producto = await Productos.findByPk(req.params.id, {
             include: [{ model: Categorias, as: "categorias" }],
         });
-        let photos = await Fotos.findAll();
+        let photos = await Fotos.findAll({where:{id_producto:producto.id}});
         // initialize the result
         let result = { metadata: { endpoint: `http://localhost:3000/api/productos` } };
         let picArray = [];
+        console.log(photos);
         photos.forEach((photo) => {
-            if (photo.dataValues.id_producto == producto.id) {
-                picArray.push(photo.dataValues.url);
-            }
+            picArray.push(photo.dataValues.url);
         });
         result.data = {
             id: producto.id,
