@@ -3,6 +3,7 @@
 
 <head>
     <%- include("partials/head") %>
+    <script src="/js/productDetail.js"></script>
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <link rel="stylesheet" href="/stylesheets/productD.css" />
 </head>
@@ -15,11 +16,12 @@
     <main class="container main-productD">
         <div class="row">
             <div class="col-sm-5 col-xs-12 div-img-productD">
-                <% for (let picture of pictures) { %>
-                    <img class="img-productD" src="/img/product/<%= picture.url %>"></img>
-                <% } %>
+                <!--% for (let picture of pictures) { %>
+                    <img class="img-productD" src="/img/product/< %= picture.url %>"></img>
+                < % } %-->
+                <img class="img-productD" src="/img/product/<%= pictures[0].url %>"></img>
             </div>
-            <div class="col-sm-5 col-xs-12 detail-important">
+            <div class="col-sm-5 col-xs-12 detail-important" id="mainDiv">
                 <h1> <%- product.nombre %> </h1>
                 <p>Quedan: <%- product.stock %>. </p>
                 <p>Cuestan: $<%- product.precio %> cada uno.</p>

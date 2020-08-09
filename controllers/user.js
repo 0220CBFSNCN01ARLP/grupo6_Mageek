@@ -96,7 +96,7 @@ const controller = {
                     });
                 }
                 req.session.userId = user.id;
-                userLoggedStatus = recordUser(req, res);
+                userLoggedStatus = await recordUser(req, res);
                 res.render("userAccount", { user: user, userLoggedStatus: userLoggedStatus });
                 res.end();
             }

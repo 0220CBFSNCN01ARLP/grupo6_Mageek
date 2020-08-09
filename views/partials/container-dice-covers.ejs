@@ -6,7 +6,7 @@
                 src="/img/product/<%= mainArrays.dados[i].pics[0].dataValues.url %>" alt="product"></a>
         <h4><%- mainArrays.dados[i].productData.nombre %></h4>
         <h5 style="color:darkgreen;">$<%- mainArrays.dados[i].productData.precio %></h5>
-        <% if (mainArrays.dados[i].productData.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
+        <% if (mainArrays.dados[i].productData.borrado||mainArrays.dados[i].productData.stock==0) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
         </h4>
         <% } %>
         <a href="/user/saveToCart/<%= mainArrays.dados[i].productData.id %>">
@@ -24,7 +24,7 @@
                 src="/img/product/<%= mainArrays.folios[i].pics[0].dataValues.url %>" alt="product"></a>
         <h4><%- mainArrays.folios[i].productData.nombre %></h4>
         <h5 style="color:darkgreen;">$<%- mainArrays.folios[i].productData.precio %></h5>
-        <% if (mainArrays.folios[i].productData.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
+        <% if (mainArrays.folios[i].productData.borrado||mainArrays.folios[i].productData.stock==0) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
         </h4>
         <% } %>
         <a href="/user/saveToCart/<%= mainArrays.folios[i].productData.id %>">

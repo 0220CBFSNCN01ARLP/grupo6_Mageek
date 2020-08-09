@@ -2,7 +2,7 @@
     <a href="/product/<%= product.id %>"><img id="img-product-index" src="/img/product/<%- product.url %>" alt="product"></a>
     <h4><%- product.nombre %></h4>
     <h5 style="color:darkgreen;">$<%- product.precio %></h5>
-    <% if (product.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!</h4><% } %>
+    <% if (product.borrado||product.stock==0) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!</h4><% } %>
     <a href="/user/saveToCart/<%= product.id %>">
         <button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i class="fa fa-shopping-cart"></i></button>
     </a>

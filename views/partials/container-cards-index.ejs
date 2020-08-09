@@ -6,7 +6,7 @@
                 alt="product"></a>
         <h4><%- mainArrays.cartas[i].productData.nombre %></h4>
         <h5 style="color:darkgreen;">$<%- mainArrays.cartas[i].productData.precio %></h5>
-        <% if (mainArrays.cartas[i].productData.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
+        <% if (mainArrays.cartas[i].productData.borrado||mainArrays.cartas[i].productData.stock==0) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
         </h4>
         <% } %>
         <a href="/user/saveToCart/<%= mainArrays.cartas[i].productData.id %>">

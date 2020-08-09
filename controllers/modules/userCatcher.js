@@ -18,6 +18,7 @@ const userCatcher = {
             : (credentials = req.cookies.userId);
         if (!isNaN(credentials)) {
             let user = await Usuarios.findByPk(credentials);
+            console.log(Number(user.id_permiso));
             return {
                 userType: Number(user.id_permiso),
                 userName: user.nombre_de_usuario,
