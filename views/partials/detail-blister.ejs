@@ -1,2 +1,10 @@
-<p>Edición: <%- detalle.ediciones.dataValues.anio %> - <%- detalle.ediciones.dataValues.nombre %> </p>
-            <p>Arte: <%- detalle.arte %> </p>
+<div class="row">
+    <div class="col-6">
+        <h3>Arte</h3>
+        <p><%- detalle.arte %> </p>
+    </div>
+    <div class="col-6">
+        <h3>Edicion </h3>
+        <p><%- detalle.ediciones.dataValues.anio %> - <%- detalle.ediciones.dataValues.nombre %> </p>
+    </div>
+</div>       

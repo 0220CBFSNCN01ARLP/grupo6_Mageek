@@ -1,3 +1,14 @@
-            <p>modelo: <%- detalle.modelo %></p>
-            <p>color: <%- detalle.colores.color %></p>
-            <p>Edición: <%- detalle.ediciones.dataValues.anio %> - <%- detalle.ediciones.dataValues.nombre %></p>
+<div class="row">
+    <div class="col-6">
+        <h3>Modelo</h3>
+        <p><%- detalle.modelo %></p>
+    </div>
+        <div class="col-6">
+        <h3>Color </h3>
+        <p><%- detalle.color %></p>
+    </div>
+    <div class="col-12">
+        <h3>Edicion </h3>
+        <p><%- detalle.ediciones.dataValues.anio %> - <%- detalle.ediciones.dataValues.nombre %> </p>
+    </div>
+</div>       

@@ -16,10 +16,16 @@
    margin-top: 40px;
 }
 .secondary-description{
-   margin: 5%;
+   border: #28A745 3px solid;
+   background-color: #D3D3D3;
+   border-radius: 10px;
+   padding-top: 5px;
+}
+.product-NF{
+   text-align: center;
 }
 @media (min-width: 992px){
-   .div-img-productD{
+   .div-img-productDgit{
    padding-left: 75px;
 }
 
@@ -33,5 +39,11 @@
    }
    .detail-important{
    margin-bottom: 20px;
+}
+.secondary-description{
+   border: none;
+   background-color: #dfe7e9;
+   border-radius: 0px;
+   padding-top: 5px;
 }
 }

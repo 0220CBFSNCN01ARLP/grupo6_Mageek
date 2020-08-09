@@ -1,8 +1,38 @@
-            <p>tipo subtipo: <%- detalle.tipos.tipo %> - <%- detalle.subtipo %> </p>
-            <p>edicion: <%- detalle.ediciones.dataValues.anio %> - <%- detalle.ediciones.dataValues.nombre %> </p>
-            <p>oracle: <%- detalle.oracle %> </p>
-            <p>flavortext: <%- detalle.flavortext %> </p>
-            <p>limitado: <%- detalle.limitado %> </p>
-            <p>color: <%- detalle.colores.color %> - mana: <%- detalle.mana %> </p>
-            <p>ataque-defensa <%- detalle.ataque %>/<%- detalle.defensa %>  </p>
-            <p>arte: <%- detalle.artes.artista %> </p>
+<div class="row">
+    <div class="col-6">
+        <h3>Tipo - Subtipo </h3>
+        <p><%- detalle.tipos.tipo %> - <%- detalle.subtipo %></p>
+    </div>
+    <div class="col-6">
+        <h3>Edicion </h3>
+        <p><%- detalle.ediciones.dataValues.anio %> - <%- detalle.ediciones.dataValues.nombre %> </p>
+    </div>
+    <div class="col-6">
+        <h3>Oracle </h3>
+        <p><%- detalle.oracle %></p>
+    </div>
+    <div class="col-6">
+        <h3>Flavortext </h3>
+        <p><%- detalle.flavortext %> </p>
+    </div>
+    <div class="col-6">
+        <h3>Limitado</h3>
+        <p><%- detalle.limitado %> </p>
+    </div>
+    <div class="col-6">
+        <h3>Color</h3>
+        <p> <%- detalle.colores.color %> </p>
+    </div>
+    <div class="col-6">
+        <h3>Mana </h3>
+        <p><%- detalle.mana %> </p>
+    </div>
+    <div class="col-6">
+        <h3>Ataque/Defensa</h3>
+        <p> <%- detalle.ataque %>/<%- detalle.defensa %> </p> 
+    </div>
+    <div class="col-6">
+        <h3>Arte</h3>
+        <p><%- detalle.artes.artista %> </p> 
+    </div>
+</div>

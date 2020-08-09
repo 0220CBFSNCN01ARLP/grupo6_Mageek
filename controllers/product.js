@@ -44,7 +44,7 @@ const controller = {
         const product = await Productos.findByPk(req.params.id, {
             include: [{ model: Categorias, as: "categorias" }],
         });
-        if (!product) res.send("product doesn't exist"); // PRODUCT 404
+        if (!product) res.render("product-NF"); // PRODUCT 404
         let pictures = await Fotos.findAll({
             where: { id_producto: product.id },
         });
