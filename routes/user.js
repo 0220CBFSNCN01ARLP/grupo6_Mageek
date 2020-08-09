@@ -15,11 +15,9 @@ var storage = multer.diskStorage({
         cb(null, "public/img/user_avatar");
     },
     filename: function (req, file, cb) {
-        cb(
-            null,
-            Date.now() + path.extname(file.originalname)
-        );
-        req.body.pic = Date.now() + path.extname(file.originalname);
+        let name = Date.now() + path.extname(file.originalname);
+        cb(null, name);
+        req.body.pic = name;
     },
 });
 var upload = multer({ storage: storage });
@@ -32,6 +30,7 @@ var upload = multer({ storage: storage });
 router.get("/register", controller.userRegister);
 router.post(
     "/register",
+    upload.single("pic"),
     [
         check("nombre_de_usuario")
             .isLength({ min: 4 })
@@ -45,7 +44,6 @@ router.post(
         check("password").isLength({ min: 4 }).withMessage("Cantidad mínima de caracteres: 4."),
         check("pass2").isLength({ min: 4 }).withMessage("Debe reingresar la contraseña."),
     ],
-    upload.single("pic"),
     controller.create
 );
 
@@ -68,6 +66,7 @@ router.post(
 
 router.get("/cart", mwLoggedIn, controller.cart);
 router.get("/saveToCart/:prodId", mwLoggedIn, controller.saveToCart)
+router.delete("/removeFromCart",mwLoggedIn,controller.removeFromCart)
 
 // success - redirects to homepage
 router.get("/success", function (req, res, next) {

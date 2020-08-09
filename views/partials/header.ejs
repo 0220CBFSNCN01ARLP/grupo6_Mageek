@@ -14,16 +14,18 @@
                 <a class="nav-link waves-effect waves-light" href="#footer">Nosotros</a>
             </li>
             <!-- logged -->
-            <% if (userLoggedStatus===1||userLoggedStatus===2) { %>
-                <li class="nav-item dropdown " id="loggedMenu">
-                    <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
-                    <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item waves-effect waves-light" href="/user/account">Cuenta</a>
-                        <!-- <a class="dropdown-item waves-effect waves-light" href="#">add product</a> -->
-                        <a class="dropdown-item waves-effect waves-light" href="/user/logout">Salir</a>
-                    </div>
-                </li>
+            <% if (userLoggedStatus.userType===1||userLoggedStatus.userType===2) { %>
+                <li class="nav-item" id="loggedMenu">
+                    <!-- <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a> -->
+                        <!-- <div class="dropdown-menu dropdown-info" aria-labelledby="navbarDropdownMenuLink"> -->
+                            <a class="nav-link waves-effect waves-light" href="/user/account"><%= userLoggedStatus.userName %></a>
+                            <!-- <a class="dropdown-item waves-effect waves-light" href="#">add product</a> -->
+                            <!-- </div> -->
+                        </li>
+                        <li class="nav-item" id="loggedMenu">
+                            <a class="nav-link waves-effect waves-light" href="/user/logout">Salir</a>
+                        </li>
                 <% } else { %>
                     <!-- not logged -->
                     <li class="nav-item dropdown" id="unloggedMenu">

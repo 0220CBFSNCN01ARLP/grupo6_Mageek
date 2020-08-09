@@ -27,6 +27,7 @@ router.get("/", controller.none);
 router.get("/add/:id",  controller.createOnCategory);
 router.post(
     "/create",
+    upload.array("pic", 7),
     [
         check("nombre")
             .isLength({ min: 5 })
@@ -37,7 +38,6 @@ router.post(
         check("stock").isNumeric().withMessage("El stock tiene que ser un número."),
         check("precio").isNumeric().withMessage("El precio tiene que ser un número."),
     ],
-    upload.array("pic", 7),
     controller.save
 );
 

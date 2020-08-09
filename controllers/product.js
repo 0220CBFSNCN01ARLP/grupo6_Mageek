@@ -44,7 +44,10 @@ const controller = {
         const product = await Productos.findByPk(req.params.id, {
             include: [{ model: Categorias, as: "categorias" }],
         });
-        if (!product) res.render("product-NF"); // PRODUCT 404
+        if (!product) res.render("product-NF", {
+                          userLoggedStatus: userLoggedStatus,
+                          message:"EL PRODUCTO QUE ESTAS SOLICITANDO FUE DESTRUIDO POR UN LIGHTNING BOLT!! LO SENTIMOS :(",
+                      }); // PRODUCT 404
         let pictures = await Fotos.findAll({
             where: { id_producto: product.id },
         });
@@ -63,15 +66,7 @@ const controller = {
         let colores = await Colores.findAll();
         let ediciones = await Ediciones.findAll();
         let tipos = await Tipos.findAll();
-        artes.sort((a, b) => {
-            if (a.artista > b.artista) {
-                return 1;
-            }
-            if (a.artista < b.artista) {
-                return -1;
-            }
-            return 0;
-        });
+        artes.sort((a, b) => { if (a.artista > b.artista) { return 1; } if (a.artista < b.artista) { return -1; } return 0; });
         // sorting arrays
         categorias.sort();
         colores.sort();

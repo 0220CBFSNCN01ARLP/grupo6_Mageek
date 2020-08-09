@@ -2,15 +2,17 @@
 <html lang="en">
 
 <head>
-  <%- include("partials/head") %>
-  <link rel="stylesheet" href="/stylesheets/productD.css">
+    <%- include("partials/head") %>
+    <link rel="stylesheet" href="/stylesheets/productD.css">
 </head>
+
 <body>
     <header>
         <%- include("partials/header") %>
     </header>
-
-    <h1 class="product-NF"> EL PRODUCTO QUE ESTAS SOLICITANDO FUE DESTRUIDO POR UN LIGHTNING BOLT!! LO SIENTO :(</h1>
+    <% if (typeof message != undefined) { %>
+    <h1 class="product-NF"><%- message %></h1>
+    <%} %>
 
     <footer>
         <%- include("partials/footer") %>

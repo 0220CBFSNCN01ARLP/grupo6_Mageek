@@ -16,7 +16,7 @@
 
     <main>
         <div class="account-pic-div ">
-            <img id="img-user-account" width="15%" src="/img/user_avatar/1594837840822.png"></img>
+            <img id="img-user-account" width="15%" src="/img/user_avatar/<%= user.pic %>"></img>
             <p>
                 NOMBRE: <%- user.nombre %> <br>
                 APELLIDO: <%- user.apellido %> <br>
@@ -30,7 +30,7 @@
             </form>
             <a href="/user/edit/<%= user.id %>">
             <button id="user-edit-btn"class="btn btn-success">Editar usuario</button></a>
-            <% if (userLoggedStatus === 2) { %>
+            <% if (userLoggedStatus.userType === 2) { %>
                 <div class="dropdown show">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
