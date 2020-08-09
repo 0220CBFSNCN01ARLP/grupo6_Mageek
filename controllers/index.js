@@ -36,7 +36,7 @@ const controller = {
             folios: cover,
             packs: pack,
         }
-        console.log(card[0].productData);
+        console.log(card[0].categoryData);
         let todaysProduct = Math.floor(Math.random() * (208 - 201)) + 201;
         let product = await Productos.findByPk(todaysProduct, { include: [{ model: Categorias, as: "categorias" }], });
         let fotos = await Fotos.findAll({ where: { id_producto: product.dataValues.id, }, });

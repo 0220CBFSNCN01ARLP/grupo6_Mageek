@@ -59,6 +59,7 @@ const productCatcher = {
             result.push({
                 productData: product.dataValues,
                 categoryData: productCategoryData.dataValues,
+                pics: pics,
             });
         }
         return result;

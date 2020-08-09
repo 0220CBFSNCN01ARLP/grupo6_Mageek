@@ -26,11 +26,6 @@ const controller = {
             order: [["id", "DESC"]],
             limit: 10,
         });
-        // let productList = [];
-        // for (let i = 0; i < 10; i++) {
-        //     productList.push(allProducts[i]);
-        // }
-        // res.send(productList);
         let picArray = [];
         for (let i = 0; i < allProducts.length;i++){
             let pics = await Fotos.findAll({ where: { id_producto: allProducts[i].dataValues.id } });

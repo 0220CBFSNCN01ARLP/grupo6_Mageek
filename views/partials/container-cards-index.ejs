@@ -1,0 +1,20 @@
+<article class="container-product">
+    <% for (let i=0;i<mainArrays.cartas.length;i++) {  %>
+
+    <div class="box-index">
+        <a href="/product/<%= mainArrays.cartas[i].productData.id %>"><img id="img-product-index" src="/img/product/<%= mainArrays.cartas[i].pics[0].dataValues.url %>"
+                alt="product"></a>
+        <h4><%- mainArrays.cartas[i].productData.nombre %></h4>
+        <h5 style="color:darkgreen;">$<%- mainArrays.cartas[i].productData.precio %></h5>
+        <% if (mainArrays.cartas[i].productData.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
+        </h4>
+        <% } %>
+        <a href="/user/saveToCart/<%= mainArrays.cartas[i].productData.id %>">
+            <button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i
+                    class="fa fa-shopping-cart"></i></button>
+        </a>
+        <p><%- mainArrays.cartas[i].categoryData.oracle %> </p>
+    </div>
+
+    <% } %>
+</article>

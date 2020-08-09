@@ -1,0 +1,37 @@
+<article class="container-product">
+    <% for (let i=0;i<mainArrays.packs.length;i++) {  %>
+
+    <div class="box-index">
+        <a href="/product/<%= mainArrays.packs[i].productData.id %>"><img id="img-product-index"
+                src="/img/product/<%= mainArrays.packs[i].pics[0].dataValues.url %>" alt="product"></a>
+        <h4><%- mainArrays.packs[i].productData.nombre %></h4>
+        <h5 style="color:darkgreen;">$<%- mainArrays.packs[i].productData.precio %></h5>
+        <% if (mainArrays.packs[i].productData.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
+        </h4>
+        <% } %>
+        <a href="/user/saveToCart/<%= mainArrays.packs[i].productData.id %>">
+            <button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i
+                    class="fa fa-shopping-cart"></i></button>
+        </a>
+    </div>
+
+    <% } %>
+
+    <% for (let i=0;i<mainArrays.blisters.length;i++) {  %>
+
+    <div class="box-index">
+        <a href="/product/<%= mainArrays.blisters[i].productData.id %>"><img id="img-product-index"
+                src="/img/product/<%= mainArrays.blisters[i].pics[0].dataValues.url %>" alt="product"></a>
+        <h4><%- mainArrays.blisters[i].productData.nombre %></h4>
+        <h5 style="color:darkgreen;">$<%- mainArrays.blisters[i].productData.precio %></h5>
+        <% if (mainArrays.blisters[i].productData.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
+        </h4>
+        <% } %>
+        <a href="/user/saveToCart/<%= mainArrays.blisters[i].productData.id %>">
+            <button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i
+                    class="fa fa-shopping-cart"></i></button>
+        </a>
+    </div>
+
+    <% } %>
+</article>
