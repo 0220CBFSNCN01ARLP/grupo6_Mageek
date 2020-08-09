@@ -1,32 +1,42 @@
-.title-user-account{
-    text-align: center;
-    margin: 3%;
+#img-userA{
+   height: 200px;
 }
-.account-pic-div{
-    float: left;
-    width: 80%;
-    padding-left: 30px;
+.main-userA{
+   border: #28A745 3px solid;
+   border-radius: 10px;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   background-color: #D3D3D3;
 }
-.account-logout-div{
-    float: left;
-    width: 20%;
-    padding-right: 10px;
-    text-align: center;
+.div-img-userA{
+   margin: 20px;
+   padding: 5px; 
 }
-.clearfix{
-    clear: both;
+.detail-important{
+   margin-top: 40px;
 }
-#user-edit-btn{
-    margin-bottom: 10px;
+@media (min-width: 992px){
+   .div-img-userA{
+   padding-left: 75px;
 }
-#user-delete-btn{
-    margin-top: 10px;
+
 }
-.form-edit{
-    margin: 3% 10%;
+@media (max-width: 576px){
+   .main-userA{
+        border: none;
+        border-bottom: 3px solid #28A745;
+        border-radius: 0px;
+        margin-top: 0px;
+   }
+   .detail-important{
+        margin-bottom: 20px;
 }
-#btn-edit{
-    margin-top: 12px;
+   .secondary-description{
+        border: none;
+        background-color: #dfe7e9;
+        border-radius: 0px;
+        padding-top: 5px;
+}
 }
 /*   <%= user.url %>
         <a href="/user/edit/<%= user.id %>">
