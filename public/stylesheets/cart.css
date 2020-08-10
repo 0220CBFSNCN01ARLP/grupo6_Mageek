@@ -1,42 +1,28 @@
-/* Cart header bar */
-
-.barra-carrito {
-  height: 30px;
+.card{
+   border-radius: 15px !important;
 }
-
-
-
-/* Producto */
-
-.fa-trash {
-    height: 3vh;
+.aside{
+   float: left;
 }
-label {
-    font-size: 0.9em;
+.img-sm{
+   max-width: 100px;
+   max-height: 100px;
 }
-.quantity {
-    margin-bottom: 0px;
-}
-
-
-/* Cart footer */
-.info {
-    margin-bottom: 3px;
-}
-.info-money,
-.total-money {
-    text-align: right;
-}
-.btn {
-    display: inline-block;
-    width: 70%;
-}
-.boton {
-    margin-top: 10px;
-    width: 100%;
-    text-align: center;
-}
-.separator {
-    margin: 10px 0px;
-    border-top: 1px solid black;
-}
+/*        Carrito!
+        <% for (let i=0;i<productArray.length;i++) { %>
+        product: <%= i %>
+        <div class="box-index">
+            product class: <%- productArray[i].categorias.dataValues.categoria %>
+            <a href="/product/<%= productArray[i].id %>"><img id="img-product-index"
+                    src="/img/product/<%- productArray[i].url %>" alt="Ir al producto!"></a>
+            <h4><%- productArray[i].nombre %></h4>
+            <h5 style="color:darkgreen;">$<%- productArray[i].precio %></h5>
+            <% if (productArray[i].borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!</h4><% } %>
+            <a href="/user/saveToCart/<%= productArray[i].id %>">
+                <button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i
+                        class="fa fa-shopping-cart"></i></button>
+            </a>
+        </div>
+        <% total += Number(productArray[i].precio);} total=total*100;total=Math.round(total);total=total/100; %>
+        a pagar: $<%- total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") %>
+*/

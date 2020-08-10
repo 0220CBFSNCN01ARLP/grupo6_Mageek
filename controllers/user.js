@@ -199,7 +199,7 @@ const controller = {
     cart: async (req, res) => {
         let loggedUser = req.cookies.userId || req.session.userId;
         const userLoggedStatus = await recordUser(req, res);
-        const cartArray = await Productos_en_carrito.findAll({ where: { id_usuario: loggedUser } });
+        const cartArray = await Productos_en_carrito.findAll({ where: { id_usuario: Number(loggedUser) } });
         if (cartArray.length == 0) {
             res.send("no cart, go shop");
             res.end;
@@ -207,14 +207,20 @@ const controller = {
         let productIds = [];
         for (let cartItem of cartArray) {
             productIds.push(cartItem.dataValues.id_producto);
+            console.log(cartItem.dataValues.id_producto);
         }
         let productArray = await getProducts(productIds);
-        console.log(productArray[0]);
+        let picArray = [];
+        for (let id of productIds) {
+            let pics = await Fotos.findAll({ where: { id_producto: id } });
+            await picArray.push(pics);
+        };
         res.render("cart", {
             userLoggedStatus: userLoggedStatus,
             cartArray: cartArray,
             productArray: productArray,
             total: 0,
+            picArray: picArray,
         }); // Needs DB
     },
     saveToCart: async function (req, res) {
@@ -228,7 +234,7 @@ const controller = {
             cantidad: "1",
         };
         let result = await Productos_en_carrito.create(cartEntry);
-        res.redirect("/user/carrito");
+        res.redirect("/user/cart");
     },
     removeFromCart: async function (req, res) {
         const userLoggedStatus = await recordUser(req, res);
