@@ -21,11 +21,12 @@ window.addEventListener("load", function () {
         let div_calle = document.getElementById("div-calle");
         let div_id_pais = document.getElementById("id_pais");
         let problems = 0;
-        
+
         // modules
         function checkLength(element, node, amount = 3) {
             let error = document.createElement("p");
             if (element.value.length < amount) {
+                problems++;
                 error.style.color = "red";
                 error.innerHTML = `<p style="color:red;font-size:0.8em">El campo requiere un mínimo de ${amount} caracteres.</p>`;
                 if (node.firstChild != node.lastChild) {
@@ -71,7 +72,7 @@ window.addEventListener("load", function () {
                 }
             }
         }
-        
+
         // main function start
         checkLength(nombre_de_usuario, div_nombre_de_usuario);
         checkLength(email, div_email, 6);
@@ -88,6 +89,15 @@ window.addEventListener("load", function () {
             error.style.color = "red";
             error.innerHTML = `<p style="color:red;font-size:0.8em">Por favor seleccione por lo menos una opción fantástica.</p>`;
             div_id_pais.appendChild(error);
+        }
+        if (password.value != pass2.value) {
+            problems++;
+            let error = document.createElement("p");
+            error.style.color = "red";
+            error.innerHTML = `<p style="color:red;font-size:0.8em">Por favor seleccione por lo menos una opción fantástica.</p>`;
+            div_pass2.appendChild(error);
+        } else {
+            div_pass2.removeChild(div_pass2.lastChild);
         }
         if (problems) {
             event.preventDefault();

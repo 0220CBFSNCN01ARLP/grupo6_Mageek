@@ -2,85 +2,103 @@
 <html lang="en">
 
 <head>
-  <%- include("partials/head") %>
-  <link rel="stylesheet" href="/stylesheets/products.css">
-  <link rel="stylesheet" href="/stylesheets/index.css" />
+	<%- include("partials/head") %>
+	<link rel="stylesheet" href="/stylesheets/products.css">
+	<link rel="stylesheet" href="/stylesheets/index.css" />
 </head>
+
 <body>
-    <header>
-        <%- include("partials/header") %>
-    </header>
-    <article class="sidenav">
-        <div class="card-body">
-					<h5 class="card-title">Tipo de productos</h5>
-					<ul class="list-menu list-types">
-						<li><a href="#">Dado |<span class="badge badge-pill badge-light">120</span> </a></li>
-						<li><a href="#">Cartas |<span class="badge badge-pill badge-light">42</span> </a></li>
-						<li><a href="#">Blisters |</a><span class="badge badge-pill badge-light">16</span> </a></li>
-                        <li><a href="#">Packs |<span class="badge badge-pill badge-light">34</span></a></li>
-                        <li><a href="#">Folios |<span class="badge badge-pill badge-light">34</span></a></li>
-					</ul>
-				</div>
-        <div class="card-body ">
-				<h5 class="card-title">Colores</h5>
-			
-				<div class="row">
-					<div class="col-md-6">
-						<label class="custom-control custom-checkbox">
-						  <input type="checkbox" checked="" class="custom-control-input">
-						  <div class="custom-control-label">Rojo</div>
-						</label>
-					</div> <!-- col.// -->
-					<div class="col-md-6">
-						<label class="custom-control custom-checkbox">
-						  <input type="checkbox" checked="" class="custom-control-input">
-						  <div class="custom-control-label">Verde</div>
-						</label>
-					</div> <!-- col.// -->
-					<div class="col-md-6">
-						<label class="custom-control custom-checkbox">
-						  <input type="checkbox" checked="" class="custom-control-input">
-						  <div class="custom-control-label">Azul</div>
-						</label>
-					</div> <!-- col.// -->
-					<div class="col-md-6">
-						<label class="custom-control custom-checkbox">
-						  <input type="checkbox" checked="" class="custom-control-input">
-						  <div class="custom-control-label">Negro</div>
-						</label>
-					</div> <!-- col.// -->
-					<div class="col-md-6">
-						<label class="custom-control custom-checkbox">
-						  <input type="checkbox" class="custom-control-input">
-						  <div class="custom-control-label">Blanco</div>
-						</label>
-					</div> <!-- col.// -->
-					<div class="col-md-6">
-						<label class="custom-control custom-checkbox">
-						  <input type="checkbox" checked="" class="custom-control-input">
-						  <div class="custom-control-label">Incoloro </div>
-						</label>
-					</div> <!-- col.// -->
-				</div> <!-- row.// -->
-			</div>
-    </article>
+	<header>
+		<%- include("partials/header") %>
+	</header>
+	<article class="sidenav">
+		<div class="card-body">
+			<h5 class="card-title">Tipo de productos</h5>
+			<ul class="list-menu list-types">
+				<li><a href="/product?categoryQuery=3">Dado |<span class="badge badge-pill badge-light">120</span> </a>
+				</li>
+				<li><a href="/product?categoryQuery=2">Cartas |<span class="badge badge-pill badge-light">42</span> </a>
+				</li>
+				<li><a href="/product?categoryQuery=1">Blisters |</a><span
+						class="badge badge-pill badge-light">16</span> </a></li>
+				<li><a href="/product?categoryQuery=5">Packs |<span class="badge badge-pill badge-light">34</span></a>
+				</li>
+				<li><a href="/product?categoryQuery=4">Folios |<span class="badge badge-pill badge-light">34</span></a>
+				</li>
+			</ul>
+		</div>
+		<div class="card-body ">
+			<h5 class="card-title">Colores</h5>
 
-	<% for (let index=0;index<productList.length;index++) { %>
-<div class="box-index">
-	<a href="/product/<%= productList[index].dataValues.id %>"><img id="img-product-index" src="/img/product/<%- picArray[index][0].dataValues.url %>"
-			alt="product"></a>
-	<h4><%- productList[index].dataValues.nombre %></h4>
-	<h5 style="color:darkgreen;">$<%- productList[index].dataValues.precio %></h5>
-	<% if (productList[index].dataValues.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!</h4><% } %>
-	<a href="/user/saveToCart/<%= productList[index].dataValues.id %>">
-		<button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i
-				class="fa fa-shopping-cart"></i></button>
-	</a>
-</div>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="custom-control custom-checkbox">
+						<input type="checkbox" checked="" class="custom-control-input">
+						<div class="custom-control-label">Rojo</div>
+					</label>
+				</div> <!-- col.// -->
+				<div class="col-md-6">
+					<label class="custom-control custom-checkbox">
+						<input type="checkbox" checked="" class="custom-control-input">
+						<div class="custom-control-label">Verde</div>
+					</label>
+				</div> <!-- col.// -->
+				<div class="col-md-6">
+					<label class="custom-control custom-checkbox">
+						<input type="checkbox" checked="" class="custom-control-input">
+						<div class="custom-control-label">Azul</div>
+					</label>
+				</div> <!-- col.// -->
+				<div class="col-md-6">
+					<label class="custom-control custom-checkbox">
+						<input type="checkbox" checked="" class="custom-control-input">
+						<div class="custom-control-label">Negro</div>
+					</label>
+				</div> <!-- col.// -->
+				<div class="col-md-6">
+					<label class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input">
+						<div class="custom-control-label">Blanco</div>
+					</label>
+				</div> <!-- col.// -->
+				<div class="col-md-6">
+					<label class="custom-control custom-checkbox">
+						<input type="checkbox" checked="" class="custom-control-input">
+						<div class="custom-control-label">Incoloro </div>
+					</label>
+				</div> <!-- col.// -->
+			</div> <!-- row.// -->
+		</div>
+	</article>
+	<div>
 
-	<% } %>
+		<% for (let index=0;index<productList.length;index++) { %>
+		<div class="box-index">
+			<a href="/product/<%= productList[index].dataValues.id %>">
+				<img id="img-product-index" src="/img/product/
+				<% if (typeof picArray[index][0] != "undefined") { %>
+						<%= picArray[index][0].dataValues.url %>
+					<% } else { %>
+						hammer.jpeg %>
+						<% } %>
+						" alt="product"></a>
+			<h4><%- productList[index].dataValues.nombre %></h4>
+			<h5 style="color:darkgreen;">$<%- productList[index].dataValues.precio %></h5>
+			<% if (productList[index].dataValues.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
+			</h4><% } %>
+			<a href="/user/saveToCart/<%= productList[index].dataValues.id %>">
+				<button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i
+						class="fa fa-shopping-cart"></i></button>
+			</a>
+		</div>
+		<% } %>
+		<% if (productList.length == 0) { %>
+		<p style="color:red;">Por el momento no tenemos ese producto. </p>
+		<% } %>
 
-    <footer>
-        <%- include("partials/footer") %>
-    </footer>
+	</div>
+
+	<footer>
+		<%- include("partials/footer") %>
+	</footer>
 </body>

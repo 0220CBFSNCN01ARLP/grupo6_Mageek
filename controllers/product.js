@@ -17,20 +17,63 @@ const { setColorValue, prepareColors } = require("./modules/colorService");
 const { getDetails, saveDetails } = require("./modules/categoryDataService");
 const { recordUser } = require("./modules/userCatcher");
 const { check, validationResult, body } = require("express-validator");
+const { Op } = require("sequelize");
 
 // export
 const controller = {
     none: async function (req, res, next) {
+        if (typeof req.query.categoryQuery != "undefined") {
+            console.log(req.query.categoryQuery);
+            if (typeof req.query.searchQuery != "undefined") {
+                let search = `%${req.query.searchQuery}%`;
+                var allProducts = await Productos.findAll({
+                    where: {
+                        nombre: { [Op.like]: search },
+                        id_categoria: req.query.categoryQuery,
+                    },
+                    order: [["id", "DESC"]],
+                    limit: 10,
+                });
+            } else {
+                var allProducts = await Productos.findAll({
+                    where: {
+                        id_categoria: req.query.categoryQuery,
+                    },
+                    order: [["id", "DESC"]],
+                    limit: 10,
+                });
+            }
+        } else {
+            if (typeof req.query.searchQuery != "undefined") {
+                let search = `%${req.query.searchQuery}%`;
+                var allProducts = await Productos.findAll({
+                    where: {
+                        nombre: { [Op.like]: search },
+                    },
+                    order: [["id", "DESC"]],
+                    limit: 10,
+                });
+            } else {
+                var allProducts = await Productos.findAll({
+                    order: [["id", "DESC"]],
+                    limit: 10,
+                });
+            }
+        }
+        console.log();
+        console.log(allProducts.length);
+        console.log();
         const userLoggedStatus = await recordUser(req, res);
-        let allProducts = await Productos.findAll({
-            order: [["id", "DESC"]],
-            limit: 10,
-        });
         let picArray = [];
-        for (let i = 0; i < allProducts.length;i++){
-            let pics = await Fotos.findAll({ where: { id_producto: allProducts[i].dataValues.id } });
-             picArray.push(pics);
-        };
+        for (let i = 0; i < allProducts.length; i++) {
+            let pics = await Fotos.findAll({
+                where: { id_producto: allProducts[i].dataValues.id },
+            });
+            await picArray.push(pics);
+        }
+        // for (let index = 0; index < picArray.length; index++) {
+        //     console.log(picArray[index][0].dataValues.url);
+        // }
         res.render("products", {
             productList: allProducts,
             picArray: picArray,
@@ -43,10 +86,12 @@ const controller = {
         const product = await Productos.findByPk(req.params.id, {
             include: [{ model: Categorias, as: "categorias" }],
         });
-        if (!product) res.render("product-NF", {
-                          userLoggedStatus: userLoggedStatus,
-                          message:"EL PRODUCTO QUE ESTAS SOLICITANDO FUE DESTRUIDO POR UN LIGHTNING BOLT!! LO SENTIMOS :(",
-                      }); // PRODUCT 404
+        if (!product)
+            res.render("product-NF", {
+                userLoggedStatus: userLoggedStatus,
+                message:
+                    "EL PRODUCTO QUE ESTAS SOLICITANDO FUE DESTRUIDO POR UN LIGHTNING BOLT!! LO SENTIMOS :(",
+            }); // PRODUCT 404
         let pictures = await Fotos.findAll({
             where: { id_producto: product.id },
         });
@@ -65,7 +110,15 @@ const controller = {
         let colores = await Colores.findAll();
         let ediciones = await Ediciones.findAll();
         let tipos = await Tipos.findAll();
-        artes.sort((a, b) => { if (a.artista > b.artista) { return 1; } if (a.artista < b.artista) { return -1; } return 0; });
+        artes.sort((a, b) => {
+            if (a.artista > b.artista) {
+                return 1;
+            }
+            if (a.artista < b.artista) {
+                return -1;
+            }
+            return 0;
+        });
         // sorting arrays
         categorias.sort();
         colores.sort();
@@ -418,8 +471,12 @@ const controller = {
                 }
             });
             artes.sort((a, b) => {
-                if (a.dataValues.artista > b.dataValues.artista) {return 1;};
-                if (a.dataValues.artista < b.dataValues.artista) {return -1;};
+                if (a.dataValues.artista > b.dataValues.artista) {
+                    return 1;
+                }
+                if (a.dataValues.artista < b.dataValues.artista) {
+                    return -1;
+                }
             });
             res.render(`edit${linkCategoria}`, {
                 product: product.dataValues,
@@ -464,6 +521,26 @@ const controller = {
                 userLoggedStatus: userLoggedStatus,
             });
         }
+    },
+    search: async function (req, res) {
+        const userLoggedStatus = await recordUser(req, res);
+        let allProducts = await Productos.findAll({
+            // where:{nombre, "LIKE",`%${clave}%`},
+            order: [["id", "DESC"]],
+            limit: 20,
+        });
+        let picArray = [];
+        for (let i = 0; i < allProducts.length; i++) {
+            let pics = await Fotos.findAll({
+                where: { id_producto: allProducts[i].dataValues.id },
+            });
+            picArray.push(pics);
+        }
+        res.render("products", {
+            productList: allProducts,
+            picArray: picArray,
+            userLoggedStatus: userLoggedStatus,
+        });
     },
 };
 module.exports = controller;
