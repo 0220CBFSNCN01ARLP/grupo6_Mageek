@@ -91,10 +91,11 @@ window.addEventListener("load", function () {
             div_id_pais.appendChild(error);
         }
         if (password.value != pass2.value) {
+            div_pass2.removeChild(div_pass2.lastChild);
             problems++;
             let error = document.createElement("p");
             error.style.color = "red";
-            error.innerHTML = `<p style="color:red;font-size:0.8em">Por favor seleccione por lo menos una opción fantástica.</p>`;
+            error.innerHTML = `<p style="color:red;font-size:0.8em">Las contraseñas no coinciden.</p>`;
             div_pass2.appendChild(error);
         } else {
             div_pass2.removeChild(div_pass2.lastChild);

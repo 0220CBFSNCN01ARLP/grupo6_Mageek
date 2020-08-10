@@ -1,0 +1,24 @@
+.sidenav {
+    background-color: #dfe7e9;
+}
+#categoryList {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.break {
+    flex-basis: 100%;
+    height: 1px;
+}
+.card-body {
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.badge {
+    color: black;
+}
+@media only screen and (min-width: 400px) {
+    #categoryList {
+        width: 90%;
+    }
+}

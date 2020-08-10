@@ -56,7 +56,7 @@ const controller = {
             } else {
                 var allProducts = await Productos.findAll({
                     order: [["id", "DESC"]],
-                    limit: 10,
+                    limit: 24,
                 });
             }
         }

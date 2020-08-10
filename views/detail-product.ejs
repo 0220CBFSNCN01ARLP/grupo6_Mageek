@@ -16,10 +16,12 @@
     <main class="container main-productD">
         <div class="row">
             <div class="col-sm-5 col-xs-12 div-img-productD">
-                <!--% for (let picture of pictures) { %>
-                    <img class="img-productD" src="/img/product/< %= picture.url %>"></img>
-                < % } %-->
-                <img class="img-productD" src="/img/product/<%= pictures[0].url %>"></img>
+                <% if (typeof pictures[0] != "undefined") { %>
+                <img class="img-productD" src="/img/product/<%= pictures[0].url %>">
+                <% } else { %>
+                <img class="img-productD" src="/img/product/hammer.jpeg">
+                <% } %>
+                </img>
             </div>
             <div class="col-sm-5 col-xs-12 detail-important" id="mainDiv">
                 <h1> <%- product.nombre %> </h1>
@@ -27,40 +29,46 @@
                 <p>Cuestan: $<%- product.precio %> cada uno.</p>
                 <p>Es de la categoría: <%- product.categorias.categoria %>.</p>
                 <% if (product.borrado) {%>
-                    <p>BORRADO</p>
+                <p>BORRADO</p>
                 <% } %>
-                <button id="user-delete-btn" class="btn btn-success">Añadir al carrito <i class="fa fa-shopping-cart"></i></button>
+                <button id="user-delete-btn" class="btn btn-success">Añadir al carrito <i
+                        class="fa fa-shopping-cart"></i></button>
             </div>
         </div>
     </main>
 
     <section class="container secondary-description">
-        <% switch (product.categorias.categoria) { case "blister":%> <!-- blisters -->
+        <% switch (product.categorias.categoria) { case "blister":%>
+        <!-- blisters -->
 
-            <%- include("partials/detail-blister") %>
+        <%- include("partials/detail-blister") %>
 
-            <% ;break;case "carta":%> <!-- cartas -->
+        <% ;break;case "carta":%>
+        <!-- cartas -->
 
-            <%- include("partials/detail-card") %>
+        <%- include("partials/detail-card") %>
 
-            <% ;break;case "dado":%> <!-- dados -->
+        <% ;break;case "dado":%>
+        <!-- dados -->
 
-            <%- include("partials/detail-dice") %>
+        <%- include("partials/detail-dice") %>
 
-            <% ;break;case "folio":%> <!-- folios -->
-            
-            <div class="row">
-                <div class="col-12">
-                    <h3>Color</h3>
-                    <p><%- detalle.color %> </p>
-                </div>
-            </div> 
+        <% ;break;case "folio":%>
+        <!-- folios -->
 
-            <% ;break;case "pack":%> <!-- packs -->
+        <div class="row">
+            <div class="col-12">
+                <h3>Color</h3>
+                <p><%- detalle.color %> </p>
+            </div>
+        </div>
 
-            <%- include("partials/detail-packs") %>
+        <% ;break;case "pack":%>
+        <!-- packs -->
 
-            <% } %>
+        <%- include("partials/detail-packs") %>
+
+        <% } %>
     </section>
     <footer><%- include("partials/footer") %></footer>
 </body>

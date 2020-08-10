@@ -5,6 +5,7 @@
 	<%- include("partials/head") %>
 	<link rel="stylesheet" href="/stylesheets/products.css">
 	<link rel="stylesheet" href="/stylesheets/index.css" />
+	<link rel="stylesheet" href="/stylesheets/productSearch.css">
 </head>
 
 <body>
@@ -12,22 +13,38 @@
 		<%- include("partials/header") %>
 	</header>
 	<article class="sidenav">
-		<div class="card-body">
-			<h5 class="card-title">Tipo de productos</h5>
-			<ul class="list-menu list-types">
-				<li><a href="/product?categoryQuery=3">Dado |<span class="badge badge-pill badge-light">120</span> </a>
+		<div class="card-body d-flex container">
+			<!-- <h5 class="card-title">Filtrar por tipos</h5>
+			<div class="break"> </div> -->
+			<ul class="list-menu list-types row" id="categoryList">
+				<li class="col-2-lg col-2-md col-4-sm"><a href="/product?categoryQuery=3">
+					<button class="btn btn-info btn-rounded">
+						Dado</a>
+					</button>
 				</li>
-				<li><a href="/product?categoryQuery=2">Cartas |<span class="badge badge-pill badge-light">42</span> </a>
+				<li class="col-2-lg col-2-md col-4-sm"><a href="/product?categoryQuery=2">
+					<button class="btn btn-info btn-rounded">
+						Cartas </a>
+					</button>
 				</li>
-				<li><a href="/product?categoryQuery=1">Blisters |</a><span
-						class="badge badge-pill badge-light">16</span> </a></li>
-				<li><a href="/product?categoryQuery=5">Packs |<span class="badge badge-pill badge-light">34</span></a>
+				<li class="col-2-lg col-2-md col-4-sm"><a href="/product?categoryQuery=1">
+					<button class="btn btn-info btn-rounded">
+						Blisters
+					</a></li>
+					</button>
+				<li class="col-2-lg col-2-md col-4-sm"><a href="/product?categoryQuery=5">
+						<button class="btn btn-info btn-rounded">
+							Packs</a>
+					</button>
 				</li>
-				<li><a href="/product?categoryQuery=4">Folios |<span class="badge badge-pill badge-light">34</span></a>
+				<li class="col-2-lg col-2-md col-4-sm"><a href="/product?categoryQuery=4">
+						<button class="btn btn-info btn-rounded">
+							Folios</a>
+					</button>
 				</li>
 			</ul>
 		</div>
-		<div class="card-body ">
+		<!--div class="card-body ">
 			<h5 class="card-title">Colores</h5>
 
 			<div class="row">
@@ -36,41 +53,42 @@
 						<input type="checkbox" checked="" class="custom-control-input">
 						<div class="custom-control-label">Rojo</div>
 					</label>
-				</div> <!-- col.// -->
+				</div>
 				<div class="col-md-6">
 					<label class="custom-control custom-checkbox">
 						<input type="checkbox" checked="" class="custom-control-input">
 						<div class="custom-control-label">Verde</div>
 					</label>
-				</div> <!-- col.// -->
+				</div>
 				<div class="col-md-6">
 					<label class="custom-control custom-checkbox">
 						<input type="checkbox" checked="" class="custom-control-input">
 						<div class="custom-control-label">Azul</div>
 					</label>
-				</div> <!-- col.// -->
+				</div>
 				<div class="col-md-6">
 					<label class="custom-control custom-checkbox">
 						<input type="checkbox" checked="" class="custom-control-input">
 						<div class="custom-control-label">Negro</div>
 					</label>
-				</div> <!-- col.// -->
+				</div>
 				<div class="col-md-6">
 					<label class="custom-control custom-checkbox">
 						<input type="checkbox" class="custom-control-input">
 						<div class="custom-control-label">Blanco</div>
 					</label>
-				</div> <!-- col.// -->
+				</div>
 				<div class="col-md-6">
 					<label class="custom-control custom-checkbox">
 						<input type="checkbox" checked="" class="custom-control-input">
 						<div class="custom-control-label">Incoloro </div>
 					</label>
-				</div> <!-- col.// -->
-			</div> <!-- row.// -->
-		</div>
+				</div>
+			</div>
+		</div-->
 	</article>
-	<div>
+	<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+	<div class="container-product">
 
 		<% for (let index=0;index<productList.length;index++) { %>
 		<div class="box-index">
