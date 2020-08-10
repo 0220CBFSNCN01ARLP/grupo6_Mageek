@@ -5,6 +5,7 @@
 	<%- include("partials/head") %>
 	<link rel="stylesheet" href="/stylesheets/products.css">
 	<link rel="stylesheet" href="/stylesheets/index.css" />
+	<link rel="stylesheet" href="/stylesheets/productS.css">
 	<link rel="stylesheet" href="/stylesheets/productSearch.css">
 </head>
 
@@ -92,16 +93,16 @@
 
 		<% for (let index=0;index<productList.length;index++) { %>
 		<div class="box-index">
-			<a href="/product/<%= productList[index].dataValues.id %>">
-				<img id="img-product-index" src="/img/product/
+			<a class="a-productlink" href="/product/<%= productList[index].dataValues.id %>">
+				<img class="img-product-index" src="/img/product/
 				<% if (typeof picArray[index][0] != "undefined") { %>
 						<%= picArray[index][0].dataValues.url %>
 					<% } else { %>
 						hammer.jpeg %>
 						<% } %>
 						" alt="product"></a>
-			<h4><%- productList[index].dataValues.nombre %></h4>
-			<h5 style="color:darkgreen;">$<%- productList[index].dataValues.precio %></h5>
+			<h4 class="name-product-index"><%- productList[index].dataValues.nombre %></h4>
+			<h5 class="price-product-index">$<%- productList[index].dataValues.precio %></h5>
 			<% if (productList[index].dataValues.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
 			</h4><% } %>
 			<a href="/user/saveToCart/<%= productList[index].dataValues.id %>">

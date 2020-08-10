@@ -14,7 +14,7 @@
     </header>
 
     <main class="container main-productD">
-        <div class="row">
+        <div class="row row-edit">
             <div class="col-sm-5 col-xs-12 div-img-productD">
                 <% if (typeof pictures[0] != "undefined") { %>
                 <img class="img-productD" src="/img/product/<%= pictures[0].url %>">
@@ -31,8 +31,11 @@
                 <% if (product.borrado) {%>
                 <p>BORRADO</p>
                 <% } %>
-                <button id="user-delete-btn" class="btn btn-success">Añadir al carrito <i
-                        class="fa fa-shopping-cart"></i></button>
+                <% if (userLoggedStatus.userType === 2) { %>
+                <button id="user-delete-btn" class="btn btn-success">Añadir al carrito <i class="fa fa-shopping-cart"></i></button>
+                <% } else{ %>
+                <button id="user-delete-btn" class="btn btn-secondary">Editar producto <i class="fas fa-edit"></i></button>
+                <% } %>
             </div>
         </div>
     </main>
