@@ -23,7 +23,6 @@ const { Op } = require("sequelize");
 const controller = {
     none: async function (req, res, next) {
         if (typeof req.query.categoryQuery != "undefined") {
-            console.log(req.query.categoryQuery);
             if (typeof req.query.searchQuery != "undefined") {
                 let search = `%${req.query.searchQuery}%`;
                 var allProducts = await Productos.findAll({
@@ -32,7 +31,7 @@ const controller = {
                         id_categoria: req.query.categoryQuery,
                     },
                     order: [["id", "DESC"]],
-                    limit: 10,
+                    limit: 24,
                 });
             } else {
                 var allProducts = await Productos.findAll({
@@ -40,7 +39,7 @@ const controller = {
                         id_categoria: req.query.categoryQuery,
                     },
                     order: [["id", "DESC"]],
-                    limit: 10,
+                    limit: 24,
                 });
             }
         } else {
@@ -51,7 +50,7 @@ const controller = {
                         nombre: { [Op.like]: search },
                     },
                     order: [["id", "DESC"]],
-                    limit: 10,
+                    limit: 24,
                 });
             } else {
                 var allProducts = await Productos.findAll({
@@ -71,9 +70,6 @@ const controller = {
             });
             await picArray.push(pics);
         }
-        // for (let index = 0; index < picArray.length; index++) {
-        //     console.log(picArray[index][0].dataValues.url);
-        // }
         res.render("products", {
             productList: allProducts,
             picArray: picArray,
@@ -111,33 +107,21 @@ const controller = {
         let ediciones = await Ediciones.findAll();
         let tipos = await Tipos.findAll();
         artes.sort((a, b) => {
-            if (a.artista > b.artista) {
-                return 1;
-            }
-            if (a.artista < b.artista) {
-                return -1;
-            }
+            if (a.artista > b.artista) { return 1; };
+            if (a.artista < b.artista) { return -1; };
             return 0;
         });
         // sorting arrays
         categorias.sort();
         colores.sort();
         ediciones.sort((a, b) => {
-            if (a.nombre > b.nombre) {
-                return 1;
-            }
-            if (a.nombre < b.nombre) {
-                return -1;
-            }
+            if (a.nombre > b.nombre) { return 1; };
+            if (a.nombre < b.nombre) { return -1; };
             return 0;
         });
         tipos.sort((a, b) => {
-            if (a.tipo > b.tipo) {
-                return 1;
-            }
-            if (a.tipo < b.tipo) {
-                return -1;
-            }
+            if (a.tipo > b.tipo) { return 1; };
+            if (a.tipo < b.tipo) { return -1; };
             return 0;
         });
         // generating url
@@ -415,7 +399,15 @@ const controller = {
             product.categorias.dataValues.categoria.length
         );
         let detalle = await getDetails(product, res);
-        let arrayColores = prepareColors(detalle.dataValues.id_color);
+        console.log(product.categorias.dataValues.categoria);
+        if (product.categorias.dataValues.categoria == 2 ||product.categorias.dataValues.categoria == 5) {
+            var arrayColores = await prepareColors(detalle.dataValues.id_color);
+            console.log("llegaste?");
+        } else {
+            var arrayColores = [];
+            console.log("123llegaste?");
+        };
+        console.log(arrayColores);
         ediciones.sort((a, b) => {
             if (a.dataValues.anio < b.dataValues.anio) {
                 return 1;
@@ -463,20 +455,12 @@ const controller = {
             let detalle = await getDetails(product, res);
             let arrayColores = prepareColors(detalle.dataValues.id_color);
             ediciones.sort((a, b) => {
-                if (a.dataValues.anio < b.dataValues.anio) {
-                    return 1;
-                }
-                if (a.dataValues.anio > b.dataValues.anio) {
-                    return -1;
-                }
+                if (a.dataValues.anio < b.dataValues.anio) { return 1; };
+                if (a.dataValues.anio > b.dataValues.anio) { return -1; };
             });
             artes.sort((a, b) => {
-                if (a.dataValues.artista > b.dataValues.artista) {
-                    return 1;
-                }
-                if (a.dataValues.artista < b.dataValues.artista) {
-                    return -1;
-                }
+                if (a.dataValues.artista > b.dataValues.artista) { return 1; };
+                if (a.dataValues.artista < b.dataValues.artista) { return -1; };
             });
             res.render(`edit${linkCategoria}`, {
                 product: product.dataValues,

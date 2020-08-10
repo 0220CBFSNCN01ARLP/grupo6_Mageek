@@ -1,6 +1,15 @@
 #img-userA{
    height: 200px;
 }
+div.dropdown {
+   margin-top: 7px;
+}
+#user-delete-btn {
+   margin-top: 7px;
+}
+#user-edit-btn {
+   margin-top: 7px;
+}
 .main-userA{
    border: #28A745 3px solid;
    border-radius: 10px;
@@ -10,7 +19,7 @@
 }
 .div-img-userA{
    margin: 20px;
-   padding: 5px; 
+   padding: 5px;
 }
 .detail-important{
    margin-top: 40px;

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("partials/head") %>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/addProduct.css" />
+    <script src="/js/validacionProducto.js"></script>
+</head>
+
+<body>
+    <header>
+        <%- include("partials/header") %>
+    </header>
+    <main>
+        <h1>Editar producto</h1>
+        <form method="POST" enctype="application/x-www-form-urlencoded"
+            action="/product/<%- product.id %>/update?_method=PATCH" id="mainForm">
+            <!-- name -->
+            <div class="form-group">
+                <label for="nombre">Nombre </label>
+                <input type="text" class="form-control" id="nombre" name="nombre"
+                    placeholder="Ej: Manual del Jugador Dungeons & Dragons 3.5" value="<%- product.nombre %>">
+            </div>
+
+            <!-- price, number -->
+            <div class="form-group">
+                <label for="precio">Precio</label>
+                <input type="number" step="any" name="precio" class="form-control" id="precio" placeholder="Ej: 150.50"
+                    value="<%- product.precio %>">
+            </div>
+            <!-- stock -->
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="number" min="0" name="stock" class="form-control" id="stock" placeholder="Stock"
+                    value="<%- product.stock %>">
+            </div>
+            <div class="invalid-feedback">Example invalid custom select feedback</div>
+
+            <!-- description -->
+            <div class="form-group">
+                <label for="descripcion">Descripción</label>
+                <textarea name="descripcion" class="form-control" id="descripcion" rows="3"
+                    placeholder="Condiciones, detalles, consideraciones varias."><%- product.descripcion %></textarea>
+            </div>
+            <span class="hide" id="blister">
+                <div class="form-group">
+                    <label for="id_edicion">Edición</label><br>
+                    <select name="id_edicion">
+                        <% for (let edicion of ediciones) { %>
+                        <option <% if (edicion.dataValues.id == detalle.dataValues.id_edicion) { %> selected <% } %>
+                            value="<%- edicion.dataValues.id %>"><%- edicion.dataValues.anio %> -
+                            <%- edicion.dataValues.nombre %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <!-- id_arte -->
+                <div class="form-group">
+                    <label for="arte">Diseño del producto</label>
+                    <input type="text" class="form-control" id="arte" name="arte" placeholder="Ej: MTG clásico" value="<%- detalle.dataValues.Arte %>">
+                </div>
+                <input type="hidden" name="id_categoria" value="1">
+                <button type="submit">Editar producto</button>
+            </span>
+        </form>
+
+    </main>
+
+    <footer><%- include("partials/footer") %></footer>
+</body>
+
+</html>

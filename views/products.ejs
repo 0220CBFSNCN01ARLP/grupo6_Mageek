@@ -19,20 +19,20 @@
 			<div class="break"> </div> -->
 			<ul class="list-menu list-types row" id="categoryList">
 				<li class="col-2-lg col-2-md col-4-sm"><a href="/product?categoryQuery=3">
-					<button class="btn btn-info btn-rounded">
-						Dado</a>
+						<button class="btn btn-info btn-rounded">
+							Dados</a>
 					</button>
 				</li>
 				<li class="col-2-lg col-2-md col-4-sm"><a href="/product?categoryQuery=2">
-					<button class="btn btn-info btn-rounded">
-						Cartas </a>
+						<button class="btn btn-info btn-rounded">
+							Cartas </a>
 					</button>
 				</li>
 				<li class="col-2-lg col-2-md col-4-sm"><a href="/product?categoryQuery=1">
-					<button class="btn btn-info btn-rounded">
-						Blisters
+						<button class="btn btn-info btn-rounded">
+							Blisters
 					</a></li>
-					</button>
+				</button>
 				<li class="col-2-lg col-2-md col-4-sm"><a href="/product?categoryQuery=5">
 						<button class="btn btn-info btn-rounded">
 							Packs</a>
@@ -106,7 +106,7 @@
 			<% if (productList[index].dataValues.borrado) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
 			</h4><% } %>
 			<a href="/user/saveToCart/<%= productList[index].dataValues.id %>">
-				<button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i
+				<button type="button" id= class="btn btn-success btn-rounded">Añadir al carrito! <i
 						class="fa fa-shopping-cart"></i></button>
 			</a>
 		</div>

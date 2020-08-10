@@ -235,6 +235,10 @@ const controller = {
     },
     removeFromCart: async function (req, res) {
         const userLoggedStatus = await recordUser(req, res);
+        let userCart = await Productos_en_carrito.findAll({where:{id_usuario: userLoggedStatus}})
+        res.render("userAccount", {
+            userLoggedStatus:userLoggedStatus,
+        })
     },
     account: async function (req, res, next) {
         const userLoggedStatus = await recordUser(req, res);
