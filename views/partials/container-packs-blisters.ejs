@@ -2,17 +2,18 @@
     <% for (let i=0;i<mainArrays.packs.length;i++) {  %>
 
     <div class="box-index">
-        <a href="/product/<%= mainArrays.packs[i].productData.id %>"><img id="img-product-index"
+        <a class="a-productlink" href="/product/<%= mainArrays.packs[i].productData.id %>"><img class="img-product-index"
                 src="/img/product/<%= mainArrays.packs[i].pics[0].dataValues.url %>" alt="product"></a>
-        <h4><%- mainArrays.packs[i].productData.nombre %></h4>
-        <h5 style="color:darkgreen;">$<%- mainArrays.packs[i].productData.precio %></h5>
+        <h4 class="name-product-index"><%- mainArrays.packs[i].productData.nombre %></h4>
+        <h5 class="price-product-index">$<%- mainArrays.packs[i].productData.precio %></h5>
         <% if (mainArrays.packs[i].productData.borrado||mainArrays.packs[i].productData.stock==0) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
         </h4>
+        <% } else{ %>
+            <a href="/user/saveToCart/<%= mainArrays.packs[i].productData.id %>">
+                <button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i
+                        class="fa fa-shopping-cart"></i></button>
+            </a>
         <% } %>
-        <a href="/user/saveToCart/<%= mainArrays.packs[i].productData.id %>">
-            <button type="button" class="btn btn-success btn-rounded">Añadir al carrito! <i
-                    class="fa fa-shopping-cart"></i></button>
-        </a>
     </div>
 
     <% } %>
@@ -20,10 +21,10 @@
     <% for (let i=0;i<mainArrays.blisters.length;i++) {  %>
 
     <div class="box-index">
-        <a href="/product/<%= mainArrays.blisters[i].productData.id %>"><img id="img-product-index"
+        <a class="a-productlink" href="/product/<%= mainArrays.blisters[i].productData.id %>"><img class="img-product-index"
                 src="/img/product/<%= mainArrays.blisters[i].pics[0].dataValues.url %>" alt="product"></a>
-        <h4><%- mainArrays.blisters[i].productData.nombre %></h4>
-        <h5 style="color:darkgreen;">$<%- mainArrays.blisters[i].productData.precio %></h5>
+        <h4 class="name-product-index"><%- mainArrays.blisters[i].productData.nombre %></h4>
+        <h5 class="price-product-index">$<%- mainArrays.blisters[i].productData.precio %></h5>
         <% if (mainArrays.blisters[i].productData.borrado||mainArrays.packs[i].productData.stock==0) { %> <h4 style="color:red;font-size: 0.8rem;">Fuera de stock!
         </h4>
         <% } %>

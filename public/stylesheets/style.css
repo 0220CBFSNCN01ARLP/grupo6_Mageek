@@ -133,22 +133,34 @@ nav{
 .container-product{
 	display: flex;
 	flex-wrap: wrap;
-	align-items: center;
 }
 .box-index{
 	width: 100%;
+	height: 400px;
 	background-color: lightgrey;
 	border-radius: 10px;
-	border: 1px solid red;
+	border: 2px solid #28A745;
 	padding: 6px;
 	margin: 25px;
 	text-align: center;
 }
-#img-product-index{
-	max-height: 200px;
-	margin-bottom: 10px;
-	padding: 10px;
-	
+.a-productlink{
+	width: 100%;
+	height: 210px;
+	display: block;
+}
+.img-product-index{
+	height: 200px;
+	max-width: 80%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.price-product-index{
+	height: 50px;
+	padding-top: 10px;
+}
+.name-product-index{
+	height: 50px;
 }
 @media (min-width: 460px){
 	.box-index{
