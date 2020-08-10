@@ -418,15 +418,9 @@ const controller = {
                 }
             });
             artes.sort((a, b) => {
-                if (a.dataValues.artista > b.dataValues.artista) {
-                    return 1;
-                }
-                if (a.dataValues.artista < b.dataValues.artista) {
-                    return -1;
-                }
+                if (a.dataValues.artista > b.dataValues.artista) {return 1;};
+                if (a.dataValues.artista < b.dataValues.artista) {return -1;};
             });
-            res.send(errors);
-            res.end();
             res.render(`edit${linkCategoria}`, {
                 product: product.dataValues,
                 categorias: categorias,
