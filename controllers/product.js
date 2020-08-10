@@ -31,7 +31,6 @@ const controller = {
             let pics = await Fotos.findAll({ where: { id_producto: allProducts[i].dataValues.id } });
              picArray.push(pics);
         };
-        console.log(picArray);
         res.render("products", {
             productList: allProducts,
             picArray: picArray,
@@ -185,8 +184,6 @@ const controller = {
                 break;
 
             case "2": // Carta magic
-                console.log("got to cartas");
-                console.log(req.body);
                 datosProducto.id_categoria = "2";
                 nuevoProducto = await Productos.create(datosProducto);
                 product = await Productos.findOne({
@@ -217,7 +214,6 @@ const controller = {
                     id_color: idColors,
                     id_producto: product.id,
                 };
-                console.log(oracle, oracle.length);
                 let nuevaCarta = await Cartas.create(datosCarta);
 
                 req.files.forEach(async function (file) {
@@ -444,9 +440,6 @@ const controller = {
             });
         } else {
             // everything's ok, continue
-            console.log();
-            console.log("stash function, logging body then color:");
-            console.log();
             let product = await Productos.findByPk(req.params.id, {
                 include: [{ model: Categorias, as: "categorias" }],
             });
@@ -458,8 +451,7 @@ const controller = {
                 req.body.verde,
                 req.body.incoloro,
             ];
-            console.log(colors);
-            // await product.save();
+            await product.save();
             product.dataValues.color = Number(setColorValue(colors));
             let pictures = await Fotos.findAll({
                 where: {
@@ -467,16 +459,16 @@ const controller = {
                 },
             });
             let detalle = await getDetails(product, res);
-            // detalle.dataValues.id_color = product.dataValues.color;
+            detalle.dataValues.id_color = product.dataValues.color;
             await saveDetails(product, detalle);
-            res.send(product);
-            res.end();
-            // res.render("detalle-producto", {
-            //     product: product,
-            //     pictures: pictures,
-            //     detalle: detalle,
-            //     userLoggedStatus: userLoggedStatus,
-            // });
+            // res.send(product);
+            // res.end();
+            res.render("detalle-producto", {
+                product: product,
+                pictures: pictures,
+                detalle: detalle,
+                userLoggedStatus: userLoggedStatus,
+            });
         }
     },
 };

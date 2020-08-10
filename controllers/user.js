@@ -28,7 +28,6 @@ const controller = {
     create: async function (req, res) {
         let userLoggedStatus = await recordUser(req, res);
         // validate user
-        console.log(req.body);
         let errors = validationResult(req);
         if (!errors.isEmpty()) {
             let paises = await Paises.findAll();
@@ -55,7 +54,6 @@ const controller = {
         }
         req.body.password = hashedPass;
         let user = await Usuarios.create(req.body);
-        console.log(req.file);
         req.session.userId = user.id;
         res.cookie("userId", user.id, {
             maxAge: 1 * (1000 * 60 * 60 * 24), //in days
@@ -85,7 +83,6 @@ const controller = {
         if (user) {
             let passMatch = await bcrypt.compare(req.body.password, user.password);
             if (!passMatch) {
-                console.log(`passwords mismatch: ${req.body.password}, ${user.password}`);
                 res.render("login", { userLoggedStatus: false });
             } else {
                 console.log("got a user");
@@ -249,13 +246,11 @@ const controller = {
         } else {
             res.send("error");
         }
-        console.log(userLoggedStatus);
         res.render("userAccount", { user: user, userLoggedStatus: userLoggedStatus });
     },
     getDelete: async function (req, res) {
         const userLoggedStatus = await recordUser(req, res);
         let user = await catchUser(req.params.id);
-        console.log(userLoggedStatus);
         res.render("userDelete", { user: user, userLoggedStatus: userLoggedStatus });
     },
     delete: async function (req, res) {

@@ -5,6 +5,7 @@
     <%- include("partials/head") %>
     <link rel="stylesheet" href="/stylesheets/style.css" />
     <link rel="stylesheet" href="/stylesheets/register.css" />
+    <script src="/js/userRegister.js"></script>
 </head>
 
 <body>
@@ -14,12 +15,12 @@
 
     <main>
         <div class="signup-form">
-            <form action="/user/register" method="post" enctype="multipart/form-data">
+            <form action="/user/register" method="post" id="form" enctype="multipart/form-data">
                 <h2>Unite a Mageek!!</h2>
                 <p class="hint-text">Registrate con tu red social favorita</p>
                 <div class="social-btn text-center">
                     <a href="#" class="btn btn-primary btn-lg"><i class="fa fa-facebook"></i> Facebook</a>
-                    <!-- <a href="#" class="btn btn-info btn-lg"><i class="fa fa-twitter"></i> Twitter</a> -->
+                    <a href="#" class="btn btn-info btn-lg"><i class="fa fa-twitter"></i> Twitter</a>
                     <a href="#" class="btn btn-danger btn-lg"><i class="fa fa-google"></i> Google</a>
                 </div>
                 <div class="or-seperator"><b>or</b></div>
@@ -34,40 +35,40 @@
                     <% } %>
                 </ul>
                 <% } %>
-                <div class="form-group">
-                    <input type="text" class="form-control input-lg" name="nombre_de_usuario"
+                <div class="form-group" id="div-nombre_de_usuario">
+                    <input type="text" class="form-control input-lg" name="nombre_de_usuario" id="nombre_de_usuario"
                         placeholder="Nombre de Usuario" required="required">
                 </div>
-                <div class="form-group">
-                    <input type="email" class="form-control input-lg" name="email" placeholder="Direccion Email"
+                <div class="form-group" id="div-email">
+                    <input type="email" class="form-control input-lg" name="email" id="email" placeholder="Direccion Email"
                         required="required">
                 </div>
-                <div class="form-group">
-                    <input type="password" class="form-control input-lg" name="password" placeholder="Contraseña"
+                <div class="form-group" id="div-password">
+                    <input type="password" class="form-control input-lg" name="password" id="password" placeholder="Contraseña"
                         required="required">
                 </div>
-                <div class="form-group">
-                    <input type="password" class="form-control input-lg" name="pass2" placeholder="Confirmar contraseña"
+                <div class="form-group" id="div-pass2">
+                    <input type="password" class="form-control input-lg" name="pass2" id="pass2" placeholder="Confirmar contraseña"
                         required="required">
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control input-lg" name="nombre" placeholder="Nombres"
+                <div class="form-group" id="div-nombre">
+                    <input type="text" class="form-control input-lg" name="nombre" id="nombre" placeholder="Nombres"
                         required="required">
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control input-lg" name="apellido" placeholder="Apellidos"
+                <div class="form-group" id="div-apellido">
+                    <input type="text" class="form-control input-lg" name="apellido" id="apellido" placeholder="Apellidos"
                         required="required">
                 </div>
-                <div class="form-group">
-                    <input type="date" class="form-control input-lg" name="nacimiento" placeholder="Nacimiento"
+                <div class="form-group" id="div-nacimiento">
+                    <input type="date" class="form-control input-lg" name="nacimiento" id="nacimiento" placeholder="Nacimiento"
                         required="required">
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control input-lg" name="calle" placeholder="Direccion"
+                <div class="form-group" id="div-calle">
+                    <input type="text" class="form-control input-lg" name="calle" id="calle" placeholder="Direccion"
                         required="required">
                 </div>
                 <!-- id_pais -->
-                <select class="form-group browser-default custom-select custom-select-sm" name="id_pais"
+                <select class="form-group browser-default custom-select custom-select-sm" name="id_pais" id="id_pais"
                     required="required">
                     <option value="" disabled selected>Nacionalidad</option>
                     <% for (let pais of paises) { %>
